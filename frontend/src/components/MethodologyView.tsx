@@ -156,6 +156,41 @@ export function MethodologyView({ model }: { model: Model | null }) {
 
       <section className="panel">
         <div className="panel-head">
+          <h2>目標函數（loss）與選型指標</h2>
+          <p className="muted">「訓練單一模型」與「挑哪個模型×配重」用的是不同層級的標準</p>
+        </div>
+        <div className="note-box mv-portfolio">
+          <p>
+            <strong>① 訓練 loss：加權二元交叉熵（weighted binary cross-entropy / log loss）。</strong>{" "}
+            每個樹模型（FLAML 在 <code>xgboost / xgb_limitdepth / lgbm</code> 間搜尋，<code>metric="log_loss"</code>）
+            最小化：
+          </p>
+          <p className="mv-formula-line">
+            <code>
+              L = − (1/N) Σ<sub>i</sub> w<sub>i</sub> [ y<sub>i</sub> ln p̂<sub>i</sub> + (1−y
+              <sub>i</sub>) ln(1−p̂<sub>i</sub>) ]
+            </code>
+          </p>
+          <p>
+            因 Top30 是少數類，用 <strong>class weight 處理不平衡</strong>：正類權重{" "}
+            <code>
+              w<sub>+</sub> = n<sub>neg</sub> / n<sub>pos</sub>
+            </code>
+            、負類 <code>
+              w<sub>−</sub> = 1
+            </code>（每個訓練折各自計算）。AutoML 內部也以 log loss 在候選 config 間挑超參。
+          </p>
+          <p>
+            <strong>② 最終選型指標：投組 OOF 年化超額 Sharpe（<code>ann_sharpe_excess</code>）。</strong>{" "}
+            log loss 只決定「單一分類器訓得好不好」；但要在{" "}
+            <strong>top-{topK} 模型 × 8 種配重</strong> 中挑出最終組合，是用 CV OOF 投組的{" "}
+            <strong>年化超額 Sharpe</strong> 來比，而<strong>不是</strong> log loss——因為我們的目標是投組績效，不是純分類準確度。
+          </p>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panel-head">
           <h2>驗證流程總覽</h2>
           <p className="muted">
             季頻選股 · 防前視（point-in-time）· 選型只看 CV OOF，最終再做凍結的樣本外 walk-forward

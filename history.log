@@ -377,3 +377,9 @@ Core logic:
   CV OOF→「驗證」、Final OOS→「測試」(取代原本一律「預測」)；說明文字同步改成 訓練→驗證/測試。
 - 時間軸圖例 CATS：cv→「CV OOF 驗證（選型）」、oos→「Final OOS 測試（凍結後）」。
 - tsc -b && vite build 通過。
+
+[v4.29] 驗證方法新增「目標函數(loss)與選型指標」面板 - 2026-05-29
+- MethodologyView.tsx 在投組定義後新增面板：① 訓練 loss = 加權 BCE/log loss（公式 + 正類權重
+  w+=n_neg/n_pos 處理不平衡，FLAML metric=log_loss、xgboost/xgb_limitdepth/lgbm）；
+  ② 最終 (模型×配重) 選型指標為投組 OOF ann_sharpe_excess，非 log loss。
+- tsc -b && vite build 通過；gh-pages 已 Published。
