@@ -1,0 +1,462 @@
+{
+  "signal_quarter": "2024Q1",
+  "realized_quarter": "2024Q2",
+  "path": "walk_forward_cv",
+  "selected": [
+    {
+      "symbol": "PLTR",
+      "weight": 0.085839,
+      "score": 0.7724652290344238,
+      "daily_vol": 0.05038892316036868,
+      "realized_return": 0.10804899387576548,
+      "realized_excess": 0.06244018990534745,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "APP",
+      "weight": 0.08524,
+      "score": 0.7717644572257996,
+      "daily_vol": 0.04577700866701784,
+      "realized_return": 0.20364477870986403,
+      "realized_excess": 0.158035974739446,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "CVNA",
+      "weight": 0.077425,
+      "score": 0.7621490359306335,
+      "daily_vol": 0.06455134683731038,
+      "realized_return": 0.4827188940092165,
+      "realized_excess": 0.43711009003879847,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "HOOD",
+      "weight": 0.077425,
+      "score": 0.7621490359306335,
+      "daily_vol": 0.03463407573498625,
+      "realized_return": 0.170015455950541,
+      "realized_excess": 0.12440665198012296,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "MPC",
+      "weight": 0.060676,
+      "score": 0.7377721667289734,
+      "daily_vol": 0.01708143961100702,
+      "realized_return": -0.14725623815135513,
+      "realized_excess": -0.19286504212177316,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "NCLH",
+      "weight": 0.056181,
+      "score": 0.7300750613212585,
+      "daily_vol": 0.035234576520538914,
+      "realized_return": -0.10267430754536781,
+      "realized_excess": -0.14828311151578585,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "COHR",
+      "weight": 0.056124,
+      "score": 0.7299745678901672,
+      "daily_vol": 0.03551768517667138,
+      "realized_return": 0.20766666666666656,
+      "realized_excess": 0.16205786269624853,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "NVDA",
+      "weight": 0.052809,
+      "score": 0.7238866090774536,
+      "daily_vol": 0.032144611280491155,
+      "realized_return": 0.3672904440261322,
+      "realized_excess": 0.32168164005571415,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "APTV",
+      "weight": 0.039056,
+      "score": 0.693717360496521,
+      "daily_vol": 0.020394449627767534,
+      "realized_return": -0.10623175529889585,
+      "realized_excess": -0.1518405592693139,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "DAL",
+      "weight": 0.037107,
+      "score": 0.6885976195335388,
+      "daily_vol": 0.02094014862840125,
+      "realized_return": -0.014255319148936206,
+      "realized_excess": -0.05986412311935424,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "HAS",
+      "weight": 0.033267,
+      "score": 0.677673876285553,
+      "daily_vol": 0.01746408794551991,
+      "realized_return": 0.05176063113334612,
+      "realized_excess": 0.006151827162928086,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "JBL",
+      "weight": 0.029482,
+      "score": 0.6655973792076111,
+      "daily_vol": 0.026472563993075633,
+      "realized_return": -0.19728949122417241,
+      "realized_excess": -0.24289829519459044,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "PHM",
+      "weight": 0.027171,
+      "score": 0.6574317216873169,
+      "daily_vol": 0.016608580171871692,
+      "realized_return": -0.06867872760010281,
+      "realized_excess": -0.11428753157052085,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "VST",
+      "weight": 0.02612,
+      "score": 0.653486967086792,
+      "daily_vol": 0.02147551415167543,
+      "realized_return": 0.20495750708215296,
+      "realized_excess": 0.15934870311173494,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "BLDR",
+      "weight": 0.022407,
+      "score": 0.6381567716598511,
+      "daily_vol": 0.01979419076792943,
+      "realized_return": -0.3261769144637554,
+      "realized_excess": -0.37178571843417346,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "LUV",
+      "weight": 0.022172,
+      "score": 0.6371018290519714,
+      "daily_vol": 0.02777851981160813,
+      "realized_return": -0.013605442176870713,
+      "realized_excess": -0.05921424614728875,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "WDC",
+      "weight": 0.021919,
+      "score": 0.635953426361084,
+      "daily_vol": 0.022923347066762863,
+      "realized_return": 0.06937933620851308,
+      "realized_excess": 0.023770532238095048,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "CRWD",
+      "weight": 0.021749,
+      "score": 0.6351742744445801,
+      "daily_vol": 0.03015862827917328,
+      "realized_return": 0.1990049751243782,
+      "realized_excess": 0.15339617115396018,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "VRT",
+      "weight": 0.021122,
+      "score": 0.6322475075721741,
+      "daily_vol": 0.02887284786927852,
+      "realized_return": 0.0770573566084787,
+      "realized_excess": 0.03144855263806067,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "SATS",
+      "weight": 0.020372,
+      "score": 0.6286346912384033,
+      "daily_vol": 0.05949654030078892,
+      "realized_return": 0.2685185185185185,
+      "realized_excess": 0.22290971454810046,
+      "is_top30_actual": true
+    },
+    {
+      "symbol": "GM",
+      "weight": 0.017739,
+      "score": 0.6147930026054382,
+      "daily_vol": 0.016751435350301252,
+      "realized_return": 0.026067415730337003,
+      "realized_excess": -0.01954138824008103,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "EXPE",
+      "weight": 0.016897,
+      "score": 0.6099307537078857,
+      "daily_vol": 0.027194789726879665,
+      "realized_return": -0.054287663962392776,
+      "realized_excess": -0.09989646793281082,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "STLD",
+      "weight": 0.016205,
+      "score": 0.6057528257369995,
+      "daily_vol": 0.016679630375312778,
+      "realized_return": -0.1293257962222529,
+      "realized_excess": -0.17493460019267093,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "SMCI",
+      "weight": 0.013068,
+      "score": 0.5842324495315552,
+      "daily_vol": 0.0859915326668123,
+      "realized_return": -0.20998843038951023,
+      "realized_excess": -0.25559723435992826,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "CTVA",
+      "weight": 0.01214,
+      "score": 0.57686448097229,
+      "daily_vol": 0.02689276918141386,
+      "realized_return": -0.061990789939780376,
+      "realized_excess": -0.10759959391019841,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "COIN",
+      "weight": 0.011161,
+      "score": 0.568462073802948,
+      "daily_vol": 0.056706246652014396,
+      "realized_return": -0.11851969378445926,
+      "realized_excess": -0.16412849775487728,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "UAL",
+      "weight": 0.010615,
+      "score": 0.5634419322013855,
+      "daily_vol": 0.02588442054814998,
+      "realized_return": 0.027666314677930202,
+      "realized_excess": -0.01794248929248783,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "DELL",
+      "weight": 0.009941,
+      "score": 0.5568828582763672,
+      "daily_vol": 0.04697239559811272,
+      "realized_return": 0.1570871261378414,
+      "realized_excess": 0.11147832216742337,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "DDOG",
+      "weight": 0.009611,
+      "score": 0.5535133481025696,
+      "daily_vol": 0.021651021130746458,
+      "realized_return": 0.053105968331303224,
+      "realized_excess": 0.00749716436088519,
+      "is_top30_actual": false
+    },
+    {
+      "symbol": "CHTR",
+      "weight": 0.00896,
+      "score": 0.5464985370635986,
+      "daily_vol": 0.028994698148873625,
+      "realized_return": 0.05212035896533522,
+      "realized_excess": 0.006511554994917186,
+      "is_top30_actual": false
+    }
+  ],
+  "actual_top30": [
+    {
+      "symbol": "CVNA",
+      "excess_return": 0.43711009003879847,
+      "return": 0.4827188940092165,
+      "y_label": 1
+    },
+    {
+      "symbol": "NVDA",
+      "excess_return": 0.32168164005571415,
+      "return": 0.3672904440261322,
+      "y_label": 1
+    },
+    {
+      "symbol": "TER",
+      "excess_return": 0.26844742092918045,
+      "return": 0.3140562248995985,
+      "y_label": 1
+    },
+    {
+      "symbol": "FSLR",
+      "excess_return": 0.26619663036949004,
+      "return": 0.3118054343399081,
+      "y_label": 1
+    },
+    {
+      "symbol": "TPL",
+      "excess_return": 0.24269210673713168,
+      "return": 0.2883009107075497,
+      "y_label": 1
+    },
+    {
+      "symbol": "SATS",
+      "excess_return": 0.22290971454810046,
+      "return": 0.2685185185185185,
+      "y_label": 1
+    },
+    {
+      "symbol": "AAPL",
+      "excess_return": 0.19484263648102254,
+      "return": 0.24045144045144057,
+      "y_label": 1
+    },
+    {
+      "symbol": "NTAP",
+      "excess_return": 0.18642221302928375,
+      "return": 0.23203101699970177,
+      "y_label": 1
+    },
+    {
+      "symbol": "MPWR",
+      "excess_return": 0.18544662503489706,
+      "return": 0.2310554290053151,
+      "y_label": 1
+    },
+    {
+      "symbol": "PANW",
+      "excess_return": 0.16761859564306697,
+      "return": 0.213227399613485,
+      "y_label": 1
+    },
+    {
+      "symbol": "CASY",
+      "excess_return": 0.16590871572723093,
+      "return": 0.21151751969764895,
+      "y_label": 1
+    },
+    {
+      "symbol": "CHRW",
+      "excess_return": 0.16439262073395594,
+      "return": 0.21000142470437397,
+      "y_label": 1
+    },
+    {
+      "symbol": "COHR",
+      "excess_return": 0.16205786269624853,
+      "return": 0.20766666666666656,
+      "y_label": 1
+    },
+    {
+      "symbol": "TYL",
+      "excess_return": 0.1609956261814934,
+      "return": 0.20660443015191143,
+      "y_label": 1
+    },
+    {
+      "symbol": "VST",
+      "excess_return": 0.15934870311173494,
+      "return": 0.20495750708215296,
+      "y_label": 1
+    },
+    {
+      "symbol": "APP",
+      "excess_return": 0.158035974739446,
+      "return": 0.20364477870986403,
+      "y_label": 1
+    },
+    {
+      "symbol": "PODD",
+      "excess_return": 0.15486710322767847,
+      "return": 0.2004759071980965,
+      "y_label": 1
+    },
+    {
+      "symbol": "CRWD",
+      "excess_return": 0.15339617115396018,
+      "return": 0.1990049751243782,
+      "y_label": 1
+    },
+    {
+      "symbol": "GLW",
+      "excess_return": 0.15273303276427583,
+      "return": 0.19834183673469385,
+      "y_label": 1
+    },
+    {
+      "symbol": "VTR",
+      "excess_return": 0.15033881154724937,
+      "return": 0.1959476155176674,
+      "y_label": 1
+    },
+    {
+      "symbol": "AVGO",
+      "excess_return": 0.1473789548326649,
+      "return": 0.19298775880308291,
+      "y_label": 1
+    },
+    {
+      "symbol": "LLY",
+      "excess_return": 0.14678209395170141,
+      "return": 0.19239089792211944,
+      "y_label": 1
+    },
+    {
+      "symbol": "HPE",
+      "excess_return": 0.14148797022313023,
+      "return": 0.18709677419354825,
+      "y_label": 1
+    },
+    {
+      "symbol": "FICO",
+      "excess_return": 0.1411702165737597,
+      "return": 0.18677902054417772,
+      "y_label": 1
+    },
+    {
+      "symbol": "APH",
+      "excess_return": 0.13774828797541233,
+      "return": 0.18335709194583036,
+      "y_label": 1
+    },
+    {
+      "symbol": "COST",
+      "excess_return": 0.1347864906756978,
+      "return": 0.18039529464611584,
+      "y_label": 1
+    },
+    {
+      "symbol": "HWM",
+      "excess_return": 0.12934935820819143,
+      "return": 0.17495816217860946,
+      "y_label": 1
+    },
+    {
+      "symbol": "GOOG",
+      "excess_return": 0.12769360551289602,
+      "return": 0.17330240948331405,
+      "y_label": 1
+    },
+    {
+      "symbol": "HOOD",
+      "excess_return": 0.12440665198012296,
+      "return": 0.170015455950541,
+      "y_label": 1
+    },
+    {
+      "symbol": "ANET",
+      "excess_return": 0.12359322431888017,
+      "return": 0.1692020282892982,
+      "y_label": 1
+    }
+  ],
+  "hit_count": 8,
+  "hit_rate": 0.26666666666666666,
+  "label_note": "actual_top30 = excess rank Top30 within realized quarter (same as y_next label)"
+}
