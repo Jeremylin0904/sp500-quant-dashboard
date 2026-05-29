@@ -168,8 +168,18 @@ type FactorAnalysis = {
   segments?: Record<string, FactorSeg | null>;
 };
 
+// In dev, Vite proxies /api -> FastAPI (localhost:8001). In the production
+// build the app is fully static (e.g. GitHub Pages): API responses are
+// pre-rendered to JSON files under <base>/api/<path>.json by
+// scripts/export_static_api.py.
+function apiUrl(path: string): string {
+  if (!import.meta.env.PROD) return path;
+  const clean = path.replace(/^\//, "");
+  return `${import.meta.env.BASE_URL}${clean}.json`;
+}
+
 async function fetchJson<T>(path: string): Promise<T> {
-  const res = await fetch(path);
+  const res = await fetch(apiUrl(path));
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }

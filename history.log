@@ -339,3 +339,21 @@ Core logic:
     並把原第一頁的 Hyperparam Pool 表移到此分頁。
 - App.tsx: Tab 擴充為 overview/variables/method/holdings/factor，topbar 標題對照表；overview 移除 pool 表並加導引文字。
 - App.css: 新增 .flow-steps/.q-timeline/.q-cell(qc-warmup/train/cv/oos)/.wf-grid/.wf-fold/.wf-bar/.wf-pred/.md-body 樣式。
+
+[v4.24] MODEL_VARIABLES 缺失% 直接顯示 + 新增 3 個 skill - 2026-05-29
+- data_service._fill_md_feature_stats(): 渲染前把 MODEL_VARIABLES.md 第 4 節表格的「(see feature_stats.csv)」
+  與舊手寫值，依欄位名以 feature_stats.csv 即時填入缺失%/inf%（前端「模型變數」分頁直接看到數字）。
+- 新增專案 skills（.cursor/skills/）：
+  - dashboard-dev-loop：重建產物→殺 8001 重啟後端→用 python urllib(非 curl) 驗證→前端 tsc/build→更新 history.log。
+  - add-dashboard-endpoint：data_service loader(+clear_cache)→router→main.include_router→App.tsx fetch+視圖元件+Tab。
+  - quant-eval-invariants：選型只看 CV OOF、TTM 暖機剔除前4季、frozen OOS expanding walk-forward、PIT 不前視、標籤定義。
+
+[v4.25] 靜態化部署 GitHub Pages + 重寫 README + 首頁截圖 - 2026-05-29
+- scripts/export_static_api.py：把唯讀端點(report/monthly/daily/drawdown-news/model.summary/model.variables/
+  factor.analysis/holdings.signal-quarters/holdings.signal/{q}) 預先輸出成 frontend/public/api/*.json。
+- 前端靜態化：App.tsx fetchJson 在 PROD 改讀 ${BASE_URL}api/<path>.json(dev 仍 proxy 至 :8001)；
+  vite.config.ts build 時 base=/sp500-quant-dashboard/；新增 public/.nojekyll。
+- 部署：npm run build → npx gh-pages -d dist 推到 gh-pages 分支；GitHub Pages(legacy, gh-pages/) 已 built。
+  線上：https://jeremylin0904.github.io/sp500-quant-dashboard/ (index 200、api/*.json 200)。
+- docs/screenshot.png：用 Playwright(chromium) 對靜態 build 截績效總覽首頁，嵌入 README。
+- README.md 全面重寫(舊內容過時)：功能、驗證方法、分頁說明、本地開發、靜態 build/部署、SimFin .env、結構、API。

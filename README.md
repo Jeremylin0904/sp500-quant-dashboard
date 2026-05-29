@@ -1,172 +1,116 @@
-# Interview MVP (Clean Rebuild)
+# S&P 500 Quant ML Dashboard
 
-## Quickstart
+End-to-end quant research pipeline that predicts next-quarter S&P 500 outperformers and
+turns them into a monthly-rebalanced portfolio, with an interactive dashboard for
+performance, model variables, validation methodology, holdings, and factor analysis.
 
-### 1) Install
-```bash
-pip install -r requirements.txt
-```
+**Live demo:** https://jeremylin0904.github.io/sp500-quant-dashboard/
 
-### 2) Build artifacts (raw → curated → features/labels → model → backtest)
-```bash
-python scripts/build_all.py --force
-```
+![Dashboard overview](docs/screenshot.png)
 
-### 3) Run backend
-```bash
-python -m uvicorn backend.main:app --reload --port 8001
-```
+---
 
-### 4) Run frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
+## What it does
 
-## 1 分鐘面試 Demo
+- **Universe:** S&P 500 only; benchmark **SPY** (cap-weighted S&P 500 ETF).
+- **Target `y_next`:** will a stock be in the next quarter's **excess-return Top 30** (vs SPY)?
+- **Features:** 40+ point-in-time fundamentals from SimFin (TTM ratios, YoY growth, valuation,
+  leverage, momentum, sector-relative ranks). See [`quant/model/MODEL_VARIABLES.md`](quant/model/MODEL_VARIABLES.md).
+- **Model:** FLAML AutoML (gradient-boosted trees; NaNs kept via missing branches).
+- **Portfolio:** model picks Top 30; weighting scheme chosen jointly with the model.
+- **Factor analysis:** Fama-French 5-factor + Momentum OLS on strategy excess returns.
 
-開兩個終端機：
+## Validation methodology (no leakage)
 
-### 終端 A：一鍵建置 + 後端
-```bash
-python scripts/build_all.py --force
-python -m uvicorn backend.main:app --reload --port 8001
-```
+1. **TTM warmup** — drop the first 4 quarters (2020Q2–2021Q1); YoY/TTM features need ≥4
+   quarters of history and are nearly all NaN before that.
+2. **Pool search** — FLAML 120s on the post-warmup, pre-OOS quarters → top-5 model configs.
+3. **Walk-forward CV OOF** — top-5 models × 8 weighting schemes evaluated with an expanding
+   walk-forward; the (model + weight) pair is selected **only on CV OOF** annualized excess
+   Sharpe, then **frozen**.
+4. **Final OOS** — the frozen config is retrained expanding-window over the last 4 quarters
+   (2024Q2–2025Q1); this segment never participates in selection.
 
-### 終端 B：前端
-```bash
-cd frontend
-npm run dev
-```
+Selection **never** looks at Final OOS. Historical-quarter scores come from
+`walk_forward_scores.parquet`, never from the deployment model fit on all quarters.
 
-打開前端後，你會看到：
-- 最近 10 個季度回測曲線點（strategy vs benchmark）
-- 可選季度的 Top holdings
+## Dashboard tabs
 
-Chat API（離線版）可測：
-```bash
-curl -X POST http://localhost:8001/api/chat -H "Content-Type: application/json" -d "{\"messages\":[{\"role\":\"user\",\"content\":\"模型用什麼?\"}]}"
-```
+| Tab | Content |
+|-----|---------|
+| 績效總覽 | KPIs (annualized return/excess, Sharpe, single-day max drawdown), daily NAV vs SPY, top-5 single-day drawdowns linked to the news that caused them, Top30 confusion matrices, monthly returns |
+| 模型變數 | All feature formulas + raw-data lineage (rendered from `MODEL_VARIABLES.md`) and live missingness/percentile stats |
+| 驗證方法 | Flow steps, quarter timeline, expanding walk-forward fold diagram, hyperparameter-pool × weight-scheme CV OOF table |
+| 持股對照 | Per-quarter Top30 picks (predicted weight/score vs realized next-quarter return) and hit-rate vs actual Top30 |
+| 因子分析 | FF5 + Momentum alpha and factor betas per segment |
 
-## Data contract (MVP)
+---
 
-Raw files live under `quant/data_raw/` (or can be symlinked there).
-
-Minimum required:
-- `prices_daily.csv`: `Date,symbol,close,volume` (daily)
-- `constituents.csv`: `symbol,company_name,sector,industry`
-- Quarterly fundamentals (income + balance):
-  - `symbol,report_date,publish_date,revenue,gross_profit,operating_income,net_income,eps_diluted,shares_basic,shares_diluted`
-  - `symbol,report_date,publish_date,total_assets,total_liabilities,total_equity,cash_and_equivalents,total_debt`
-
-## Reproducibility
-- Pipeline outputs are written under `quant/*/` folders (no database).
-- Each step writes a `*_meta.json` with row counts + source hashes.
-- **模型變數、計算公式、NA 處理與缺失率**：見 [`quant/model/MODEL_VARIABLES.md`](quant/model/MODEL_VARIABLES.md)
-
-## 真實資料（SimFin）下載
-1. 到 SimFin 註冊取得免費 API key（SimFin 帳號頁面可找到 API key）。
-2. 在專案根目錄建立 `.env`：
-```
-SIMFIN_API_KEY=你的key
-```
-3. 重新跑：
-```bash
-python scripts/build_all.py --force
-```
-若沒有設定 `SIMFIN_API_KEY`，會自動改用可重現的 sample data。
-
-### Cashflow 欄位（SimFin 無顯式 CapEx/FCF 時的 proxy）
-
-部分 SimFin `us-cashflow-quarterly` 匯出**沒有** `Capital Expenditures`、`Free Cash Flow` 欄位。此時下載腳本會用同一季的 **`Change in Fixed Assets & Intangibles`**（`change_in_fixed_assets`）做近似：
-
-- **`capital_expenditure`** = `max(0, -change_in_fixed_assets)`（把「購置固定資產等」常見的負向現金流轉成正值，表示估算的資本支出金額）
-- **`free_cash_flow`** = `operating_cash_flow + change_in_fixed_assets`（與「營運現金流減去資本支出」在單一投資科目假設下一致）
-
-若之後資料集出現官方 `Capital Expenditures` / `Free Cash Flow`，可再改為優先使用官方欄位。
-
-# 投資組合分析 Dashboard
-
-S&P 500 飆股預測、季度再平衡回測、Fama-French 因子分析與 AI 問答 Dashboard。
-
-## 功能
-
-- **數據 Agent**：依規格書建構基本面特徵 mart（TTM、成長、估值、產業排名），point-in-time 對齊
-- **飆股預測**：FLAML AutoML（19 特徵）預測下一季飆股分數 `y_next`
-- **回測**：月度 Top 30 逆波動加權；基準為 **SPY**（S&P 500 市值加權指數 ETF，與 labels 相同之月/季初末 close 定義）
-- **因子分析**：FF5 + Momentum OLS 回歸
-- **Chatbot**：LLM 問答區間表現、持股、方法論
-
-## 快速開始
+## Local development
 
 ```bash
 pip install -r requirements.txt
-cd frontend && npm install
+cd frontend && npm install && cd ..
 
-# 一鍵建置：數據 Agent → 驗證 → AutoML → 回測
-python scripts/build_artifacts.py --force --time-budget 120
+# Build artifacts: raw -> curated -> features/labels -> AutoML -> walk-forward backtest
+python scripts/build_all.py --force
 
-# 後端
+# Backend (FastAPI) on :8001
 python -m uvicorn backend.main:app --reload --port 8001
 
-# 前端
-cd frontend; npm run dev
+# Frontend (Vite) on :5173, proxies /api -> :8001
+cd frontend && npm run dev
 ```
 
-開啟 http://localhost:5173
+Open http://localhost:5173
 
-## 數據 Agent 流程
+## Static build & deploy (GitHub Pages)
 
-對應 [fundamental_stock_prediction_data_agent_spec.md](fundamental_stock_prediction_data_agent_spec.md)：
+The dashboard is read-only, so the API is pre-rendered to static JSON and the whole app
+ships as a static site (no server needed).
 
-```text
-universe → prices → fundamentals → factors
-→ feature_mart (PIT: publish_date <= as_of_date)
-→ labels → validation → modeling_dataset
-→ FLAML AutoML → backtest
+```bash
+# 1) Export every endpoint to frontend/public/api/*.json
+python scripts/export_static_api.py
+
+# 2) Build (base path = /sp500-quant-dashboard/)
+cd frontend && npm run build
+
+# 3) Publish dist/ to the gh-pages branch
+npx gh-pages -d dist --dotfiles
 ```
 
-配置：[quant/config.yaml](quant/config.yaml)
+Re-run all three after regenerating artifacts to refresh the live site.
 
-## 專案結構
+## Real data (SimFin)
+
+Without a key the pipeline falls back to reproducible sample data. For real data, create a
+`.env` in the repo root (see `.env.example`):
+
+```
+SIMFIN_API_KEY=your_key
+```
+
+then rerun `python scripts/build_all.py --force`. SimFin has no explicit CapEx/FCF column,
+so a proxy is derived from `Change in Fixed Assets & Intangibles`.
+
+## Project structure
 
 ```
 quant/
-  config.yaml
-  data_agent/     # Task 1-8 agents
-  pipelines/      # 編排腳本
-  pipeline/       # 相容層
-  modeling/       # FLAML train/predict
-  backtest/
-  cache/          # Parquet + model 產物
-backend/
-frontend/
-tests/
-scripts/build_artifacts.py
+  config.py            # universe, label/holdings N, warmup, weight-scheme pool
+  pipeline/            # build_curated -> features -> labels -> dataset -> train_model -> backtest
+  model/               # model_meta.json, feature_stats.csv, MODEL_VARIABLES.md, parquet scores
+  backtest/            # performance_report / monthly / daily / holdings / drawdown_news JSON
+  factor/              # factor_analysis.json
+backend/               # FastAPI: routers + services/data_service.py
+frontend/              # React + Vite dashboard (src/App.tsx, components/*)
+scripts/               # build_all, export_static_api, factor_analysis, feature_stats, eval_model
+.cursor/skills/        # repeatable workflows (dev loop, add endpoint, eval invariants)
 ```
 
-## API
+## API endpoints
 
-| Endpoint | 說明 |
-|----------|------|
-| GET /api/backtest/curve | 策略 vs 基準曲線 |
-| GET /api/backtest/metrics | 區間指標 |
-| GET /api/holdings/{quarter} | Top 10 持股 |
-| GET /api/factor-analysis | 因子回歸 |
-| GET /api/model/features | AutoML 特徵與 importance |
-| POST /api/chat | AI 問答 |
-
-## 標籤與特徵
-
-**y_t** = 1 若當季超額報酬在 S&P500 內排名前 30；組合 Top10 逆波動加權（見 `build_labels.py`、`monthly_portfolio.py`）
-
-**x_t**（19 個 AutoML 變數）：成長、獲利、估值、槓桿、產業相對排名 — 見 `quant/config.py` 的 `MODEL_FEATURE_COLS`
-
-## 驗證
-
-```bash
-python tests/test_no_lookahead.py
-```
-
-產出 `quant/cache/data_validation_report.json`
+`GET /api/backtest/{report,monthly,daily,drawdown-news}` ·
+`GET /api/model/{summary,variables}` · `GET /api/factor/analysis` ·
+`GET /api/holdings/{signal-quarters,signal/{quarter}}`
