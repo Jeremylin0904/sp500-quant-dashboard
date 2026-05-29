@@ -1,0 +1,13 @@
+{
+  "rows_quarterly": 10070,
+  "rows_monthly": 28776,
+  "universe": "sp500_only",
+  "benchmark": "spy_mcap_weighted",
+  "benchmark_symbol": "SPY",
+  "top_n_label": 30,
+  "label_spec": {
+    "y_t": "1 if excess_return rank <= 30 within quarter (vs SPY cap-weight)",
+    "y_next": "next quarter y_t",
+    "y_month": "same rule at monthly frequency for realized-month comparison"
+  }
+}

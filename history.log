@@ -1,0 +1,341 @@
+[v2.0] Nuke & rebuild - 2026-05-27
+- Wiped workspace and rebuilt a clean interview MVP structure.
+- Kept only 2 raw CSVs that were locked by the OS at wipe time:
+  - quant/data/sp500_constituents.csv
+  - quant/data/simfin/sp500_fundamentals_quarterly.csv
+
+[v2.1] End-to-end MVP runnable - 2026-05-27
+- Added reproducible sample raw data generator: quant/pipeline/build_raw_samples.py
+- Implemented full pipeline: curated → features(PIT) → labels → model_dataset → train → backtest → validate
+- Added FastAPI backend endpoints: /api/backtest/*, /api/holdings/{quarter}, /api/model/features, /api/chat
+- Added React (Vite) frontend that displays backtest curve table + holdings and proxies /api to backend
+- Updated README with 1-minute demo commands
+
+[v2.2] Real data fetch support - 2026-05-27
+- Added SimFin real-data downloader: quant/pipeline/fetch_simfin.py (writes to quant/data_raw/)
+- scripts/build_all.py will use SimFin when SIMFIN_API_KEY is set; otherwise falls back to sample raw data
+- Pinned numpy/pandas/scipy versions in requirements.txt to avoid breaking common scientific stack
+
+[v2.3] Train stability on real data - 2026-05-27
+- Fixed model training crash on real SimFin features by cleaning X (replace inf, impute, clip extremes) in quant/pipeline/train_model.py
+
+[v2.4] Correct SimFin field mappings - 2026-05-27
+- Derived eps_diluted from Net Income (Common) / Shares (Diluted) because SimFin income-quarterly export lacks EPS
+- Derived total_debt from short_term_debt + long_term_debt because SimFin balance-quarterly export lacks Total Debt
+- Added adjusted_close and shares_outstanding to prices_daily.csv; compute market_cap using adjusted_close to reduce split artifacts
+- Curated optional cashflow parquet and carried cashflow columns into features (capex/FCF may be unavailable depending on SimFin tier)
+- Normalized missing sector to \"Unknown\" so sector ranks are computable when possible
+
+[v2.5] Cashflow proxy (scheme A) - 2026-05-27
+- When SimFin quarterly cashflow has no explicit CapEx/FCF: derive from \"Change in Fixed Assets & Intangibles\" in quant/pipeline/fetch_simfin.py
+- capital_expenditure = max(0, -change); free_cash_flow = operating_cash_flow + change; documented in README.md
+- fcf_yield / sector_rank_fcf_yield use TTM free_cash_flow when this proxy is present
+- Backtest scoring uses prepare_feature_matrix (same inf/clip as training) so model.predict does not fail on raw rows
+
+[v2.6] Feature stats report - 2026-05-27
+- Added scripts/feature_stats.py: missing rate + p01/p25/p50/p75/p99 for all 43 model features
+- Output: quant/model/feature_stats.csv
+
+[v2.7] Sector from SimFin industries lookup - 2026-05-27
+- fetch_simfin.py: join companies.IndustryId with sf.load_industries() for Sector/Industry names
+- constituents.csv Unknown reduced from ~100% to ~4.2%; 12 GICS-like sectors (Healthcare, Technology, etc.)
+- Re-run build_curated + build_features to propagate into model_dataset and sector_rank_*
+- Rebuilt model_dataset (2026-05-27): real sectors in parquet, sector_rank_* within 12 sectors; train/backtest/validate re-run
+- Added scripts/verify_y_next.py: confirms y_next=1 iff next-quarter return & sharpe both top-50 (not top-10)
+- Added quant/model/MODEL_VARIABLES.md: model features, formulas, NA handling, missing rates
+
+[v2.8] S&P 500 benchmark in backtest - 2026-05-27
+- quant/pipeline/sp500_benchmark.py: EW quarterly return for sp500_constituents ∩ labels
+- backtest.py benchmark no longer uses all SimFin universe mean; uses SP500_CONSTITUENTS_PATH
+
+[v2.9] Use adjusted close for labels - 2026-05-28
+- build_labels.py now computes quarterly return + Sharpe from adjusted_close to reduce split artifacts
+- Rebuilt labels → model_dataset → model → backtest; validation passed
+
+[v3.0] Interview-credible backtest - 2026-05-28
+- backtest.py now uses walk-forward training (only past quarters) and caps quarterly returns to [-0.9, 3.0]
+- Both strategy and S&P 500 EW benchmark use capped quarterly returns; added meta block to backtest_curve.json
+
+[v3.1] SP500-only universe + AutoML - 2026-05-28
+- build_features.py now restricts universe to S&P 500 tickers (from quant/data/sp500_constituents.csv; '.' normalized to '-')
+- train_model.py switched to FLAML AutoML regression; model.pkl now stores AutoML object
+- backtest.py evaluates OOS on val quarters only using trained AutoML model; benchmark remains S&P 500 EW with return clip
+
+[v3.2] AutoML with NaNs (no imputation) - 2026-05-28
+- train_model.py: keep NaNs (only inf→NaN + clip), set FLAML skip_transform=True and restrict estimators to xgb_limitdepth/xgboost
+- model_meta.json now records automl_settings for reproducibility
+
+[v3.3] Label-aware evaluation report - 2026-05-28
+- Added scripts/eval_model.py and quant/model/EVAL_REPORT.md + eval_report.json (precision/recall@k, per-quarter Spearman)
+
+[v3.4] SP500-only labeling universe - 2026-05-28
+- build_labels.py now filters to SP500 symbols before ranking; y_t/y_next are defined within SP500 each quarter
+- Rebuilt labels → dataset → AutoML model → backtest → eval; OOS now has meaningful y_next==1 positives
+
+[v3.5] Eval report without threshold - 2026-05-28
+- scripts/eval_model.py / quant/model/EVAL_REPORT.md now focus on Top-k hit rates + per-quarter Spearman (removed threshold PR section)
+
+[v3.6] Per-quarter markdown table - 2026-05-28
+- scripts/eval_model.py now renders per-quarter breakdown as a markdown table (not a code block)
+
+[v3.7] Refresh MODEL_VARIABLES.md - 2026-05-28
+- Updated quant/model/MODEL_VARIABLES.md to reflect latest state: SP500-only universe + SP500-only labeling + AutoML + NaN no-impute
+
+[v3.8] Make missingness summary source-of-truth - 2026-05-28
+- MODEL_VARIABLES.md now points missing-rate summary to quant/model/feature_stats.csv to avoid drift
+
+[v3.9] Embed missingness top table - 2026-05-28
+- MODEL_VARIABLES.md now includes an inline Top missing table copied from quant/model/feature_stats.csv (SP500-only)
+
+[v4.0] Add skill + script for MODEL_VARIABLES.md refresh - 2026-05-28
+- Added scripts/update_model_variables_doc.py to regenerate AUTO blocks in quant/model/MODEL_VARIABLES.md from model_meta.json + feature_stats.csv
+- Added project skill: .cursor/skills/update-model-variables-doc/SKILL.md describing the repeatable refresh workflow and history.log update rule
+
+[v4.1] IS/OOS return summary script - 2026-05-28
+- Added scripts/is_oos_returns.py: same Top10 backtest logic split by train_quarters vs val_quarters; outputs quant/model/is_oos_returns.json
+
+[v4.12] Walk-forward only (no holdout test set) - 2026-05-28
+- train_model: expanding WF on all 20 quarters (8 warm-up → 12 predicted); extend last 4Q via WF not final model
+- backtest/eval/is_oos_returns use walk_forward_scores.parquet; report early vs recent 4Q slices only
+
+[v4.11] Quarterly hit rate (y_next alignment) - 2026-05-28
+- holdings_by_signal_quarter.json: selected at signal Q vs actual Top30 in next quarter
+- API GET /api/holdings/signal-quarters, /api/holdings/signal/{q}; frontend KPI/holdings use signal quarter
+
+[v4.10] Frontend/backend sync (SPY, Top30, weighted BCE metrics) - 2026-05-28
+- API: /api/model/summary, /api/model/eval; backtest/report metadata; fix duplicate model router
+- Frontend: model OOS panel, P(Top30) scores, dynamic benchmark label; chat copy updated
+
+[v4.9] Weighted BCE classification training - 2026-05-28
+- train_model: FLAML classification + log_loss; sample_weight balanced BCE (w_pos=n_neg/n_pos)
+- predict_score() = P(y=1) for backtest/eval; meta documents loss + pos_weight
+
+[v4.8] SPY cap-weighted benchmark (replaces S&P500 EW) - 2026-05-28
+- Benchmark: SPY monthly/quarterly returns from curated prices (spy_mcap_weighted)
+- Rebuilt labels, model dataset, train, monthly backtest, eval, IS/OOS reports
+- Frontend/README: SPY legend and copy
+
+[v4.7] Professional frontend + Top30 portfolio - 2026-05-28
+- Removed duplicate TOP_N_HOLDINGS=10 in config.py (was overriding 30)
+- TOP_N_HOLDINGS=30 aligned with label; rerun monthly backtest (35 months x 30 names)
+- Frontend: dark dashboard, NAV line chart (IS/OOS/both), Top30 vs actual Top30 hit highlighting (row-hit green); index.css full-width dark shell
+- Backend: clear JSON cache on startup after backtest artifact updates
+
+[v4.6] OOS confusion matrix in EVAL_REPORT - 2026-05-28
+- eval_model.py: OOS confusion matrices (threshold 0.5, top10/quarter, top30/quarter) + per-quarter top10 CM table
+
+[v4.5] Top30 binary label + monthly inverse-vol portfolio - 2026-05-28
+- Label: y_t=1 if excess return rank<=30 vs SP500 EW; monthly labels for actual_top30 comparison
+- monthly_portfolio.py: monthly rebalance, inverse daily_vol weights, IS/OOS report (MDD, max day, monthly vol/ret/excess)
+- holdings_by_month.json + PERFORMANCE_REPORT.md; API /api/backtest/monthly|report|months; frontend selected vs actual
+
+[v4.4] Defensible continuous label vs S&P500 EW - 2026-05-28
+- build_labels.py: excess_return vs EW benchmark; risk_adj_excess with vol floor; continuous y_t; is_top10/20/50 aligned with portfolio
+- eval_model.py / verify_y_next.py / MODEL_VARIABLES.md updated for new label spec (removed 0.7/0.3 top50 sharpe hack)
+
+[v4.3] Excess return vs S&P500 EW report - 2026-05-28
+- is_oos_returns.py: per-quarter excess_ret, geometric excess_nav; writes quant/model/EXCESS_VS_SP500.md
+
+[v4.2] Time-series CV + honest in-sample (OOF) - 2026-05-28
+- train_model.py: expanding-window CV on train quarters (min 8 quarters train before first val fold); writes quant/model/cv_oof_scores.parquet
+- Final AutoML model still trained on all train quarters for holdout OOS only; model_meta.json includes cv fold metrics + oof_rmse
+- is_oos_returns.py + backtest_curve.json quarterly_is_oof: in-sample backtest uses score_oof (unseen quarter per fold), not full-model train predictions
+
+[2026-05-26] Initial implementation of Portfolio Analysis Dashboard
+
+Added:
+- quant/pipeline/: load_prices, build_labels, build_features, dataset (x_t/y_t construction)
+- quant/modeling/: FLAML AutoML train + predict
+- quant/backtest/: quarterly rebalance engine + metrics
+- quant/analytics/: Fama-French factor regression + interval stats
+- backend/: FastAPI with backtest, holdings, factor-analysis, chat routers
+- frontend/: React dashboard with line chart, metrics, top10, factor analysis, chatbot
+- .cursor/skills/: factor-analysis, interval-metrics, automl-modeling
+- scripts/build_artifacts.py: one-click pipeline build
+- requirements.txt, README.md, .env.example
+
+Core logic:
+- y_t = 0.7*return_top50 + 0.3*sharpe_top50 label
+- x_t from SimFin quarterly fundamentals (Publish Date aligned)
+- Top 10 equal-weight quarterly rebalance vs SP500 equal-weight benchmark
+- FF5+Mom OLS with significance coloring (|t|>1.96)
+- OpenAI chatbot with tool calling + rule-based fallback
+
+[2026-05-26] Hide thinking model chain: Groq reasoning_format=hidden + strip think/reasoning tags from chat responses.
+
+[2026-05-26] Fundamental data agent upgrade per spec:
+- quant/config.yaml + quant/settings.py
+- quant/data_agent/: universe, price, fundamental, factor, feature, label, validation agents
+- quant/pipelines/: raw/features/labels/model_dataset orchestration
+- feature_agent: TTM, growth, profitability, valuation, leverage, sector ranks, PIT join (publish_date <= as_of_date)
+- Extended labels: excess return, volatility, top10 labels; kept y_t surge definition
+- FLAML AutoML with 19 MODEL_FEATURE_COLS (lgbm/xgboost/rf/extra_tree/enet)
+- validation report + tests/test_no_lookahead.py
+- GET /api/model/features; updated build_artifacts.py and README
+
+[v1.5] File cleanup - 2026-05-26
+- Created _unused/ folder to hold files not referenced by any code
+- Moved to _unused/data/: etf_holdings.csv, etf_prices.csv, etf_holdings_fundamentals.csv, sp500_fundamentals.csv
+- Moved to _unused/data/simfin/: us_income/balance CSV variants (raw simfin downloads), hash-named duplicates, download zips
+- Moved to _unused/docs/: fundamental_stock_prediction_data_agent_spec.md (spec already implemented)
+- Remaining active data: sp500_prices.csv, sp500_constituents.csv, french/ff5+momentum CSVs, simfin/sp500_fundamentals_quarterly.csv
+
+[v1.6] Major simplification - 2026-05-26
+- Deleted quant/data_agent/ (7 thin agent files -> merged into pipeline/)
+- Deleted quant/pipelines/ (4 files, each only 5-10 lines of delegation)
+- Deleted quant/settings.py and quant/config.yaml
+- All constants now live directly in quant/config.py
+- New pipeline/ modules: build_universe.py, build_fundamentals.py, validate.py
+- build_features.py now contains the full feature engineering logic (was in data_agent/feature_agent.py)
+- Total Python files in quant/: reduced from 30+ to 19
+
+[v1.7] MVP schema backfill - 2026-05-27
+- Extended price loader to support OHLCV: quant/pipeline/load_prices.py (new load_sp500_ohlcv)
+- Added quant/pipeline/build_mvp_dataset.py to generate quant/cache/mvp_dataset.parquet
+- MVP dataset keeps requested columns; fills unavailable raw fields with NaN; adds proxy market_cap/EV (from enterprise_value_proxy)
+- Added quarter-end volume and computed return_3m/6m/12m from quarter-end closes
+- Re-integrated local SimFin income/balance quarterly files (from _unused/) to backfill gross_profit, total_assets, total_liabilities, cash_and_equivalents, and shares_outstanding
+- Now computes market_cap and enterprise_value using your requested formulas when shares_outstanding is available
+- mvp_dataset.parquet now drops any columns that are entirely NaN
+
+[v4.12] Walk-forward only (no holdout test set) - 2026-05-28
+- Removed fixed 80/20 holdout; eval uses expanding walk-forward only (CV_MIN_TRAIN_QUARTERS=8).
+- 12 predicted quarters: 2022Q2–2025Q1; recent reporting slice = last 4 quarters (2024Q2–2025Q1).
+- train_model.py: walk_forward_scores.parquet (score_wf); model.pkl for deployment only.
+- monthly_portfolio.py / eval_model.py / is_oos_returns.py: paths walk_forward_early / walk_forward_recent.
+- Re-ran train + backtest + eval; WF all-quarters log_loss=0.515 AUC=0.721.
+
+[v4.13] Expanding walk-forward CV + frozen final OOS - 2026-05-28
+- train_model.py: Phase 1 CV OOF (Q9–Q16, AutoML per fold); Phase 2 Final OOS (Q17–Q20, frozen hyperparam from Q1–Q16, expanding retrain).
+- config: WF_OOS_QUARTERS=4, AUTOML_TIME_BUDGET_CV_SELECT=60.
+- Path labels: walk_forward_cv / walk_forward_oos; meta cv_oof_quarters / final_oos_quarters.
+- eval_model, is_oos_returns, monthly_portfolio, backend, frontend aligned to CV OOF + Final OOS framing.
+
+[v4.14] Hyperparameter pool + 8-fold OOF selection - 2026-05-28
+- train_model.py: AutoML 120s on Q1–Q16 → top-5 config pool; each config 8-fold expanding OOF (mean fold log_loss); best config for CV OOF + Final OOS.
+- Selected: xgboost (pool rank 3, mean fold log_loss 0.510); config HP_POOL_TOP_K=5, AUTOML_TIME_BUDGET_POOL_SEARCH=120.
+- model.pkl now fit with selected frozen config (not separate final AutoML search).
+
+[v4.15] Frontend/backend sync for HP pool IS/OOS - 2026-05-28
+- data_service.build_model_summary: hp_pool, cv_eval, portfolio in_sample/out_of_sample slices.
+- model.py /features: holdout, final_oos, hp_pool meta.
+- App.tsx: pool table, CV/OOS KPIs, monthly toggle CV OOF vs Final OOS, chart labels.
+
+[v4.16] Sharpe IS/OOS + weighting clarity - 2026-05-29
+- monthly_portfolio._summarize_path: ann_sharpe_strategy/benchmark/excess + ann_vol for CV OOF and Final OOS.
+- Frontend KPIs + model panel: CV OOF vs Final OOS Sharpe side-by-side.
+- Clarified: weights = normalize(1/daily_vol) only; score used for Top30 selection, not in weights.
+
+[v4.17] Weight scheme comparison backtest - 2026-05-29
+- monthly_portfolio.portfolio_weights: inv_vol, equal, rank_linear, softmax(T), score_inv_vol.
+- scripts/compare_weight_schemes.py: same walk_forward scores, compare 7 schemes on CV OOF vs Final OOS.
+- quant/backtest/WEIGHT_SCHEME_COMPARISON.md + weight_scheme_comparison.json.
+- Result: OOS best = softmax T=0.05 (excess Sharpe 2.11 vs baseline inv_vol 1.15); score/σ barely beats inv_vol; regression weights not tested.
+
+[v4.17b] Weight scheme comparison — OOF-only selection - 2026-05-29
+- WEIGHT_SCHEME_COMPARISON.md: 選型僅依 CV OOF；OOS 改為監控表，不作決策。
+- OOF 超額 Sharpe 最佳：softmax T=0.20 (1.19 vs baseline 1.07)；OOF 累積超額最高：softmax T=0.05 (94.8%) 但 Sharpe 僅 #5。
+
+[v4.18] softmax(score/(T·σ)) + T in CV hp pool - 2026-05-29
+- portfolio_weights: softmax_sharpe = exp(score/(T*σ)) with log-sum-exp stability.
+- config: WEIGHT_SCHEME, SOFTMAX_TEMPERATURE_POOL=[0.05,0.1,0.2], PORTFOLIO_HP_SELECT_METRIC=ann_sharpe_excess.
+- train_model: top-5 model configs × T pool → CV OOF portfolio Sharpe selects (config, T); frozen in model_meta.
+- monthly_portfolio/backtest/frontend: use frozen weight_scheme + T; hp_pool table shows T + OOF Sharpe.
+- Selected (latest run): xgboost pool#5, T=0.1, OOF excess Sharpe 0.33.
+
+[v4.19] TTM warmup: exclude Q1–Q4 from pool search & WF train - 2026-05-29
+- config FEATURE_WARMUP_QUARTERS=4; pool search Q5–Q16; CV OOF predicts Q13–Q16 (4 folds).
+- train_model: training uses quarters[4:i]; first_cv_fold_index=12.
+- Retrain: xgb_limitdepth pool#4, T=0.05; CV OOF 2023Q2–2024Q1.
+
+[v4.20] Weight scheme in CV hp pool (model × weight) - 2026-05-29
+- WEIGHT_SCHEME_POOL: inv_vol, equal, rank_linear, score_inv_vol, softmax T∈{0.1,0.2}, softmax_sharpe T∈{0.1,0.2}.
+- train_model: _select_config_and_weighting; 5×8=40 combos by OOF ann_sharpe_excess.
+- Selected: xgboost pool#3, softmax(score/T) T=0.1, OOF excess Sharpe 1.97 (not softmax_sharpe).
+
+[v4.21] Factor analysis (FF5 + Momentum) + light-theme multi-page UI - 2026-05-29
+- scripts/factor_analysis.py: download Ken French F-F_Research_Data_5_Factors_2x3 + F-F_Momentum_Factor (cached quant/data/french/);
+  regress (R_strat - RF) on Mkt-RF,SMB,HML,RMW,CMA,Mom via statsmodels OLS for CV OOF / Final OOS / all.
+  Output quant/factor/factor_analysis.json + FACTOR_ANALYSIS.md (含因子來源/定義說明).
+  Result: alpha(年化) CV OOF 90.5% (t=2.67), Final OOS 54.4% (t=1.97); high Mkt beta ~1.5-1.8, growth tilt (HML<0).
+- monthly_portfolio._build_quarterly_holdings: 選股加入 realized_return/realized_excess/is_top30_actual (join 下一季 labels_quarterly).
+- backend: new router /api/factor/analysis; data_service get_factor_analysis + cv/oos confusion_matrix 完整計數曝露; main.py 註冊 factor router.
+- frontend: 改淺色系主題 (App.css); App 分三頁 (績效總覽/持股對照/因子分析);
+  KPI 補 IS+OOS 年化報酬/超額/Sharpe/最大回撤; ConfusionMatrix 元件; ScatterChart (預測分數 vs 真實季超額);
+  季持股表新增真實季報酬/超額; 因子分析頁 (alpha 卡/beta 條形/因子定義).
+
+[v4.21a] UI tweak: drop cumulative-excess KPI, clarify rebalance - 2026-05-29
+- App.tsx: 移除 IS/OOS 的「累積超額(幾何)」KPI。
+- 側邊欄文字改「季頻選股訊號 · 每月重設回目標權重」澄清調倉頻率。
+- 說明: 回測為月度調倉（每月底重建投組/重設回目標權重），選股分數來自最近完成季別（季內權重相同）；
+  OOS 年化~46% 因 11 個月 NAV 1.41 年化 + 高 beta 集中成長組合；2025-02~03 drop 為成長股回檔，資料正確。
+
+[v4.21b] Fix index.css dark-mode leak (white text on light bg) - 2026-05-29
+- index.css 為 Vite 模板殘留：body 深色背景 + @media(prefers-color-scheme:dark) 把標題色翻成近白，
+  在淺色面板上造成白字壓白底不可讀。改為純淺色基底 (color-scheme:light)，移除深色覆寫。
+
+[v4.21c] Show data period (months/quarters, range) - 2026-05-29
+- App.tsx: 績效總覽新增「資料期間」區塊；MonthlyRow 加 signal_quarter；periodSummary helper。
+  CV OOF 12 個月 2023-07~2024-06 / 4 季 2023Q2~2024Q1；Final OOS 11 個月 2024-07~2025-05 / 4 季 2024Q2~2025Q1。
+- 因子分析卡片標題補上月份起訖 (sourced from segment.months)。
+
+[v4.21d] Show universe size (number of companies) - 2026-05-29
+- data_service.get_universe_summary(): 從 model_dataset 算 distinct 公司數 + 每季候選數；model summary 加 universe 欄位。
+- App.tsx 資料期間區塊新增「股票池」卡：333 家公司 · 各評估季候選 320~333 檔 · 選 Top30。
+
+[v4.21e] Explain NAV y-axis under chart - 2026-05-29
+- App.tsx: NAV 折線圖下加說明：y 軸=累積淨值(起點1.0)，逐月複利 NAV×(1+月報酬)，1.41=+41%。
+
+[v4.21f] Max-drawdown dates + chart hover tooltip - 2026-05-29
+- monthly_portfolio._mdd_with_dates(): 回傳 max_drawdown + 高點/低點日期 (peak/trough)；is/oos summary 套用。
+  IS -15.86% (2023-08-07→2023-10-26)；OOS -34.51% (2025-02-18→2025-04-04)。
+- App.tsx: 最大回撤 KPI sub 顯示 peak→trough 日期；PerfSlice 型別放寬含字串。
+- PerformanceChart: 滑鼠移動顯示 tooltip (月份/策略NAV+累積%/基準NAV)，加 NAV=1.0 虛線基準。
+
+[v4.21g] Chart y-axis: include 1.0 + tidy step - 2026-05-29
+- PerformanceChart: y 軸強制涵蓋 NAV=1.0，級距改用 0.02/0.05/0.1/0.2/0.25/0.5 整數倍，1.00 落在格線上並加粗標示。
+
+[v4.21h] Daily NAV curve (replace monthly in chart) - 2026-05-29
+- sp500_benchmark.spy_daily_returns(): SPY 日報酬序列。
+- monthly_portfolio._build_daily_series(): 策略+基準每日 NAV (各區段 rebase=1.0)；run_monthly_backtest 寫 backtest_daily.json。
+  IS 250 交易日 (2023-07-03~2024-06-28)、OOS 230 交易日 (2024-07-01~2025-05-30)。
+- backend: get_backtest_daily + /api/backtest/daily。
+- App.tsx: NAV 折線圖改用每日資料 (is/oos/both)；PerformanceChart 點數>60 隱藏每點圓點。
+- 明顯 drop = 2025-04-03 (-10.2%)、04-04 (-8.7%) 關稅衝擊 (策略 NAV 1.12→0.92)。
+
+[v4.21i] Chain OOS onto CV OOF in merged chart - 2026-05-29
+- App.tsx chartSeries 合併模式：OOS 每點 NAV × CV OOF 末端 NAV (策略+基準各自接續)，
+  消除 OOS 從 1.0 重啟造成的假性斷崖；is/oos 單獨模式仍各自 rebase=1.0。
+
+[v4.21j] Chart: IS|OOS divider + top-5 drawdown markers - 2026-05-29
+- App.tsx topDrawdowns(): 由顯示中的策略 NAV 找出前 5 大回撤 episode (peak→trough)。
+- PerformanceChart: 合併模式畫樣本內/外垂直分隔線；前 5 大回撤在策略線上以紅圈+跌幅% 標記，圖例加說明。
+
+[v4.21k] Max drawdown = worst single-day return - 2026-05-29
+- monthly_portfolio._mdd_with_dates(): max_drawdown 改為最差單日報酬 + max_drawdown_date；保留 max_drawdown_peak_to_trough 供參考。
+  IS 單日 -4.30% (2023-08-09)；OOS 單日 -10.24% (2025-04-03)。
+- App.tsx: KPI 改「最大單日回撤」+ 日期(附峰谷回撤)；圖上前 5 大改為最差 5 個單日 (worstSingleDays, 由 daily_return)。
+
+[v4.22] 回撤對應新聞 (可點擊) - 2026-05-29
+- 新增 quant/backtest/drawdown_news.json：依日期收錄前 5 大單日回撤對應事件/說明/新聞連結。
+  OOS: 2025-04-03 解放日對等關稅、2025-04-04 關稅暴跌第二日(中國反制)、2025-01-27 DeepSeek 衝擊(NVDA -17%)、
+  2025-03-06 Marvell 財測+關稅反覆(Nasdaq 修正)、2025-03-10 衰退疑慮。
+  IS: 2024-05-07 Palantir 財測不佳(個股) 等。連結來源: Investopedia/CNBC/CNN/Vantage。
+- data_service.get_drawdown_news() + clear_cache；backtest router 新增 GET /api/backtest/drawdown-news。
+- 前端：抓取新聞資料；PerformanceChart 紅圈回撤標記可點擊 (onMarkerClick, 加大透明命中區)；
+  圖下新增「前五大單日回撤・對應事件」清單，可點開看說明與新聞連結，點圖上紅圈會選中對應項目。App.css 加 .dd-list 樣式。
+
+[v4.23] 新增「模型變數」與「驗證方法」分頁 - 2026-05-29
+- 後端 data_service: 新增 get_model_variables_doc()(讀 MODEL_VARIABLES.md)、get_feature_stats()(讀 feature_stats.csv)、
+  build_model_variables()；build_model_summary.walk_forward 補上 feature_warmup_quarters/excluded、
+  selection_train_quarters、pool_search 預算、hp_pool_top_k、n_cv/oos_folds、folds(train_start/end, pred_quarter, AUC)。
+  model router 新增 GET /api/model/variables；clear_cache 補新 loader。
+- 前端新增分頁：
+  - 模型變數(VariablesView.tsx)：以 react-markdown+remark-gfm 即時渲染 MODEL_VARIABLES.md(變數定義/公式/原始資料/PIT/資料流)，
+    並附 feature_stats.csv 即時缺失率/分位數表 + KPI(特徵數/列數/目標/模型)。新增 react-markdown、remark-gfm 依賴。
+  - 驗證方法(MethodologyView.tsx)：4 步流程卡(資料+TTM暖機剔除前4季→AutoML 120s pool search top-5→
+    walk-forward CV OOF 選 model×權重(OOF 超額 Sharpe)→凍結後 Final OOS walk-forward)、
+    20 季時間軸(暖機/僅訓練/CV OOF/Final OOS 色塊)、8 折 expanding walk-forward 視覺化(訓練條+預測格)；
+    並把原第一頁的 Hyperparam Pool 表移到此分頁。
+- App.tsx: Tab 擴充為 overview/variables/method/holdings/factor，topbar 標題對照表；overview 移除 pool 表並加導引文字。
+- App.css: 新增 .flow-steps/.q-timeline/.q-cell(qc-warmup/train/cv/oos)/.wf-grid/.wf-fold/.wf-bar/.wf-pred/.md-body 樣式。

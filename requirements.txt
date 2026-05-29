@@ -1,0 +1,20 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# Keep stack compatible with common scientific packages.
+numpy<2.0
+pandas<3.0
+scipy<1.12
+
+pyarrow>=16.0
+joblib>=1.4
+scikit-learn>=1.5
+statsmodels>=0.14
+python-dotenv>=1.0
+simfin>=1.0
+flaml>=2.3
+
+# Optional (chat / uploads)
+openai>=1.12.0
+pydantic>=2.0.0
+python-multipart>=0.0.6

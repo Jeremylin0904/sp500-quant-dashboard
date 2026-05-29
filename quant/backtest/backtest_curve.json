@@ -1,0 +1,58 @@
+{
+  "quarterly": [
+    {
+      "date": "2024-09-30",
+      "quarter": "2024Q3",
+      "strategy": 1.149523768250049,
+      "benchmark": 1.0929735879571651
+    },
+    {
+      "date": "2024-12-31",
+      "quarter": "2024Q4",
+      "strategy": 1.2980909251986628,
+      "benchmark": 1.1235179139801177
+    },
+    {
+      "date": "2025-03-31",
+      "quarter": "2025Q1",
+      "strategy": 1.2045902272336442,
+      "benchmark": 1.104885503505096
+    },
+    {
+      "date": "2025-06-30",
+      "quarter": "2025Q2",
+      "strategy": 1.4145370731802747,
+      "benchmark": 1.152687225488795
+    }
+  ],
+  "quarterly_is_oof": [
+    {
+      "date": "2023-09-30",
+      "quarter": "2023Q3",
+      "strategy": 1.033543037962485,
+      "benchmark": 0.9676230053547512
+    },
+    {
+      "date": "2023-12-31",
+      "quarter": "2023Q4",
+      "strategy": 1.1943776669947517,
+      "benchmark": 1.0629798436897728
+    },
+    {
+      "date": "2024-03-31",
+      "quarter": "2024Q1",
+      "strategy": 1.5015130800090213,
+      "benchmark": 1.1539764008465314
+    },
+    {
+      "date": "2024-06-30",
+      "quarter": "2024Q2",
+      "strategy": 1.6354471316251797,
+      "benchmark": 1.2095486715986148
+    }
+  ],
+  "daily": [],
+  "meta": {
+    "source": "monthly_backtest_aggregated"
+  }
+}

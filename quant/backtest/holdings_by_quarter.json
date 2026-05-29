@@ -1,0 +1,158 @@
+{
+  "2024Q3": [
+    {
+      "symbol": "ANET",
+      "score": 0.6707745790481567,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "APA",
+      "score": 0.6478995680809021,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "HWM",
+      "score": 0.6234728693962097,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "APP",
+      "score": 0.6172677278518677,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "STX",
+      "score": 0.6111131906509399,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "PFE",
+      "score": 0.6076607704162598,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "HOOD",
+      "score": 0.6063706874847412,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "LRCX",
+      "score": 0.6059154272079468,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "score": 0.605444610118866,
+      "predicted_quarter": "2024Q2"
+    },
+    {
+      "symbol": "ROL",
+      "score": 0.5988933444023132,
+      "predicted_quarter": "2024Q2"
+    }
+  ],
+  "2024Q4": [
+    {
+      "symbol": "HWM",
+      "score": 0.6487393379211426,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "TDG",
+      "score": 0.6336316466331482,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "NFLX",
+      "score": 0.6287195682525635,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "ANET",
+      "score": 0.6264858841896057,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "VRT",
+      "score": 0.6212447285652161,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "SATS",
+      "score": 0.6192885041236877,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "APP",
+      "score": 0.614357054233551,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "KO",
+      "score": 0.6139312386512756,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "score": 0.6091302633285522,
+      "predicted_quarter": "2024Q3"
+    },
+    {
+      "symbol": "PHM",
+      "score": 0.6076042652130127,
+      "predicted_quarter": "2024Q3"
+    }
+  ],
+  "2025Q1": [
+    {
+      "symbol": "HOOD",
+      "score": 0.6424944996833801,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "IQV",
+      "score": 0.6262902021408081,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "NFLX",
+      "score": 0.6147006750106812,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "DXCM",
+      "score": 0.6126903295516968,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "LII",
+      "score": 0.6048957109451294,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "DECK",
+      "score": 0.6030866503715515,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "HWM",
+      "score": 0.6028338074684143,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "FICO",
+      "score": 0.6011948585510254,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "DELL",
+      "score": 0.5897870659828186,
+      "predicted_quarter": "2024Q4"
+    },
+    {
+      "symbol": "CBOE",
+      "score": 0.5887494683265686,
+      "predicted_quarter": "2024Q4"
+    }
+  ]
+}
