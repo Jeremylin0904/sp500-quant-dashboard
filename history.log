@@ -371,3 +371,9 @@ Core logic:
 - MethodologyView.tsx 最上方新增「投組怎麼來的（定義）」面板：說明 f(x_{i,t})=p̂_i=P(y_{i,t+1}=1|x_{i,t})
   （PIT 不前視），依 p̂ 取前 30 名、用選定配重方案(weight_spec_label)正規化 Σw_i=1 組成投組，季度再平衡。
 - App.css 新增 .mv-portfolio / .mv-formula-line 置中公式樣式；tsc -b && vite build 通過。
+
+[v4.28] 驗證方法 diagram 用詞改為訓練/驗證/測試 - 2026-05-29
+- MethodologyView.tsx walk-forward 折圖：bar 由 "train ×N" 改 "訓練 ×N"；預測格依階段顯示
+  CV OOF→「驗證」、Final OOS→「測試」(取代原本一律「預測」)；說明文字同步改成 訓練→驗證/測試。
+- 時間軸圖例 CATS：cv→「CV OOF 驗證（選型）」、oos→「Final OOS 測試（凍結後）」。
+- tsc -b && vite build 通過。

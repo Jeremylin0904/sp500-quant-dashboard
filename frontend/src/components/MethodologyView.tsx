@@ -59,8 +59,8 @@ function num(x: number | undefined | null, digits = 3) {
 const CATS = {
   warmup: { label: "暖機剔除", cls: "qc-warmup" },
   trainonly: { label: "僅作訓練", cls: "qc-train" },
-  cv: { label: "CV OOF 預測（選型）", cls: "qc-cv" },
-  oos: { label: "Final OOS 預測（凍結後）", cls: "qc-oos" },
+  cv: { label: "CV OOF 驗證（選型）", cls: "qc-cv" },
+  oos: { label: "Final OOS 測試（凍結後）", cls: "qc-oos" },
 } as const;
 
 export function MethodologyView({ model }: { model: Model | null }) {
@@ -101,14 +101,14 @@ export function MethodologyView({ model }: { model: Model | null }) {
           style={{ gridColumn: `${s + 1} / ${e + 2}` }}
           title={`訓練 ${f.train_start} ~ ${f.train_end}（${f.n_train_quarters} 季）`}
         >
-          train ×{f.n_train_quarters}
+          訓練 ×{f.n_train_quarters}
         </span>
         <span
           className={`wf-pred ${isCv ? "cv" : "oos"}`}
           style={{ gridColumn: `${p + 1} / ${p + 2}` }}
-          title={`預測 ${f.pred_quarter} · AUC ${num(f.pred_roc_auc, 3)}`}
+          title={`${isCv ? "驗證" : "測試"} ${f.pred_quarter} · AUC ${num(f.pred_roc_auc, 3)}`}
         >
-          預測
+          {isCv ? "驗證" : "測試"}
         </span>
       </div>
     );
@@ -237,7 +237,8 @@ export function MethodologyView({ model }: { model: Model | null }) {
         <div className="panel-head">
           <h2>Expanding walk-forward 折（{cvFolds.length} CV OOF + {oosFolds.length} Final OOS）</h2>
           <p className="muted">
-            每折用「到預測季前的所有可用季」做訓練（擴張視窗），只預測下一季；藍＝選型用 CV OOF，綠＝凍結後樣本外
+            每折用「到該季前的所有可用季」做<strong>訓練</strong>（擴張視窗），下一季做評估；藍＝CV OOF（訓練→
+            <strong>驗證</strong>，用於選型），綠＝Final OOS（訓練→<strong>測試</strong>，凍結後樣本外）
           </p>
         </div>
         <div className="wf-grid">
