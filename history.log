@@ -357,3 +357,17 @@ Core logic:
   線上：https://jeremylin0904.github.io/sp500-quant-dashboard/ (index 200、api/*.json 200)。
 - docs/screenshot.png：用 Playwright(chromium) 對靜態 build 截績效總覽首頁，嵌入 README。
 - README.md 全面重寫(舊內容過時)：功能、驗證方法、分頁說明、本地開發、靜態 build/部署、SimFin .env、結構、API。
+
+[v4.26] 模型變數分頁改版（好讀有重點） - 2026-05-29
+- data_service.py：_fill_md_feature_stats 改寫為 _parse_feature_doc，單次掃描 MODEL_VARIABLES.md
+  既填入即時 miss%/inf%，又輸出結構化 groups=[{title, items:[{feature, formula, miss_pct, inf_pct}]}]
+  (依 ### 標題分 8 類、43 個有統計特徵)；build_model_variables 多回傳 groups / n_grouped_features。
+- VariablesView.tsx 重寫：KPI(特徵數/列數/目標/模型) + 重點摘要(目標/股票池/PIT/缺值/來源) +
+  變數分類卡片(公式+缺失率著色) + 缺失率最高 Top8 長條 + 完整文件&欄位統計收進 <details> 折疊。
+- App.css 新增 .mv-* 樣式(highlights/groups/group/flist/missbars/summary)；export_static_api 重出 variables.json；
+  前端 tsc -b && vite build 通過。
+
+[v4.27] 驗證方法分頁新增「投組定義」 - 2026-05-29
+- MethodologyView.tsx 最上方新增「投組怎麼來的（定義）」面板：說明 f(x_{i,t})=p̂_i=P(y_{i,t+1}=1|x_{i,t})
+  （PIT 不前視），依 p̂ 取前 30 名、用選定配重方案(weight_spec_label)正規化 Σw_i=1 組成投組，季度再平衡。
+- App.css 新增 .mv-portfolio / .mv-formula-line 置中公式樣式；tsc -b && vite build 通過。

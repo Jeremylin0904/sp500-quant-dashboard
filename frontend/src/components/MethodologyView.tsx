@@ -81,6 +81,7 @@ export function MethodologyView({ model }: { model: Model | null }) {
     warmup.has(q) ? "warmup" : cv.has(q) ? "cv" : oos.has(q) ? "oos" : "trainonly";
 
   const pool = model.hp_pool;
+  const weightLabel = pool?.weight_spec_label ?? "選定配重方案";
   const topK = pool?.top_k ?? wf.hp_pool_top_k ?? 5;
   const budget = pool?.pool_search_time_budget_sec ?? wf.pool_search_time_budget_sec ?? 120;
   const folds = wf.folds ?? [];
@@ -115,6 +116,44 @@ export function MethodologyView({ model }: { model: Model | null }) {
 
   return (
     <>
+      <section className="panel">
+        <div className="panel-head">
+          <h2>投組怎麼來的（定義）</h2>
+          <p className="muted">從模型機率 → 選 Top30 → 配重，組成每季持倉</p>
+        </div>
+        <div className="note-box mv-portfolio">
+          <p>
+            模型 <code>f</code> 對每檔股票 <code>i</code> 在第 <code>t</code> 季末、以該時點可得的特徵{" "}
+            <code>x<sub>i,t</sub></code>（point-in-time，不前視）輸出一個機率：
+          </p>
+          <p className="mv-formula-line">
+            <code>
+              f(x<sub>i,t</sub>) = p̂<sub>i</sub> = P( y<sub>i,t+1</sub> = 1 | x<sub>i,t</sub> )
+            </code>
+          </p>
+          <p>
+            其中 <code>
+              y<sub>i,t+1</sub> = 1
+            </code>{" "}
+            代表「<strong>下一季是否為超額報酬 Top30</strong>（相對 SPY）」。把當季所有股票依{" "}
+            <code>p̂</code> 由高到低排序，取 <strong>前 30 名</strong> 作為持股，再以選定的配重方案{" "}
+            <strong>{weightLabel}</strong> 給定權重 <code>
+              w<sub>i</sub>
+            </code> 並正規化，組成投組：
+          </p>
+          <p className="mv-formula-line">
+            <code>
+              Top30<sub>t</sub> = argtop<sub>30</sub>( p̂<sub>·,t</sub> ) ， w<sub>i</sub> ≥ 0 ， Σ
+              <sub>i∈Top30</sub> w<sub>i</sub> = 1
+            </code>
+          </p>
+          <p>
+            每季末重算 <code>p̂</code>、重選 Top30、重設權重（<strong>季度再平衡</strong>），持有一季後再
+            依新一季的預測調整。下方說明的就是我們如何挑出這個 <code>f</code>（模型 × 配重）。
+          </p>
+        </div>
+      </section>
+
       <section className="panel">
         <div className="panel-head">
           <h2>驗證流程總覽</h2>

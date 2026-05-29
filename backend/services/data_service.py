@@ -142,17 +142,34 @@ def get_feature_stats() -> list[dict]:
     return rows
 
 
-def _fill_md_feature_stats(md: str, stats: list[dict]) -> str:
-    """Replace '(see feature_stats.csv)' (and stale literals) in the section-4
-    feature tables with live miss%/inf% from feature_stats.csv."""
+def _parse_feature_doc(md: str, stats: list[dict]) -> tuple[str, list[dict]]:
+    """Single pass over MODEL_VARIABLES.md section-4 tables:
+    - fill live miss%/inf% into the markdown ('(see feature_stats.csv)' / stale values)
+    - emit a structured grouped feature list for a clean UI view
+    Returns (filled_markdown, groups) where groups = [{title, items:[{feature, formula,
+    miss_pct, inf_pct}]}].
+    """
     by = {s.get("col"): s for s in stats if s.get("col")}
     feat_re = re.compile(r"`([A-Za-z0-9_]+)`")
+    label_re = re.compile(r"^[A-Z]\.\s*")
     out: list[str] = []
+    groups: list[dict] = []
+    cur_title: str | None = None
+    cur_items: list[dict] = []
+
+    def flush():
+        nonlocal cur_items
+        if cur_title and cur_items:
+            groups.append({"title": cur_title, "items": cur_items})
+        cur_items = []
+
     for line in md.splitlines():
         stripped = line.lstrip()
-        if stripped.startswith("|") and "`" in line:
+        if stripped.startswith("### "):
+            flush()
+            cur_title = label_re.sub("", stripped[4:].strip())
+        elif stripped.startswith("|") and "`" in line:
             cells = line.split("|")
-            # 4-column feature tables: ['', feature, formula, miss%, inf%, '']
             if len(cells) >= 6:
                 m = feat_re.search(cells[1])
                 if m and m.group(1) in by:
@@ -164,16 +181,29 @@ def _fill_md_feature_stats(md: str, stats: list[dict]) -> str:
                     if inf is not None:
                         cells[4] = f" {inf:.4f}% "
                     line = "|".join(cells)
+                    cur_items.append(
+                        {
+                            "feature": m.group(1),
+                            "formula": cells[2].strip().strip("`").strip(),
+                            "miss_pct": miss,
+                            "inf_pct": inf,
+                        }
+                    )
         out.append(line)
-    return "\n".join(out)
+    flush()
+    return "\n".join(out), groups
 
 
 @lru_cache(maxsize=1)
 def build_model_variables() -> dict:
     meta = get_model_meta()
     stats = get_feature_stats()
+    filled_md, groups = _parse_feature_doc(get_model_variables_doc(), stats)
+    n_scored = sum(len(g["items"]) for g in groups)
     return {
-        "markdown": _fill_md_feature_stats(get_model_variables_doc(), stats),
+        "markdown": filled_md,
+        "groups": groups,
+        "n_grouped_features": n_scored,
         "feature_stats": stats,
         "feature_cols": meta.get("feature_cols", []),
         "n_features": len(meta.get("feature_cols") or []),
