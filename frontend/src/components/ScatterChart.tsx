@@ -1,3 +1,5 @@
+import { useT } from "../i18n";
+
 type Pt = { x: number; y: number; hit: boolean; symbol: string };
 
 type Props = {
@@ -7,8 +9,9 @@ type Props = {
 };
 
 export function ScatterChart({ points, xLabel, yLabel }: Props) {
+  const t = useT();
   if (!points.length) {
-    return <div className="chart-empty">尚無資料</div>;
+    return <div className="chart-empty">{t("尚無資料", "No data")}</div>;
   }
 
   const w = 720;
@@ -70,8 +73,8 @@ export function ScatterChart({ points, xLabel, yLabel }: Props) {
           {xLabel} vs {yLabel}
         </h3>
         <div className="chart-legend">
-          <span className="legend strategy">命中 Top30</span>
-          <span className="legend benchmark">未命中</span>
+          <span className="legend strategy">{t("命中 Top30", "Hit Top30")}</span>
+          <span className="legend benchmark">{t("未命中", "Miss")}</span>
         </div>
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} className="chart-svg" role="img" aria-label="scatter">

@@ -129,6 +129,18 @@ def get_universe_summary() -> dict:
             "（尤其金融/REITs、上市較晚或缺財報科目者）覆蓋不全，這些公司產不出完整列而被排除；"
             "可投資檔數也因此隨時間由早期約 291 檔成長到近期 333 檔。"
         ),
+        "coverage_note_en": (
+            "The universe is the S&P 500 constituent list"
+            + (f" ({n_constituents} names)" if n_constituents else "")
+            + f", but only {n_companies} companies actually make it into the dataset. "
+            "A name is included only if it has a complete point-in-time feature row each quarter: "
+            "it needs a SimFin filing (with publish_date \u2264 quarter-end), \u22654 quarters of history "
+            "to compute TTM/YoY, a quarter-end price, and a definable next-quarter label y_next. "
+            "SimFin's coverage is incomplete for some constituents (especially financials/REITs, "
+            "recent listings, or those missing line items), so those companies cannot produce a "
+            "complete row and are excluded; the investable count therefore grows over time from "
+            "about 291 early on to 333 recently."
+        ),
     }
 
 

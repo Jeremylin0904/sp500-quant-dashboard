@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useT } from "../i18n";
 
 type Point = { month: string; strategy: number; benchmark: number };
 
@@ -19,10 +20,11 @@ export function PerformanceChart({
   drawdowns = [],
   onMarkerClick,
 }: Props) {
+  const t = useT();
   const [hover, setHover] = useState<number | null>(null);
 
   if (!series.length) {
-    return <div className="chart-empty">尚無曲線資料</div>;
+    return <div className="chart-empty">{t("尚無曲線資料", "No series data")}</div>;
   }
 
   const w = 920;
@@ -110,9 +112,9 @@ export function PerformanceChart({
       <div className="chart-head">
         <h3>{title}</h3>
         <div className="chart-legend">
-          <span className="legend strategy">策略 NAV</span>
-          <span className="legend benchmark">{benchmarkLabel}（市值加權）</span>
-          {drawdowns.length > 0 && <span style={{ color: "#dc2626" }}>○ 前5大單日回撤</span>}
+          <span className="legend strategy">{t("策略 NAV", "Strategy NAV")}</span>
+          <span className="legend benchmark">{benchmarkLabel}{t("（市值加權）", " (cap-weighted)")}</span>
+          {drawdowns.length > 0 && <span style={{ color: "#dc2626" }}>{t("○ 前5大單日回撤", "○ Top 5 single-day drawdowns")}</span>}
         </div>
       </div>
       <svg
@@ -147,10 +149,10 @@ export function PerformanceChart({
               strokeDasharray="5 4"
             />
             <text x={x(dividerIndex) - 6} y={padT + 12} textAnchor="end" fontSize={11} fill="#6366f1">
-              樣本內
+              {t("樣本內", "In-sample")}
             </text>
             <text x={x(dividerIndex) + 6} y={padT + 12} textAnchor="start" fontSize={11} fill="#6366f1">
-              樣本外
+              {t("樣本外", "Out-of-sample")}
             </text>
           </g>
         )}
@@ -213,7 +215,7 @@ export function PerformanceChart({
                 {hp.month}
               </text>
               <text x={10} y={40} fontSize={12} fill="#15a34a">
-                策略 {hp.strategy.toFixed(3)}（{((hp.strategy - 1) * 100).toFixed(1)}%）
+                {t("策略", "Strat")} {hp.strategy.toFixed(3)}（{((hp.strategy - 1) * 100).toFixed(1)}%）
               </text>
               <text x={10} y={58} fontSize={12} fill="#b45309">
                 {benchmarkLabel} {hp.benchmark.toFixed(3)}（{((hp.benchmark - 1) * 100).toFixed(1)}%）

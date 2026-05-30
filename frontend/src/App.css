@@ -356,6 +356,7 @@ body {
 }
 
 .nav-item {
+  display: block;
   padding: 10px 12px;
   border-radius: 9px;
   font-size: 13px;
@@ -365,6 +366,8 @@ body {
   text-align: left;
   background: transparent;
   font-family: inherit;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav-item:hover {
@@ -1208,6 +1211,36 @@ tbody tr:hover {
   padding: 4px 0;
 }
 
+/* language toggle */
+.lang-toggle {
+  display: inline-flex;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panel);
+}
+.lang-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+}
+.lang-btn + .lang-btn {
+  border-left: 1px solid var(--panel-border);
+}
+.lang-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+/* On desktop the toggle lives in the sidebar foot; the topbar copy is for mobile. */
+.topbar-lang {
+  display: none;
+}
+
 @media (max-width: 1100px) {
   .shell {
     grid-template-columns: 1fr;
@@ -1217,11 +1250,49 @@ tbody tr:hover {
     grid-template-columns: 140px 1fr 50px;
   }
 
+  /* Turn the sidebar into a sticky top bar so navigation works without a side panel. */
   .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-right: none;
+    border-bottom: 1px solid var(--panel-border);
+    overflow-x: auto;
+  }
+  .brand {
+    flex-shrink: 0;
+  }
+  .nav {
+    flex-direction: row;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .sidebar-foot {
     display: none;
+  }
+  .topbar-lang {
+    display: block;
   }
 
   .holdings-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  /* On phones, hide the brand text to give the tabs more room. */
+  .brand div:last-child {
+    display: none;
+  }
+  .main {
+    padding: 16px 14px 40px;
+  }
+  .topbar h1 {
+    font-size: 20px;
   }
 }

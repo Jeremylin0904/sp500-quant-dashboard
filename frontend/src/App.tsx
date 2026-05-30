@@ -3,6 +3,7 @@ import { PerformanceChart } from "./components/PerformanceChart";
 import { ScatterChart } from "./components/ScatterChart";
 import { MethodologyView } from "./components/MethodologyView";
 import { VariablesView, type ModelVariables } from "./components/VariablesView";
+import { useLang, useT } from "./i18n";
 import "./App.css";
 
 type MonthlyRow = {
@@ -137,6 +138,7 @@ type ModelSummary = {
     n_companies?: number;
     n_sp500_constituents?: number;
     coverage_note?: string;
+    coverage_note_en?: string;
     per_quarter?: Record<string, number>;
   };
   all_quarters?: string[];
@@ -182,6 +184,7 @@ type FactorAnalysis = {
   source?: string;
   regression_spec?: string;
   factor_definitions?: Record<string, string>;
+  factor_definitions_en?: Record<string, string>;
   factor_data_window?: { start?: string; end?: string };
   segments?: Record<string, FactorSeg | null>;
 };
@@ -262,6 +265,7 @@ function Kpi({
 }
 
 function ConfusionMatrix({ title, cm, topN }: { title: string; cm?: Cm; topN: number }) {
+  const t = useT();
   if (!cm || cm.tp === undefined) return null;
   return (
     <div className="cm-block">
@@ -271,18 +275,18 @@ function ConfusionMatrix({ title, cm, topN }: { title: string; cm?: Cm; topN: nu
           <thead>
             <tr>
               <th />
-              <th>預測 非Top{topN}</th>
-              <th>預測 Top{topN}</th>
+              <th>{t(`預測 非Top${topN}`, `Pred non-Top${topN}`)}</th>
+              <th>{t(`預測 Top${topN}`, `Pred Top${topN}`)}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>實際 非Top{topN}</th>
+              <th>{t(`實際 非Top${topN}`, `Actual non-Top${topN}`)}</th>
               <td className="cm-cell cm-tn">{cm.tn}</td>
               <td className="cm-cell cm-fp">{cm.fp}</td>
             </tr>
             <tr>
-              <th>實際 Top{topN}</th>
+              <th>{t(`實際 Top${topN}`, `Actual Top${topN}`)}</th>
               <td className="cm-cell cm-fn">{cm.fn}</td>
               <td className="cm-cell cm-tp">{cm.tp}</td>
             </tr>
@@ -313,10 +317,30 @@ function ConfusionMatrix({ title, cm, topN }: { title: string; cm?: Cm; topN: nu
 
 type Tab = "overview" | "variables" | "method" | "holdings" | "factor";
 
+const TABS: Tab[] = ["overview", "variables", "method", "holdings", "factor"];
+
+function readTabFromHash(): Tab {
+  const h = window.location.hash.replace(/^#\/?/, "").trim();
+  return (TABS as string[]).includes(h) ? (h as Tab) : "overview";
+}
+
 export default function App() {
+  const { lang, setLang, t } = useLang();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [tab, setTab] = useState<Tab>("overview");
+  const [tab, setTab] = useState<Tab>(readTabFromHash);
+
+  // Each tab gets its own URL via the hash (e.g. #/factor) so it is shareable and
+  // works on mobile without the sidebar. Keep state in sync with back/forward nav.
+  useEffect(() => {
+    const onHash = () => setTab(readTabFromHash());
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+  const goTab = (next: Tab) => {
+    if (window.location.hash !== `#/${next}`) window.location.hash = `#/${next}`;
+    setTab(next);
+  };
 
   const [signalQuarters, setSignalQuarters] = useState<string[]>([]);
   const [selectedSignalQ, setSelectedSignalQ] = useState("");
@@ -461,14 +485,14 @@ export default function App() {
   if (loading) {
     return (
       <div className="shell">
-        <div className="loader">載入投組資料中…</div>
+        <div className="loader">{t("載入投組資料中…", "Loading portfolio data…")}</div>
       </div>
     );
   }
   if (error) {
     return (
       <div className="shell">
-        <div className="error-box">載入失敗：{error}</div>
+        <div className="error-box">{t("載入失敗：", "Failed to load: ")}{error}</div>
       </div>
     );
   }
@@ -496,19 +520,38 @@ export default function App() {
   const univMax = evalUnivCounts.length ? Math.max(...evalUnivCounts) : undefined;
 
   const navItems: Array<{ id: Tab; label: string }> = [
-    { id: "overview", label: "績效總覽" },
-    { id: "variables", label: "模型變數" },
-    { id: "method", label: "驗證方法" },
-    { id: "holdings", label: "持股對照" },
-    { id: "factor", label: "因子分析" },
+    { id: "overview", label: t("績效總覽", "Performance") },
+    { id: "variables", label: t("模型變數", "Variables") },
+    { id: "method", label: t("驗證方法", "Methodology") },
+    { id: "holdings", label: t("持股對照", "Holdings") },
+    { id: "factor", label: t("因子分析", "Factor analysis") },
   ];
   const tabTitle: Record<Tab, string> = {
-    overview: "績效總覽",
-    variables: "模型變數",
-    method: "驗證方法",
-    holdings: "持股對照",
-    factor: "因子分析",
+    overview: t("績效總覽", "Performance"),
+    variables: t("模型變數", "Model variables"),
+    method: t("驗證方法", "Validation methodology"),
+    holdings: t("持股對照", "Holdings"),
+    factor: t("因子分析", "Factor analysis"),
   };
+
+  const langToggle = (
+    <div className="lang-toggle" role="group" aria-label="language">
+      <button
+        type="button"
+        className={`lang-btn ${lang === "en" ? "active" : ""}`}
+        onClick={() => setLang("en")}
+      >
+        EN
+      </button>
+      <button
+        type="button"
+        className={`lang-btn ${lang === "zh" ? "active" : ""}`}
+        onClick={() => setLang("zh")}
+      >
+        中文
+      </button>
+    </div>
+  );
 
   return (
     <div className="shell">
@@ -518,32 +561,39 @@ export default function App() {
           <div>
             <div className="brand-title">Quant Dashboard</div>
             <div className="brand-sub">
-              Top{topN} · {bench} · 月度調倉
+              Top{topN} · {bench} · {t("月度調倉", "monthly rebalance")}
             </div>
           </div>
         </div>
         <nav className="nav">
           {navItems.map((n) => (
-            <button
+            <a
               key={n.id}
-              type="button"
+              href={`#/${n.id}`}
               className={`nav-item ${tab === n.id ? "active" : ""}`}
-              onClick={() => setTab(n.id)}
+              onClick={(e) => {
+                e.preventDefault();
+                goTab(n.id);
+              }}
             >
               {n.label}
-            </button>
+            </a>
           ))}
         </nav>
         <div className="sidebar-foot">
-          <div className="label">模型</div>
+          {langToggle}
+          <div className="label" style={{ marginTop: 12 }}>{t("模型", "Model")}</div>
           <div className="small">{model?.best_estimator ?? "—"}</div>
           <div className="small">
-            pool #{pool?.selected_pool_rank ?? "—"} · 權重 {pool?.weight_spec_label ?? "—"}
+            pool #{pool?.selected_pool_rank ?? "—"} · {t("權重", "weights")}{" "}
+            {pool?.weight_spec_label ?? "—"}
           </div>
           <div className="label" style={{ marginTop: 12 }}>
-            調倉
+            {t("調倉", "Rebalance")}
           </div>
-          <div className="small">季頻選股訊號 · 每月重設回目標權重</div>
+          <div className="small">
+            {t("季頻選股訊號 · 每月重設回目標權重", "Quarterly stock signal · monthly reset to target weights")}
+          </div>
         </div>
       </aside>
 
@@ -552,18 +602,20 @@ export default function App() {
         <div>
             <h1>{tabTitle[tab]}</h1>
             <p>
-              Hyperparam pool top-{pool?.top_k ?? 5} · Top{topN} by score · 權重{" "}
-              {pool?.weight_spec_label ?? "—"} · 基準 <strong>{bench}</strong>
+              Hyperparam pool top-{pool?.top_k ?? 5} · Top{topN} by score ·{" "}
+              {t("權重", "weights")} {pool?.weight_spec_label ?? "—"} ·{" "}
+              {t("基準", "benchmark")} <strong>{bench}</strong>
             </p>
           </div>
+          <div className="topbar-lang">{langToggle}</div>
           {tab === "holdings" && (
             <div className="topbar-actions dual">
               <div>
-                <label className="label">信號季（命中對照）</label>
+                <label className="label">{t("信號季（命中對照）", "Signal quarter (hit check)")}</label>
                 <select value={selectedSignalQ} onChange={(e) => setSelectedSignalQ(e.target.value)}>
                   {signalQuarters.map((q) => (
                     <option key={q} value={q}>
-                      {q} → 下季
+                      {q} → {t("下季", "next Q")}
                     </option>
                   ))}
                 </select>
@@ -576,91 +628,104 @@ export default function App() {
           <>
             <section className="panel">
               <div className="panel-head">
-                <h2>資料期間</h2>
-                <p className="muted">月度調倉、季頻選股訊號；下列為各評估區段的實際回測期間</p>
+                <h2>{t("資料期間", "Data period")}</h2>
+                <p className="muted">
+                  {t(
+                    "月度調倉、季頻選股訊號；下列為各評估區段的實際回測期間",
+                    "Monthly rebalance, quarterly stock signal. Below are the actual backtest periods per segment."
+                  )}
+                </p>
               </div>
               <div className="factor-alpha" style={{ marginTop: 12 }}>
                 <div className="alpha-card">
-                  <div className="seg-name">CV OOF（樣本內選型）</div>
+                  <div className="seg-name">{t("CV OOF（樣本內選型）", "CV OOF (in-sample selection)")}</div>
                   <div className="alpha-v" style={{ color: "var(--accent)", fontSize: 18 }}>
-                    {isPeriod ? `${isPeriod.nMonths} 個月 · ${isPeriod.nQ} 季` : "—"}
+                    {isPeriod ? `${isPeriod.nMonths} ${t("個月", "mo")} · ${isPeriod.nQ} ${t("季", "Q")}` : "—"}
                   </div>
                   <div className="alpha-meta">
                     {isPeriod
-                      ? `月度 ${isPeriod.mStart} ~ ${isPeriod.mEnd}　|　信號季 ${isPeriod.qStart} ~ ${isPeriod.qEnd}`
+                      ? `${t("月度", "Months")} ${isPeriod.mStart} ~ ${isPeriod.mEnd}　|　${t("信號季", "Signal Q")} ${isPeriod.qStart} ~ ${isPeriod.qEnd}`
                       : "—"}
                   </div>
                 </div>
                 <div className="alpha-card">
-                  <div className="seg-name">Final OOS（樣本外）</div>
+                  <div className="seg-name">{t("Final OOS（樣本外）", "Final OOS (out-of-sample)")}</div>
                   <div className="alpha-v" style={{ color: "var(--accent)", fontSize: 18 }}>
-                    {oosPeriod ? `${oosPeriod.nMonths} 個月 · ${oosPeriod.nQ} 季` : "—"}
+                    {oosPeriod ? `${oosPeriod.nMonths} ${t("個月", "mo")} · ${oosPeriod.nQ} ${t("季", "Q")}` : "—"}
                   </div>
                   <div className="alpha-meta">
                     {oosPeriod
-                      ? `月度 ${oosPeriod.mStart} ~ ${oosPeriod.mEnd}　|　信號季 ${oosPeriod.qStart} ~ ${oosPeriod.qEnd}`
+                      ? `${t("月度", "Months")} ${oosPeriod.mStart} ~ ${oosPeriod.mEnd}　|　${t("信號季", "Signal Q")} ${oosPeriod.qStart} ~ ${oosPeriod.qEnd}`
                       : "—"}
                   </div>
                 </div>
                 <div className="alpha-card">
-                  <div className="seg-name">股票池</div>
+                  <div className="seg-name">{t("股票池", "Universe")}</div>
                   <div className="alpha-v" style={{ color: "var(--accent)", fontSize: 18 }}>
                     {universe?.n_sp500_constituents
-                      ? `${universe.n_sp500_constituents} → ${universe?.n_companies ?? "—"} 家`
+                      ? `${universe.n_sp500_constituents} → ${universe?.n_companies ?? "—"} ${t("家", "cos")}`
                       : universe?.n_companies
-                        ? `${universe.n_companies} 家公司`
+                        ? `${universe.n_companies} ${t("家公司", "companies")}`
                         : "—"}
                   </div>
                   <div className="alpha-meta">
                     {universe?.n_sp500_constituents
-                      ? `S&P 500 名單 ${universe.n_sp500_constituents} 檔 → 實際可投資 ${universe?.n_companies} 家`
+                      ? t(
+                          `S&P 500 名單 ${universe.n_sp500_constituents} 檔 → 實際可投資 ${universe?.n_companies} 家`,
+                          `S&P 500 list ${universe.n_sp500_constituents} → ${universe?.n_companies} investable`
+                        )
                       : ""}
                     {univMin && univMax
-                      ? `${universe?.n_sp500_constituents ? "・" : ""}各評估季候選 ${univMin}~${univMax} 檔 · 選 Top${topN}`
-                      : ` · 模型選 Top${topN}`}
+                      ? t(
+                          `${universe?.n_sp500_constituents ? "・" : ""}各評估季候選 ${univMin}~${univMax} 檔 · 選 Top${topN}`,
+                          `${universe?.n_sp500_constituents ? " · " : ""}${univMin}~${univMax} candidates per eval quarter · pick Top${topN}`
+                        )
+                      : t(` · 模型選 Top${topN}`, ` · model picks Top${topN}`)}
                   </div>
                 </div>
               </div>
               {universe?.coverage_note && (
                 <div className="note-box" style={{ marginTop: 12 }}>
                   <strong>
-                    為什麼是 {universe?.n_companies} 家、而不是 S&P 500 的{" "}
-                    {universe?.n_sp500_constituents ?? 500} 家？
+                    {t(
+                      `為什麼是 ${universe?.n_companies} 家、而不是 S&P 500 的 ${universe?.n_sp500_constituents ?? 500} 家？`,
+                      `Why ${universe?.n_companies} companies and not all ${universe?.n_sp500_constituents ?? 500} in the S&P 500?`
+                    )}
                   </strong>
                   <br />
-                  {universe.coverage_note}
+                  {t(universe.coverage_note, universe.coverage_note_en || universe.coverage_note)}
                 </div>
               )}
             </section>
 
-            <div className="section-title">CV OOF（樣本內選型）</div>
+            <div className="section-title">{t("CV OOF（樣本內選型）", "CV OOF (in-sample selection)")}</div>
             <section className="kpi-grid">
-              <Kpi label="年化報酬" value={pct(is.annualized_strategy as number)} tone="pos"
+              <Kpi label={t("年化報酬", "Annualized return")} value={pct(is.annualized_strategy as number)} tone="pos"
                 sub={`${bench} ${pct(is.annualized_benchmark as number)}`} />
-              <Kpi label="年化超額" value={pct(is.annualized_excess as number)} tone="pos" />
-              <Kpi label="Sharpe（策略）" value={num(is.ann_sharpe_strategy as number, 2)}
-                sub={`超額 ${num(is.ann_sharpe_excess as number, 2)} · ${bench} ${num(is.ann_sharpe_benchmark as number, 2)}`} />
-              <Kpi label="最大單日回撤" value={pct(is.max_drawdown as number)} tone="neg"
+              <Kpi label={t("年化超額", "Annualized excess")} value={pct(is.annualized_excess as number)} tone="pos" />
+              <Kpi label={t("Sharpe（策略）", "Sharpe (strategy)")} value={num(is.ann_sharpe_strategy as number, 2)}
+                sub={`${t("超額", "excess")} ${num(is.ann_sharpe_excess as number, 2)} · ${bench} ${num(is.ann_sharpe_benchmark as number, 2)}`} />
+              <Kpi label={t("最大單日回撤", "Worst single day")} value={pct(is.max_drawdown as number)} tone="neg"
                 sub={
                   is.max_drawdown_date
-                    ? `${is.max_drawdown_date} · 峰谷 ${pct(is.max_drawdown_peak_to_trough as number)}`
+                    ? `${is.max_drawdown_date} · ${t("峰谷", "peak-trough")} ${pct(is.max_drawdown_peak_to_trough as number)}`
                     : undefined
                 } />
             </section>
 
-            <div className="section-title">Final OOS（樣本外）</div>
+            <div className="section-title">{t("Final OOS（樣本外）", "Final OOS (out-of-sample)")}</div>
             <section className="kpi-grid">
-              <Kpi label="年化報酬" value={pct(oos.annualized_strategy as number)}
+              <Kpi label={t("年化報酬", "Annualized return")} value={pct(oos.annualized_strategy as number)}
                 tone={(oos.annualized_strategy as number) >= 0 ? "pos" : "neg"}
                 sub={`${bench} ${pct(oos.annualized_benchmark as number)}`} />
-              <Kpi label="年化超額" value={pct(oos.annualized_excess as number)}
+              <Kpi label={t("年化超額", "Annualized excess")} value={pct(oos.annualized_excess as number)}
                 tone={(oos.annualized_excess as number) >= 0 ? "pos" : "neg"} />
-              <Kpi label="Sharpe（策略）" value={num(oos.ann_sharpe_strategy as number, 2)}
-                sub={`超額 ${num(oos.ann_sharpe_excess as number, 2)} · ${bench} ${num(oos.ann_sharpe_benchmark as number, 2)}`} />
-              <Kpi label="最大單日回撤" value={pct(oos.max_drawdown as number)} tone="neg"
+              <Kpi label={t("Sharpe（策略）", "Sharpe (strategy)")} value={num(oos.ann_sharpe_strategy as number, 2)}
+                sub={`${t("超額", "excess")} ${num(oos.ann_sharpe_excess as number, 2)} · ${bench} ${num(oos.ann_sharpe_benchmark as number, 2)}`} />
+              <Kpi label={t("最大單日回撤", "Worst single day")} value={pct(oos.max_drawdown as number)} tone="neg"
                 sub={
                   oos.max_drawdown_date
-                    ? `${oos.max_drawdown_date} · 峰谷 ${pct(oos.max_drawdown_peak_to_trough as number)}`
+                    ? `${oos.max_drawdown_date} · ${t("峰谷", "peak-trough")} ${pct(oos.max_drawdown_peak_to_trough as number)}`
                     : undefined
                 } />
             </section>
@@ -675,7 +740,7 @@ export default function App() {
                       className={chartMode === m ? "seg-btn active" : "seg-btn"}
                       onClick={() => setChartMode(m)}
                     >
-                      {m === "both" ? "合併" : m === "oos" ? "Final OOS" : "CV OOF"}
+                      {m === "both" ? t("合併", "Merged") : m === "oos" ? "Final OOS" : "CV OOF"}
                     </button>
                   ))}
                 </div>
@@ -683,10 +748,10 @@ export default function App() {
               <PerformanceChart
                 title={
                   chartMode === "oos"
-                    ? "累積 NAV — Final OOS"
+                    ? t("累積 NAV — Final OOS", "Cumulative NAV — Final OOS")
                     : chartMode === "is"
-                      ? "累積 NAV — CV OOF"
-                      : "累積 NAV — CV OOF + Final OOS"
+                      ? t("累積 NAV — CV OOF", "Cumulative NAV — CV OOF")
+                      : t("累積 NAV — CV OOF + Final OOS", "Cumulative NAV — CV OOF + Final OOS")
                 }
                 series={chartSeries}
                 benchmarkLabel={bench}
@@ -695,19 +760,24 @@ export default function App() {
                 onMarkerClick={(d) => setSelectedDD(d)}
               />
               <p className="muted" style={{ marginTop: 8 }}>
-                y 軸為 NAV（累積淨值）：期初投入 1 元的成長倍數，起點＝1.0；此為
-                <strong>每日</strong>複利曲線
-                <code style={{ margin: "0 4px" }}>NAV × (1 + 當日報酬)</code>。
-                例：1.41＝累積 +41%、0.95＝−5%。黃虛線為 {bench} 同口徑 NAV。滑鼠移到線上可看當日數值。
+                {t(
+                  `y 軸為 NAV（累積淨值）：期初投入 1 元的成長倍數，起點＝1.0；此為每日複利曲線 NAV × (1 + 當日報酬)。例：1.41＝累積 +41%、0.95＝−5%。黃虛線為 ${bench} 同口徑 NAV，每月底對齊月報酬。滑鼠移到線上可看當日數值。`,
+                  `The y-axis is NAV (cumulative net value): the growth multiple of 1 unit invested at the start, base = 1.0; a daily compounded curve NAV × (1 + daily return). E.g. 1.41 = +41% cumulative, 0.95 = −5%. The dashed yellow line is ${bench} on the same basis, reconciled to monthly returns at each month-end. Hover to see daily values.`
+                )}
               </p>
               {chartDrawdowns.length > 0 && (
                 <div style={{ marginTop: 12 }}>
                   <div className="section-title" style={{ margin: "0 0 8px" }}>
-                    前五大單日回撤・對應事件與當日個股表現（點擊紅圈或下列項目展開）
+                    {t(
+                      "前五大單日回撤・對應事件與當日個股表現（點擊紅圈或下列項目展開）",
+                      "Top 5 single-day drawdowns — events & per-stock detail (click a red circle or a row to expand)"
+                    )}
                   </div>
                   <p className="muted" style={{ margin: "0 0 8px" }}>
-                    投組為 Top30 但集中在相關性高的高 beta 成長/AI/電力股，故特定總經或題材利空日會整體同跌；
-                    下表為當日各持股的權重、當日報酬與對投組的貢獻（權重×報酬），由跌幅貢獻最大排到最小。
+                    {t(
+                      "投組為 Top30 但集中在相關性高的高 beta 成長/AI/電力股，故特定總經或題材利空日會整體同跌；下表為當日各持股的權重、當日報酬與對投組的貢獻（權重×報酬），由跌幅貢獻最大排到最小。",
+                      "The portfolio holds Top30 but is concentrated in highly correlated high-beta growth/AI/power names, so on certain macro or thematic down days they fall together. The table shows each holding's weight, daily return and contribution (weight × return) that day, sorted from the largest loss contributor."
+                    )}
                   </p>
                   <div className="dd-list">
                     {chartDrawdowns.map((d) => {
@@ -725,7 +795,7 @@ export default function App() {
                           <div className="dd-row">
                             <span className="dd-date">{date}</span>
                             <span className="num-neg dd-pct">{pct(d.depth)}</span>
-                            <span className="dd-event">{n?.event ?? "（無對應新聞註記）"}</span>
+                            <span className="dd-event">{n?.event ?? t("（無對應新聞註記）", "(no news note)")}</span>
                           </div>
                           {active && (
                             <div className="dd-detail">
@@ -736,7 +806,7 @@ export default function App() {
                                     <>
                                       {" "}
                                       <a href={n.url} target="_blank" rel="noreferrer">
-                                        新聞來源{n.source ? `（${n.source}）` : ""} ↗
+                                        {t("新聞來源", "Source")}{n.source ? `（${n.source}）` : ""} ↗
                                       </a>
                                     </>
                                   )}
@@ -745,15 +815,18 @@ export default function App() {
                               {bd ? (
                                 <div className="dd-stocks-wrap">
                                   <div className="dd-stocks-head">
-                                    當日投組 {pct(bd.portfolio_return)}・持有 {bd.n_held} 檔
+                                    {t(
+                                      `當日投組 ${pct(bd.portfolio_return)}・持有 ${bd.n_held} 檔`,
+                                      `Portfolio ${pct(bd.portfolio_return)} · ${bd.n_held} holdings`
+                                    )}
                                   </div>
                                   <table className="dd-stocks">
                                     <thead>
                                       <tr>
-                                        <th>股票</th>
-                                        <th>當日權重</th>
-                                        <th>當日報酬</th>
-                                        <th>貢獻</th>
+                                        <th>{t("股票", "Stock")}</th>
+                                        <th>{t("當日權重", "Weight")}</th>
+                                        <th>{t("當日報酬", "Day ret")}</th>
+                                        <th>{t("貢獻", "Contrib")}</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -773,7 +846,7 @@ export default function App() {
                                   </table>
                                 </div>
                               ) : (
-                                <p className="muted" style={{ margin: 0 }}>（當日個股明細無資料）</p>
+                                <p className="muted" style={{ margin: 0 }}>{t("（當日個股明細無資料）", "(no per-stock detail)")}</p>
                               )}
                             </div>
                           )}
@@ -787,7 +860,12 @@ export default function App() {
 
             <section className="panel">
               <div className="panel-head">
-                <h2>Top{topN} 命中 Confusion Matrix（每季分數 Top{topN} vs 實際超額 Top{topN}）</h2>
+                <h2>
+                  {t(
+                    `Top${topN} 命中 Confusion Matrix（每季分數 Top${topN} vs 實際超額 Top${topN}）`,
+                    `Top${topN} hit confusion matrix (quarterly score Top${topN} vs actual excess Top${topN})`
+                  )}
+                </h2>
               </div>
               <div className="cm-grid" style={{ marginTop: 12 }}>
                 <ConfusionMatrix title="CV OOF" cm={cvEv?.confusion_matrix} topN={topN} />
@@ -811,17 +889,17 @@ export default function App() {
                 </div>
               </div>
               <div className="panel-head">
-                <h2>月度報酬（{monthlyView === "oos" ? "Final OOS" : "CV OOF"}）</h2>
+                <h2>{t("月度報酬", "Monthly returns")}（{monthlyView === "oos" ? "Final OOS" : "CV OOF"}）</h2>
               </div>
               <div className="table-wrap">
                 <table>
                   <thead>
                     <tr>
-                      <th>月份</th>
-                      <th>策略</th>
+                      <th>{t("月份", "Month")}</th>
+                      <th>{t("策略", "Strategy")}</th>
                       <th>{bench}</th>
-                      <th>超額</th>
-                      <th>組合波動</th>
+                      <th>{t("超額", "Excess")}</th>
+                      <th>{t("組合波動", "Portfolio vol")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -844,7 +922,10 @@ export default function App() {
             </section>
 
             <p className="muted" style={{ marginTop: -4 }}>
-              模型選型方法（超參池 × 權重的 CV OOF 選擇、walk-forward 流程圖）請見「驗證方法」分頁。
+              {t(
+                "模型選型方法（超參池 × 權重的 CV OOF 選擇、walk-forward 流程圖）請見「驗證方法」分頁。",
+                "For model selection (hyperparam pool × weight scheme chosen by CV OOF, walk-forward diagram) see the Methodology tab."
+              )}
             </p>
           </>
         )}
@@ -855,8 +936,8 @@ export default function App() {
         {tab === "holdings" && (
           <>
             <section className="kpi-grid">
-              <Kpi label={`${selectedSignalQ}→${realizedQ} 命中`} value={`${hitCount} / ${selected.length}`}
-                sub={`季頻 Top${topN}（對齊 y_next）${pct(hitRate, 1)}`}
+              <Kpi label={t(`${selectedSignalQ}→${realizedQ} 命中`, `${selectedSignalQ}→${realizedQ} hits`)} value={`${hitCount} / ${selected.length}`}
+                sub={t(`季頻 Top${topN}（對齊 y_next）${pct(hitRate, 1)}`, `Quarterly Top${topN} (aligned to y_next) ${pct(hitRate, 1)}`)}
                 tone={hitRate >= 0.3 ? "pos" : "neutral"} />
               <Kpi label="CV OOF Spearman" value={num(cvEv?.spearman_mean, 3)} />
               <Kpi label="Final OOS Spearman" value={num(oosEv?.spearman_mean, 3)} />
@@ -865,43 +946,50 @@ export default function App() {
 
             <section className="panel">
               <div className="panel-head">
-                <h2>預測分數 vs 真實季超額（信號 {selectedSignalQ} → 實現 {realizedQ}）</h2>
+                <h2>{t(
+                  `預測分數 vs 真實季超額（信號 ${selectedSignalQ} → 實現 ${realizedQ}）`,
+                  `Predicted score vs realized quarterly excess (signal ${selectedSignalQ} → realized ${realizedQ})`
+                )}</h2>
                 <p className="muted">
-                  每點為一檔選股：x = 模型分數 P(Top{topN})，y = 下一季實際超額報酬；綠=實際進 Top{topN}
+                  {t(
+                    `每點為一檔選股：x = 模型分數 P(Top${topN})，y = 下一季實際超額報酬；綠=實際進 Top${topN}`,
+                    `Each dot is a pick: x = model score P(Top${topN}), y = next-quarter realized excess; green = actually in Top${topN}`
+                  )}
                 </p>
               </div>
-              <ScatterChart points={scatterPoints} xLabel="預測分數" yLabel="真實季超額" />
+              <ScatterChart points={scatterPoints} xLabel={t("預測分數", "Predicted score")} yLabel={t("真實季超額", "Realized excess")} />
             </section>
 
             <section className="panel">
               <div className="panel-head split">
                 <div>
                   <h2>
-                    持股對照 · 信號 <code>{selectedSignalQ}</code> → 實現 <code>{realizedQ}</code>
+                    {t("持股對照 · 信號", "Holdings · signal")} <code>{selectedSignalQ}</code> → {t("實現", "realized")} <code>{realizedQ}</code>
                   </h2>
                   <p className="muted">
-                    左：信號季末選 <strong>Top{topN}</strong>（預測權重 / 分數 / 真實季報酬）｜右：
-                    <strong>下一季</strong>實際超額 Top{topN}（對齊 <code>y_next</code>）
+                    {t("左：信號季末選", "Left: at signal quarter-end pick")} <strong>Top{topN}</strong>
+                    {t("（預測權重 / 分數 / 真實季報酬）｜右：", " (weight / score / realized quarterly return) | Right: ")}
+                    <strong>{t("下一季", "next quarter")}</strong>{t("實際超額 Top", " actual excess Top")}{topN}（{t("對齊", "aligned to")} <code>y_next</code>）
                   </p>
                 </div>
                 <div className="hit-badge">
-                  命中 <strong>{hitCount}</strong> / {selected.length}
+                  {t("命中", "Hits")} <strong>{hitCount}</strong> / {selected.length}
                 </div>
               </div>
 
               <div className="holdings-grid">
                 <div className="table-wrap">
-                  <h3>模型選股 Top{topN}</h3>
+                  <h3>{t("模型選股 Top", "Model picks Top")}{topN}</h3>
                   <table>
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>代碼</th>
-                        <th>權重</th>
+                        <th>{t("代碼", "Symbol")}</th>
+                        <th>{t("權重", "Weight")}</th>
                         <th>P(Top{topN})</th>
-                        <th>真實季報酬</th>
-                        <th>真實超額</th>
-                        <th>命中</th>
+                        <th>{t("真實季報酬", "Q return")}</th>
+                        <th>{t("真實超額", "Excess")}</th>
+                        <th>{t("命中", "Hit")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -934,15 +1022,15 @@ export default function App() {
                 </div>
 
                 <div className="table-wrap">
-                  <h3>實際超額 Top{topN}（{realizedQ} 季）</h3>
+                  <h3>{t(`實際超額 Top${topN}（${realizedQ} 季）`, `Actual excess Top${topN} (${realizedQ})`)}</h3>
                   <table>
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>代碼</th>
-                        <th>超額</th>
-                        <th>季報酬</th>
-                        <th>入選模型?</th>
+                        <th>{t("代碼", "Symbol")}</th>
+                        <th>{t("超額", "Excess")}</th>
+                        <th>{t("季報酬", "Q return")}</th>
+                        <th>{t("入選模型?", "Picked?")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -958,7 +1046,7 @@ export default function App() {
                             <td>{pct(a.return)}</td>
                             <td>
                               {picked ? (
-                                <span className="pill hit">已選</span>
+                                <span className="pill hit">{t("已選", "Picked")}</span>
                               ) : (
                                 <span className="pill miss">—</span>
                               )}
@@ -981,17 +1069,18 @@ export default function App() {
 }
 
 function FactorView({ factor }: { factor: FactorAnalysis | null }) {
+  const t = useT();
   if (!factor || !factor.segments) {
     return (
       <section className="panel">
-        <p className="muted">尚無因子分析資料，請先執行 scripts/factor_analysis.py。</p>
+        <p className="muted">{t("尚無因子分析資料，請先執行 scripts/factor_analysis.py。", "No factor analysis data yet; run scripts/factor_analysis.py first.")}</p>
       </section>
     );
   }
   const order: Array<{ key: string; label: string }> = [
-    { key: "cv_oof", label: "CV OOF（樣本內）" },
-    { key: "final_oos", label: "Final OOS（樣本外）" },
-    { key: "all", label: "全期間" },
+    { key: "cv_oof", label: t("CV OOF（樣本內）", "CV OOF (in-sample)") },
+    { key: "final_oos", label: t("Final OOS（樣本外）", "Final OOS (out-of-sample)") },
+    { key: "all", label: t("全期間", "Full period") },
   ];
   const segs = factor.segments;
   const maxBeta = Math.max(
@@ -1005,7 +1094,7 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
         <div className="panel-head">
           <h2>{factor.model}</h2>
           <p className="muted">
-            {factor.source} · 因子區間 {factor.factor_data_window?.start} ~{" "}
+            {factor.source} · {t("因子區間", "factor window")} {factor.factor_data_window?.start} ~{" "}
             {factor.factor_data_window?.end}
           </p>
         </div>
@@ -1017,7 +1106,7 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
             return (
               <div className="alpha-card" key={key}>
                 <div className="seg-name">
-                  {label}（{s.n_months} 個月
+                  {label}（{s.n_months} {t("個月", "mo")}
                   {s.months && s.months.length
                     ? `：${s.months[0]} ~ ${s.months[s.months.length - 1]}`
                     : ""}
@@ -1026,11 +1115,11 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
                 <div className="alpha-v">
                   {pct(s.alpha_annualized_compound)}
                   <span className={`sig-badge ${sig ? "sig-yes" : "sig-no"}`}>
-                    {sig ? "顯著 95%" : "不顯著"}
+                    {sig ? t("顯著 95%", "sig. 95%") : t("不顯著", "not sig.")}
                   </span>
                 </div>
                 <div className="alpha-meta">
-                  年化(複利) · 月 alpha {pct(s.alpha_monthly)} · t={num(s.alpha_t_stat, 2)} · p=
+                  {t("年化(複利)", "annualized")} · {t("月 alpha", "monthly α")} {pct(s.alpha_monthly)} · t={num(s.alpha_t_stat, 2)} · p=
                   {num(s.alpha_p_value, 3)}
                   <br />
                   R² {num(s.r_squared, 2)} · adj {num(s.adj_r_squared, 2)}
@@ -1040,13 +1129,17 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
           })}
         </div>
         <div className="note-box">
-          回歸式：<code>{factor.regression_spec}</code>。Alpha 為扣除六因子曝險後的超額報酬（截距），
-          年化以複利 <code>(1+月α)^12−1</code> 表示。
+          {t("回歸式：", "Regression: ")}<code>{factor.regression_spec}</code>
+          {t(
+            "。Alpha 為扣除六因子曝險後的超額報酬（截距），年化以複利 (1+月α)^12−1 表示。",
+            ". Alpha is the excess return after the six factor exposures (the intercept); annualized as (1+monthly α)^12−1."
+          )}
           <br />
-          <strong>解讀注意</strong>：CV / OOS 單區段各只有 11–12 個月，卻要估 7 個參數（截距+6 因子），
-          殘差自由度僅 4–5，標準誤大、估計不穩——故單區段 alpha 雖然數字大，<strong>t 值多半
-          &lt; 1.96（不顯著）</strong>，僅合併全期間（23 個月）較接近顯著。請以「方向與因子曝險結構」
-          為主，alpha 絕對值僅供參考。
+          <strong>{t("解讀注意", "Caveat")}</strong>{t("：", ": ")}
+          {t(
+            "CV / OOS 單區段各只有 11–12 個月，卻要估 7 個參數（截距+6 因子），殘差自由度僅 4–5，標準誤大、估計不穩——故單區段 alpha 雖然數字大，t 值多半 < 1.96（不顯著），僅合併全期間（23 個月）較接近顯著。請以「方向與因子曝險結構」為主，alpha 絕對值僅供參考。",
+            "each of CV / OOS has only 11–12 months but estimates 7 parameters (intercept + 6 factors), leaving 4–5 residual d.o.f., so standard errors are large and estimates unstable. The per-segment alpha is large in level but mostly has t < 1.96 (not significant); only the merged full period (23 months) is close to significant. Read the direction and factor-exposure structure, and treat the alpha level as indicative only."
+          )}
         </div>
       </section>
 
@@ -1056,17 +1149,17 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
         return (
           <section className="panel" key={key}>
             <div className="panel-head">
-              <h2>因子曝險 — {label}</h2>
+              <h2>{t("因子曝險 —", "Factor exposures —")} {label}</h2>
             </div>
             <div className="table-wrap" style={{ marginTop: 8 }}>
               <table>
                 <thead>
                   <tr>
-                    <th>因子</th>
+                    <th>{t("因子", "Factor")}</th>
                     <th>beta</th>
-                    <th>曝險方向</th>
-                    <th>t 值</th>
-                    <th>p 值</th>
+                    <th>{t("曝險方向", "Direction")}</th>
+                    <th>{t("t 值", "t-stat")}</th>
+                    <th>{t("p 值", "p-value")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1100,30 +1193,31 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
 
       <section className="panel">
         <div className="panel-head">
-          <h2>因子定義與來源</h2>
+          <h2>{t("因子定義與來源", "Factor definitions & source")}</h2>
         </div>
         <div className="table-wrap" style={{ marginTop: 8 }}>
           <table>
             <thead>
               <tr>
-                <th>因子</th>
-                <th>定義</th>
+                <th>{t("因子", "Factor")}</th>
+                <th>{t("定義", "Definition")}</th>
               </tr>
             </thead>
             <tbody>
               {Object.entries(factor.factor_definitions ?? {}).map(([k, v]) => (
                 <tr key={k}>
                   <td className="sym">{k}</td>
-                  <td>{v}</td>
+                  <td>{t(v, factor.factor_definitions_en?.[k] || v)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <div className="note-box" style={{ marginTop: 12 }}>
-          五因子取自 Ken French <code>F-F_Research_Data_5_Factors_2x3</code>（市場、規模 SMB、價值 HML、
-          獲利能力 RMW、投資 CMA、無風險 RF）；動量 <code>Mom</code> 取自 <code>F-F_Momentum_Factor</code>。
-          皆為官方月頻百分比資料，下載後轉為小數並與策略月報酬對齊回歸。
+          {t(
+            "五因子取自 Ken French F-F_Research_Data_5_Factors_2x3（市場、規模 SMB、價值 HML、獲利能力 RMW、投資 CMA、無風險 RF）；動量 Mom 取自 F-F_Momentum_Factor。皆為官方月頻百分比資料，下載後轉為小數並與策略月報酬對齊回歸。",
+            "The five factors come from Ken French F-F_Research_Data_5_Factors_2x3 (market, size SMB, value HML, profitability RMW, investment CMA, risk-free RF); momentum Mom comes from F-F_Momentum_Factor. All are official monthly percentage series, converted to decimals and regressed against the strategy's monthly returns."
+          )}
         </div>
       </section>
     </>

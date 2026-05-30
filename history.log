@@ -448,3 +448,17 @@ Core logic:
 - 驗證：每日累積 == 月報酬累積(CV 50.17%/20.95%、OOS 57.31%/15.27%)，完全 reconcile。
 - 不動任何頭條數字(年化/Sharpe/超額/因子分析皆用月報酬)；只修正圖表與每日回撤呈現。
 - 補 2023-10-26 / 2024-02-16 兩筆 CV 回撤新聞；前端表頭改「當日權重」。build+gh-pages 部署。
+
+[v4.37] 雙語(英文預設)+語言切換鈕+每分頁獨立 URL+手機可用導覽 - 2026-05-31
+- 新增 src/i18n.tsx：LangProvider/useLang/useT，t(zh,en) 取字串，預設 en；
+  語言存 localStorage + 同步 ?lang= query；main.tsx 以 LangProvider 包住 App。
+- 語言切換鈕(EN/中文)：桌機在 sidebar 底、手機在 topbar 右上(CSS .topbar-lang 控制顯示)。
+- 路由：tab 改 hash 路由(#/overview…#/factor)，readTabFromHash + hashchange 監聽，
+  nav 改 <a href="#/..."> 可分享/重新整理/瀏覽器上一頁；每分頁有獨立 URL。
+- RWD：原本 @media 直接 display:none 隱藏 sidebar(手機沒導覽)，改成手機把 sidebar 變成
+  sticky 頂部橫向可捲動導覽列(隱藏 sidebar-foot、顯示 topbar 語言鈕)；<560px 隱藏品牌字。
+- 翻譯全前端 UI 字串(t(zh,en))：App.tsx(KPI/圖表/回撤/CM/月度/持股/FactorView)、
+  PerformanceChart、ScatterChart、VariablesView、MethodologyView(含投組定義/loss/流程/折圖)。
+- 後端雙語短字串：get_universe_summary 加 coverage_note_en；factor_analysis 加 factor_definitions_en
+  (同步寫入 scripts/factor_analysis.py 與既有 quant/factor/factor_analysis.json)。
+- 重跑 export_static_api(15 檔)、tsc+vite build 通過。
