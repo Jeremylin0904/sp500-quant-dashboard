@@ -190,10 +190,15 @@ type FactorAnalysis = {
 // build the app is fully static (e.g. GitHub Pages): API responses are
 // pre-rendered to JSON files under <base>/api/<path>.json by
 // scripts/export_static_api.py.
+declare const __BUILD_ID__: string;
+
 function apiUrl(path: string): string {
   if (!import.meta.env.PROD) return path;
   const clean = path.replace(/^\//, "");
-  return `${import.meta.env.BASE_URL}${clean}.json`;
+  // Static API JSON files have fixed names (no content hash), so the browser/CDN
+  // can serve a stale copy after a redeploy. __BUILD_ID__ changes every build and
+  // busts that cache without affecting the hashed JS/CSS bundles.
+  return `${import.meta.env.BASE_URL}${clean}.json?v=${__BUILD_ID__}`;
 }
 
 async function fetchJson<T>(path: string): Promise<T> {

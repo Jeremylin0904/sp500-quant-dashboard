@@ -423,3 +423,11 @@ Core logic:
   拋售下整個高 beta AI/成長/電力 Top30 同跌(集中度+因子風險)。
 - 前端：抓 drawdowns，回撤清單展開時顯示當日投組報酬 + 個股表現表(權重/當日報酬/貢獻)。
 - export_static_api 重出、tsc -b && vite build 通過。
+
+[v4.34] 修正回撤個股表空白(靜態 JSON 快取) - 2026-05-31
+- 根因：daily.json 等靜態 API 檔名固定無 hash，瀏覽器/CDN 快取舊版(無 drawdowns 欄位)，
+  新 JS 拿到舊 JSON 導致回撤展開時個股表為空。
+- 修法：vite define 注入 __BUILD_ID__(每次 build 變動)，apiUrl 在 PROD 對 JSON 加 ?v=BUILD_ID
+  破快取(不影響已有 hash 的 JS/CSS)。重新 build+gh-pages 部署。
+- 順帶核對新模型(42 特徵)：validation passed、weight_sum=1.0、IS ann 50.2%/OOS 63.9%、
+  estimator xgb_limitdepth、softmax T=0.1，回測與持股一致正確。
