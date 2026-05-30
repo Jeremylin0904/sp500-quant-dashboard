@@ -622,9 +622,14 @@ export default function App() {
                 </div>
               </div>
               {universe?.coverage_note && (
-                <p className="muted" style={{ marginTop: 10 }}>
-                  <strong>為何不是 500 家？</strong> {universe.coverage_note}
-                </p>
+                <div className="note-box" style={{ marginTop: 12 }}>
+                  <strong>
+                    為什麼是 {universe?.n_companies} 家、而不是 S&P 500 的{" "}
+                    {universe?.n_sp500_constituents ?? 500} 家？
+                  </strong>
+                  <br />
+                  {universe.coverage_note}
+                </div>
               )}
             </section>
 
@@ -1008,6 +1013,7 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
           {order.map(({ key, label }) => {
             const s = segs[key];
             if (!s) return null;
+            const sig = Math.abs(s.alpha_t_stat ?? 0) >= 1.96;
             return (
               <div className="alpha-card" key={key}>
                 <div className="seg-name">
@@ -1017,9 +1023,15 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
                     : ""}
                   ）
                 </div>
-                <div className="alpha-v">{pct(s.alpha_annualized_compound)}</div>
+                <div className="alpha-v">
+                  {pct(s.alpha_annualized_compound)}
+                  <span className={`sig-badge ${sig ? "sig-yes" : "sig-no"}`}>
+                    {sig ? "顯著 95%" : "不顯著"}
+                  </span>
+                </div>
                 <div className="alpha-meta">
-                  年化 alpha · t={num(s.alpha_t_stat, 2)} · p={num(s.alpha_p_value, 3)}
+                  年化(複利) · 月 alpha {pct(s.alpha_monthly)} · t={num(s.alpha_t_stat, 2)} · p=
+                  {num(s.alpha_p_value, 3)}
                   <br />
                   R² {num(s.r_squared, 2)} · adj {num(s.adj_r_squared, 2)}
                 </div>
@@ -1028,8 +1040,13 @@ function FactorView({ factor }: { factor: FactorAnalysis | null }) {
           })}
         </div>
         <div className="note-box">
-          回歸式：<code>{factor.regression_spec}</code>。Alpha 為扣除六因子曝險後的超額報酬（年化），
-          顯著正 alpha 代表績效非單純由因子曝險驅動。
+          回歸式：<code>{factor.regression_spec}</code>。Alpha 為扣除六因子曝險後的超額報酬（截距），
+          年化以複利 <code>(1+月α)^12−1</code> 表示。
+          <br />
+          <strong>解讀注意</strong>：CV / OOS 單區段各只有 11–12 個月，卻要估 7 個參數（截距+6 因子），
+          殘差自由度僅 4–5，標準誤大、估計不穩——故單區段 alpha 雖然數字大，<strong>t 值多半
+          &lt; 1.96（不顯著）</strong>，僅合併全期間（23 個月）較接近顯著。請以「方向與因子曝險結構」
+          為主，alpha 絕對值僅供參考。
         </div>
       </section>
 

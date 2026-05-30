@@ -938,6 +938,27 @@ tbody tr:hover {
   font-size: 12px;
 }
 
+.sig-badge {
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+.sig-yes {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.sig-no {
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+}
+
 .dd-stocks-wrap {
   margin-top: 4px;
 }

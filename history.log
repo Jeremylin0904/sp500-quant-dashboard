@@ -431,3 +431,10 @@ Core logic:
   破快取(不影響已有 hash 的 JS/CSS)。重新 build+gh-pages 部署。
 - 順帶核對新模型(42 特徵)：validation passed、weight_sum=1.0、IS ann 50.2%/OOS 63.9%、
   estimator xgb_limitdepth、softmax T=0.1，回測與持股一致正確。
+
+[v4.35] 因子 alpha 顯著性誠實標示 + 333 說明加顯眼 - 2026-05-31
+- 驗證因子回歸正確(月份對齊無漏月、單位/RF 相減正確、標準 FF5+Mom 截距=alpha)；但 CV/OOS 各僅
+  11–12 月、7 參數，殘差自由度 4–5，alpha t<1.96 不顯著，僅合併 23 月勉強顯著。
+- 前端 FactorView：alpha 卡加「顯著 95%/不顯著」徽章(|t|≥1.96)、顯示月 alpha，note-box 加小樣本警語。
+- overview「為什麼 333 家」由 muted 段落改成 note-box 顯眼說明框(顯示 503→333)。
+- App.css 加 .sig-badge/.sig-yes/.sig-no；build+gh-pages 部署。
