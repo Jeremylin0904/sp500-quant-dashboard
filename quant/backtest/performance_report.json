@@ -21,10 +21,10 @@
     "ann_sharpe_benchmark": 1.480862661426967,
     "ann_sharpe_excess": 1.779721624695658,
     "mean_monthly_portfolio_vol": 0.00974451718995723,
-    "max_drawdown": -0.038559542139528495,
-    "max_single_day_gain": 0.05083748467253522,
+    "max_drawdown": -0.03996036917831583,
+    "max_single_day_gain": 0.04987311307867888,
     "max_drawdown_date": "2024-05-07",
-    "max_drawdown_peak_to_trough": -0.1477283259112171
+    "max_drawdown_peak_to_trough": -0.16128246021299752
   },
   "out_of_sample": {
     "n_months": 11,
@@ -42,10 +42,10 @@
     "ann_sharpe_benchmark": 1.4296744716041816,
     "ann_sharpe_excess": 1.3352061620004254,
     "mean_monthly_portfolio_vol": 0.008677649871256144,
-    "max_drawdown": -0.10230038121339553,
-    "max_single_day_gain": 0.1573913309910762,
-    "max_drawdown_date": "2025-04-03",
-    "max_drawdown_peak_to_trough": -0.3539676083265334
+    "max_drawdown": -0.10546310623233048,
+    "max_single_day_gain": 0.15512956103395711,
+    "max_drawdown_date": "2025-01-27",
+    "max_drawdown_peak_to_trough": -0.3392076277861973
   },
   "monthly_in_sample": [
     {

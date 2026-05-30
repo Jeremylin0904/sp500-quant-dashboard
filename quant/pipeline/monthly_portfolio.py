@@ -22,7 +22,7 @@ from quant.config import (
 )
 from quant.pipeline.sp500_benchmark import (
     load_sp500_symbols,
-    spy_daily_returns,
+    spy_daily_prices,
     spy_monthly_returns,
 )
 from quant.pipeline.train_model import prepare_feature_matrix
@@ -488,27 +488,91 @@ def _mdd_with_dates(daily: pd.DataFrame) -> dict:
     }
 
 
-def _build_daily_series(daily_df: pd.DataFrame, spy_ret: pd.Series) -> list[dict]:
-    """Daily strategy + benchmark NAV (both rebased to 1.0 at segment start)."""
+def _build_daily_series(daily_df: pd.DataFrame, spy_px: pd.Series) -> list[dict]:
+    """Daily strategy + benchmark NAV (both rebased to 1.0 at segment start).
+
+    Benchmark uses the SAME monthly convention as the headline KPI: within each month
+    SPY is held buy-and-hold based at the month's first trading day, so each month-end
+    benchmark NAV reconciles to spy_monthly_returns (first→last close). This keeps the
+    chart consistent with the 年化/超額 cards instead of drifting due to inter-month gaps.
+    """
     if daily_df is None or daily_df.empty:
         return []
     df = daily_df.sort_values("Date").reset_index(drop=True)
-    bnav = 1.0
+    spy_px = spy_px.sort_index()
+
+    def _px_at(d: pd.Timestamp) -> float | None:
+        try:
+            v = spy_px.asof(d)
+        except Exception:
+            return None
+        return None if v is None or (isinstance(v, float) and np.isnan(v)) else float(v)
+
     out: list[dict] = []
-    for _, r in df.iterrows():
-        d = pd.Timestamp(r["Date"])
-        rb = spy_ret.get(d, 0.0)
-        rb = 0.0 if rb is None or (isinstance(rb, float) and np.isnan(rb)) else float(rb)
-        bnav *= 1 + rb
-        out.append(
-            {
-                "date": str(d.date()),
-                "strategy_nav": float(r["strategy_nav"]),
-                "benchmark_nav": bnav,
-                "daily_return": float(r.get("daily_return", 0.0)),
-            }
-        )
+    bnav_start = 1.0  # benchmark NAV at the start of the current month
+    months = list(dict.fromkeys(df["month"].tolist()))
+    for mo in months:
+        g = df[df["month"] == mo].sort_values("Date")
+        first_d = pd.Timestamp(g["Date"].iloc[0])
+        base = _px_at(first_d)
+        last_rel = 1.0
+        for _, r in g.iterrows():
+            d = pd.Timestamp(r["Date"])
+            p = _px_at(d)
+            rel = (p / base) if (base and p) else last_rel
+            last_rel = rel
+            out.append(
+                {
+                    "date": str(d.date()),
+                    "strategy_nav": float(r["strategy_nav"]),
+                    "benchmark_nav": float(bnav_start * rel),
+                    "daily_return": float(r.get("daily_return", 0.0)),
+                }
+            )
+        bnav_start *= last_rel
     return out
+
+
+def _month_daily_contribs(grp_all: pd.DataFrame, weights: dict[str, float]) -> pd.DataFrame:
+    """Buy-and-hold daily decomposition within ONE month, based at the month's first day.
+
+    The strategy rebalances monthly: weights are set at the start of the month and then
+    *drift* (buy-and-hold) until the next rebalance — NOT re-pegged every day. Basing each
+    stock at the first trading day of the month makes the month-end value reconcile exactly
+    to the monthly return Σ w_i·(P_i_last/P_i_first − 1) used for the headline KPIs.
+
+    Returns long df [Date, symbol, eff_weight, daily_ret, contrib] where, for each day,
+    Σ_sym contrib == that day's portfolio return, and compounding those daily portfolio
+    returns over the month reproduces the monthly weighted return.
+    """
+    cols = ["Date", "symbol", "eff_weight", "daily_ret", "contrib"]
+    px = grp_all.pivot_table(index="Date", columns="symbol", values="price").sort_index()
+    px = px.ffill()
+    if px.empty:
+        return pd.DataFrame(columns=cols)
+    base = px.iloc[0]
+    syms = [
+        s for s in weights
+        if s in px.columns and base.get(s, np.nan) > 0 and not np.isnan(base.get(s, np.nan))
+    ]
+    if not syms:
+        return pd.DataFrame(columns=cols)
+    wsum = sum(weights[s] for s in syms)
+    w = pd.Series({s: weights[s] / wsum for s in syms})
+
+    rel = px[syms].div(base[syms], axis=1)        # price relative to the first day
+    holding_val = rel.mul(w, axis=1)              # w_s · rel_s  (portfolio value = row sum)
+    port_val = holding_val.sum(axis=1)            # starts at 1.0 on the first day
+    sret = px[syms] / px[syms].shift(1) - 1.0     # per-stock daily return
+    sret.iloc[0] = 0.0
+    eff_w = holding_val.shift(1).div(port_val.shift(1), axis=0)  # drifted weight at day open
+    eff_w.iloc[0] = w
+    contrib = eff_w * sret                        # Σ_sym == portfolio daily return
+
+    long = contrib.stack().rename("contrib").reset_index()
+    long = long.merge(eff_w.stack().rename("eff_weight").reset_index(), on=["Date", "symbol"])
+    long = long.merge(sret.stack().rename("daily_ret").reset_index(), on=["Date", "symbol"])
+    return long[cols]
 
 
 def _build_daily_nav(
@@ -516,7 +580,10 @@ def _build_daily_nav(
     prices: pd.DataFrame,
     path_name: str,
 ) -> pd.DataFrame:
-    """Approximate daily NAV while holding fixed weights within each realized month."""
+    """Daily strategy NAV: monthly-rebalanced buy-and-hold (weights drift within month).
+
+    Reconciles to the monthly KPIs at every month-end (see _month_daily_contribs).
+    """
     rows: list[dict] = []
     nav = 1.0
     for realized_month, h in sorted(holdings.items(), key=lambda x: x[0]):
@@ -525,23 +592,19 @@ def _build_daily_nav(
         weights = {x["symbol"]: x["weight"] for x in h["selected"]}
         if not weights:
             continue
-        mo = realized_month
-        grp_all = prices[prices["month"] == mo].copy()
+        grp_all = prices[prices["month"] == realized_month].copy()
         if grp_all.empty:
             continue
-        dates = sorted(grp_all["Date"].unique())
-        for d in dates:
-            day = grp_all[grp_all["Date"] == d]
-            day_rets = []
-            for sym, w in weights.items():
-                r = day.loc[day["symbol"] == sym, "daily_ret"]
-                if len(r):
-                    day_rets.append(w * float(r.iloc[0]))
-            if not day_rets:
-                continue
-            dr = float(np.sum(day_rets))
-            nav *= 1 + dr
-            rows.append({"Date": d, "month": mo, "daily_return": dr, "strategy_nav": nav, "path": path_name})
+        long = _month_daily_contribs(grp_all, weights)
+        if long.empty:
+            continue
+        port_dr = long.groupby("Date")["contrib"].sum().sort_index()
+        for d, dr in port_dr.items():
+            nav *= 1 + float(dr)
+            rows.append(
+                {"Date": d, "month": realized_month, "daily_return": float(dr),
+                 "strategy_nav": nav, "path": path_name}
+            )
     return pd.DataFrame(rows)
 
 
@@ -558,27 +621,20 @@ def _drawdown_breakdowns(
     (weight, daily_ret, contribution = weight*daily_ret), sorted worst-first.
     Lets the dashboard show *why* a given day was down (broad vs single name).
     """
-    recs: list[dict] = []
+    parts: list[pd.DataFrame] = []
     for realized_month, h in sorted(holdings.items()):
         if h.get("path") not in paths:
             continue
         weights = {x["symbol"]: x["weight"] for x in h["selected"]}
         if not weights:
             continue
-        grp = prices[prices["month"] == realized_month]
-        for d, day in grp.groupby("Date"):
-            dmap = day.set_index("symbol")["daily_ret"]
-            for sym, w in weights.items():
-                r = dmap.get(sym)
-                if r is None or (isinstance(r, float) and np.isnan(r)):
-                    continue
-                recs.append(
-                    {"Date": d, "symbol": sym, "weight": float(w),
-                     "daily_ret": float(r), "contrib": float(w) * float(r)}
-                )
-    if not recs:
+        grp = prices[prices["month"] == realized_month].copy()
+        long = _month_daily_contribs(grp, weights)
+        if not long.empty:
+            parts.append(long)
+    if not parts:
         return []
-    df = pd.DataFrame(recs)
+    df = pd.concat(parts, ignore_index=True)
     day_ret = df.groupby("Date")["contrib"].sum().sort_values()
     out: list[dict] = []
     for d in day_ret.head(top_k).index:
@@ -591,7 +647,7 @@ def _drawdown_breakdowns(
                 "holdings": [
                     {
                         "symbol": str(rr["symbol"]),
-                        "weight": float(rr["weight"]),
+                        "weight": float(rr["eff_weight"]),
                         "daily_ret": float(rr["daily_ret"]),
                         "contrib": float(rr["contrib"]),
                     }
@@ -735,10 +791,10 @@ def run_monthly_backtest(force: bool = False) -> dict:
             "top_n": TOP_N_HOLDINGS,
         },
     }
-    spy_ret = spy_daily_returns()
+    spy_px = spy_daily_prices()
     daily_out = {
-        "daily_in_sample": _build_daily_series(daily_is, spy_ret),
-        "daily_out_of_sample": _build_daily_series(daily_oos, spy_ret),
+        "daily_in_sample": _build_daily_series(daily_is, spy_px),
+        "daily_out_of_sample": _build_daily_series(daily_oos, spy_px),
         "drawdowns": {
             "cv_oof": _drawdown_breakdowns(holdings_all, prices, {"walk_forward_cv"}),
             "final_oos": _drawdown_breakdowns(holdings_all, prices, {"walk_forward_oos"}),

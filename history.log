@@ -438,3 +438,13 @@ Core logic:
 - 前端 FactorView：alpha 卡加「顯著 95%/不顯著」徽章(|t|≥1.96)、顯示月 alpha，note-box 加小樣本警語。
 - overview「為什麼 333 家」由 muted 段落改成 note-box 顯眼說明框(顯示 503→333)。
 - App.css 加 .sig-badge/.sig-yes/.sig-no；build+gh-pages 部署。
+
+[v4.36] 修正折線圖與圖卡口徑不一致(每日 NAV 改買進持有, 對齊月報酬) - 2026-05-31
+- 問題：圖卡年化用月報酬(當月首日→末日, (e-s)/s, 不含跨月跳空)，但折線圖每日 NAV 用連續日報酬
+  連乘(含跳空)且每天重設權重(等於每日再平衡)；月底對不上(CV 50%vs60%、OOS 57%vs42%)。SPY 同病。
+- 修法：新增 _month_daily_contribs（以當月首日為基準的買進持有, 權重月內漂移）；_build_daily_nav 改用之，
+  月底剛好 = Σw·(P末/P首−1) = 月報酬。基準改 _build_daily_series 取 spy_daily_prices 月內買進持有，
+  月底 = spy_monthly。drawdown 拆解改用當日有效(漂移)權重，貢獻 Σ=當日投組報酬(精確)。
+- 驗證：每日累積 == 月報酬累積(CV 50.17%/20.95%、OOS 57.31%/15.27%)，完全 reconcile。
+- 不動任何頭條數字(年化/Sharpe/超額/因子分析皆用月報酬)；只修正圖表與每日回撤呈現。
+- 補 2023-10-26 / 2024-02-16 兩筆 CV 回撤新聞；前端表頭改「當日權重」。build+gh-pages 部署。

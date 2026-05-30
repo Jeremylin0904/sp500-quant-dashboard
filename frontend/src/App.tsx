@@ -751,7 +751,7 @@ export default function App() {
                                     <thead>
                                       <tr>
                                         <th>股票</th>
-                                        <th>權重</th>
+                                        <th>當日權重</th>
                                         <th>當日報酬</th>
                                         <th>貢獻</th>
                                       </tr>

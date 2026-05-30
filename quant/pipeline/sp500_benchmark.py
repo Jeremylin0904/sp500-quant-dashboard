@@ -82,3 +82,9 @@ def spy_daily_returns() -> pd.Series:
     s = spy.sort_values("Date").set_index("Date")["price"]
     return s.pct_change().rename("bench_return")
 
+
+def spy_daily_prices() -> pd.Series:
+    """Daily SPY adjusted-close price level indexed by Date (for within-month NAV)."""
+    spy = _load_spy_prices()
+    return spy.sort_values("Date").set_index("Date")["price"].rename("spy_price")
+
