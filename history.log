@@ -411,3 +411,15 @@ Core logic:
 - MODEL_VARIABLES.md：§title/§0 特徵數改 42、§4.B 移除 close/adjusted_close 列並加註(僅供推導)、
   §3 未進模型欄位清單加入兩者。data_service._NOT_IN_MODEL_COLS 加 close/adjusted_close。
 - export_static_api 重出(variables.json n_features=42、not_in_model 含兩者)、前端 build、gh-pages Published。
+
+[v4.33] 因子重算 + universe 503→333 說明 + 前五大回撤個股拆解 - 2026-05-31
+- factor_analysis.py 用重訓後回測重跑：cv_oof alpha(ann) 45.8%(t=1.47)、final_oos 64.1%(t=1.21)、
+  all 47.3%(t=2.10)。alpha 本就有算且前端有顯示(stale 已刷新)。
+- get_universe_summary 加 n_sp500_constituents(503) 與 coverage_note(解釋為何只有 333：需完整 PIT
+  特徵列，SimFin 對部分成分股覆蓋不全)；前端 overview 股票池卡顯示「503→333」+ 說明段落。
+- monthly_portfolio._drawdown_breakdowns：算 cv_oof/final_oos/merged 前 5 大單日跌幅的個股拆解
+  (weight/daily_ret/contrib，worst-first) 存進 backtest_daily.json.drawdowns；run_backtest 重跑。
+  診斷腳本 scripts/diag_drawdown.py：確認 -10% 非 bug，是 2025-04-03 關稅崩盤 / 2025-01-27 DeepSeek
+  拋售下整個高 beta AI/成長/電力 Top30 同跌(集中度+因子風險)。
+- 前端：抓 drawdowns，回撤清單展開時顯示當日投組報酬 + 個股表現表(權重/當日報酬/貢獻)。
+- export_static_api 重出、tsc -b && vite build 通過。

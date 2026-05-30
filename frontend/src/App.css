@@ -938,6 +938,40 @@ tbody tr:hover {
   font-size: 12px;
 }
 
+.dd-stocks-wrap {
+  margin-top: 4px;
+}
+
+.dd-stocks-head {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: 6px;
+}
+
+.dd-stocks {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.dd-stocks th,
+.dd-stocks td {
+  text-align: right;
+  padding: 3px 8px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.dd-stocks th:first-child,
+.dd-stocks td:first-child {
+  text-align: left;
+}
+
+.dd-stocks thead th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
 .mv-portfolio p {
   margin: 8px 0;
 }

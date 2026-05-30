@@ -990,6 +990,7 @@
   "backtest_eval_note": "Exclude first 4 quarters (TTM warmup). Pool: AutoML 120s → top-5 model configs × 8 weight schemes; CV OOF from fold 12 (metric=ann_sharpe_excess); frozen for Final OOS.",
   "universe": {
     "n_companies": 333,
+    "n_sp500_constituents": 503,
     "per_quarter": {
       "2020Q2": 1,
       "2020Q3": 291,
@@ -1011,6 +1012,7 @@
       "2024Q3": 329,
       "2024Q4": 331,
       "2025Q1": 333
-    }
+    },
+    "coverage_note": "Universe 為 S&P 500 成分股名單（503 檔），但實際進入資料集的只有 333 家。原因：每檔每季要有「完整的 point-in-time 特徵列」才會被納入——需同時具備 SimFin 財報（且 publish_date ≤ 季末）、≥4 季歷史以計算 TTM/YoY、季末股價、以及可定義的下一季標籤 y_next。SimFin 對部分成分股（尤其金融/REITs、上市較晚或缺財報科目者）覆蓋不全，這些公司產不出完整列而被排除；可投資檔數也因此隨時間由早期約 291 檔成長到近期 333 檔。"
   }
 }

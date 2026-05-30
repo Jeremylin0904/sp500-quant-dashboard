@@ -545,6 +545,63 @@ def _build_daily_nav(
     return pd.DataFrame(rows)
 
 
+def _drawdown_breakdowns(
+    holdings: dict[str, dict],
+    prices: pd.DataFrame,
+    paths: set[str],
+    top_k: int = 5,
+) -> list[dict]:
+    """Per-stock decomposition of the worst single-day portfolio returns.
+
+    Rebuilds the same fixed-weight daily portfolio returns as _build_daily_nav,
+    then for the `top_k` worst days returns each held name's
+    (weight, daily_ret, contribution = weight*daily_ret), sorted worst-first.
+    Lets the dashboard show *why* a given day was down (broad vs single name).
+    """
+    recs: list[dict] = []
+    for realized_month, h in sorted(holdings.items()):
+        if h.get("path") not in paths:
+            continue
+        weights = {x["symbol"]: x["weight"] for x in h["selected"]}
+        if not weights:
+            continue
+        grp = prices[prices["month"] == realized_month]
+        for d, day in grp.groupby("Date"):
+            dmap = day.set_index("symbol")["daily_ret"]
+            for sym, w in weights.items():
+                r = dmap.get(sym)
+                if r is None or (isinstance(r, float) and np.isnan(r)):
+                    continue
+                recs.append(
+                    {"Date": d, "symbol": sym, "weight": float(w),
+                     "daily_ret": float(r), "contrib": float(w) * float(r)}
+                )
+    if not recs:
+        return []
+    df = pd.DataFrame(recs)
+    day_ret = df.groupby("Date")["contrib"].sum().sort_values()
+    out: list[dict] = []
+    for d in day_ret.head(top_k).index:
+        sub = df[df["Date"] == d].sort_values("contrib")
+        out.append(
+            {
+                "date": str(pd.Timestamp(d).date()),
+                "portfolio_return": float(day_ret.loc[d]),
+                "n_held": int(sub["symbol"].nunique()),
+                "holdings": [
+                    {
+                        "symbol": str(rr["symbol"]),
+                        "weight": float(rr["weight"]),
+                        "daily_ret": float(rr["daily_ret"]),
+                        "contrib": float(rr["contrib"]),
+                    }
+                    for _, rr in sub.iterrows()
+                ],
+            }
+        )
+    return out
+
+
 def run_monthly_backtest(force: bool = False) -> dict:
     BACKTEST_DIR.mkdir(parents=True, exist_ok=True)
     out_path = BACKTEST_DIR / "backtest_monthly.json"
@@ -682,6 +739,13 @@ def run_monthly_backtest(force: bool = False) -> dict:
     daily_out = {
         "daily_in_sample": _build_daily_series(daily_is, spy_ret),
         "daily_out_of_sample": _build_daily_series(daily_oos, spy_ret),
+        "drawdowns": {
+            "cv_oof": _drawdown_breakdowns(holdings_all, prices, {"walk_forward_cv"}),
+            "final_oos": _drawdown_breakdowns(holdings_all, prices, {"walk_forward_oos"}),
+            "merged": _drawdown_breakdowns(
+                holdings_all, prices, {"walk_forward_cv", "walk_forward_oos"}
+            ),
+        },
     }
     (BACKTEST_DIR / "backtest_daily.json").write_text(json.dumps(daily_out, indent=2), encoding="utf-8")
 

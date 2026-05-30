@@ -106,9 +106,29 @@ def get_universe_summary() -> dict:
         return {}
     ds = pd.read_parquet(path, columns=["symbol", "quarter"])
     per_q = ds.groupby("quarter")["symbol"].nunique().to_dict()
+    n_companies = int(ds["symbol"].nunique())
+
+    n_constituents = None
+    try:
+        from quant.pipeline.sp500_benchmark import load_sp500_symbols
+
+        n_constituents = len(set(load_sp500_symbols()))
+    except Exception:
+        n_constituents = None
+
     return {
-        "n_companies": int(ds["symbol"].nunique()),
+        "n_companies": n_companies,
+        "n_sp500_constituents": n_constituents,
         "per_quarter": {str(q): int(n) for q, n in per_q.items()},
+        "coverage_note": (
+            "Universe 為 S&P 500 成分股名單"
+            + (f"（{n_constituents} 檔）" if n_constituents else "")
+            + f"，但實際進入資料集的只有 {n_companies} 家。原因：每檔每季要有「完整的 "
+            "point-in-time 特徵列」才會被納入——需同時具備 SimFin 財報（且 publish_date ≤ 季末）、"
+            "≥4 季歷史以計算 TTM/YoY、季末股價、以及可定義的下一季標籤 y_next。SimFin 對部分成分股"
+            "（尤其金融/REITs、上市較晚或缺財報科目者）覆蓋不全，這些公司產不出完整列而被排除；"
+            "可投資檔數也因此隨時間由早期約 291 檔成長到近期 333 檔。"
+        ),
     }
 
 

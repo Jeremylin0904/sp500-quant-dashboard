@@ -43,6 +43,19 @@ type DailyRow = {
   daily_return: number;
 };
 
+type DDHolding = { symbol: string; weight: number; daily_ret: number; contrib: number };
+type DDBreakdown = {
+  date: string;
+  portfolio_return: number;
+  n_held: number;
+  holdings: DDHolding[];
+};
+type DrawdownBreakdowns = {
+  cv_oof?: DDBreakdown[];
+  final_oos?: DDBreakdown[];
+  merged?: DDBreakdown[];
+};
+
 type PerfSlice = Record<string, number | string>;
 
 type PerfReport = {
@@ -120,7 +133,12 @@ type ModelSummary = {
     }>;
   };
   portfolio?: { benchmark_symbol?: string; top_n_holdings?: number };
-  universe?: { n_companies?: number; per_quarter?: Record<string, number> };
+  universe?: {
+    n_companies?: number;
+    n_sp500_constituents?: number;
+    coverage_note?: string;
+    per_quarter?: Record<string, number>;
+  };
   all_quarters?: string[];
   final_oos?: { roc_auc?: number };
   walk_forward?: {
@@ -303,6 +321,7 @@ export default function App() {
   const [monthlyOos, setMonthlyOos] = useState<MonthlyRow[]>([]);
   const [dailyIs, setDailyIs] = useState<DailyRow[]>([]);
   const [dailyOos, setDailyOos] = useState<DailyRow[]>([]);
+  const [ddBreak, setDdBreak] = useState<DrawdownBreakdowns>({});
   const [report, setReport] = useState<PerfReport | null>(null);
   const [model, setModel] = useState<ModelSummary | null>(null);
   const [holdings, setHoldings] = useState<HoldingsQuarter | null>(null);
@@ -320,9 +339,11 @@ export default function App() {
           fetchJson<{ monthly_in_sample: MonthlyRow[]; monthly_out_of_sample: MonthlyRow[] }>(
             "/api/backtest/monthly"
           ),
-          fetchJson<{ daily_in_sample: DailyRow[]; daily_out_of_sample: DailyRow[] }>(
-            "/api/backtest/daily"
-          ),
+          fetchJson<{
+            daily_in_sample: DailyRow[];
+            daily_out_of_sample: DailyRow[];
+            drawdowns?: DrawdownBreakdowns;
+          }>("/api/backtest/daily"),
           fetchJson<ModelSummary>("/api/model/summary"),
           fetchJson<{ signal_quarters: string[] }>("/api/holdings/signal-quarters"),
           fetchJson<FactorAnalysis>("/api/factor/analysis"),
@@ -343,6 +364,7 @@ export default function App() {
         setMonthlyOos(mo.monthly_out_of_sample ?? []);
         setDailyIs(dy.daily_in_sample ?? []);
         setDailyOos(dy.daily_out_of_sample ?? []);
+        setDdBreak(dy.drawdowns ?? {});
         setModel(ms);
         setFactor(fa);
         setError(null);
@@ -405,6 +427,17 @@ export default function App() {
     () => worstSingleDays(chartDailyReturns, 5),
     [chartDailyReturns]
   );
+  const ddByDate = useMemo(() => {
+    const list =
+      chartMode === "is"
+        ? ddBreak.cv_oof
+        : chartMode === "oos"
+          ? ddBreak.final_oos
+          : ddBreak.merged;
+    const m = new Map<string, DDBreakdown>();
+    (list ?? []).forEach((b) => m.set(b.date, b));
+    return m;
+  }, [chartMode, ddBreak]);
   const dividerIndex = chartMode === "both" && dailyIs.length ? dailyIs.length : null;
 
   const scatterPoints = useMemo(
@@ -567,15 +600,27 @@ export default function App() {
                 <div className="alpha-card">
                   <div className="seg-name">股票池</div>
                   <div className="alpha-v" style={{ color: "var(--accent)", fontSize: 18 }}>
-                    {universe?.n_companies ? `${universe.n_companies} 家公司` : "—"}
+                    {universe?.n_sp500_constituents
+                      ? `${universe.n_sp500_constituents} → ${universe?.n_companies ?? "—"} 家`
+                      : universe?.n_companies
+                        ? `${universe.n_companies} 家公司`
+                        : "—"}
                   </div>
                   <div className="alpha-meta">
+                    {universe?.n_sp500_constituents
+                      ? `S&P 500 名單 ${universe.n_sp500_constituents} 檔 → 實際可投資 ${universe?.n_companies} 家`
+                      : ""}
                     {univMin && univMax
-                      ? `各評估季候選 ${univMin}~${univMax} 檔 · 模型選 Top${topN}`
-                      : `模型選 Top${topN}`}
+                      ? `${universe?.n_sp500_constituents ? "・" : ""}各評估季候選 ${univMin}~${univMax} 檔 · 選 Top${topN}`
+                      : ` · 模型選 Top${topN}`}
                   </div>
                 </div>
               </div>
+              {universe?.coverage_note && (
+                <p className="muted" style={{ marginTop: 10 }}>
+                  <strong>為何不是 500 家？</strong> {universe.coverage_note}
+                </p>
+              )}
             </section>
 
             <div className="section-title">CV OOF（樣本內選型）</div>
@@ -648,12 +693,17 @@ export default function App() {
               {chartDrawdowns.length > 0 && (
                 <div style={{ marginTop: 12 }}>
                   <div className="section-title" style={{ margin: "0 0 8px" }}>
-                    前五大單日回撤・對應事件（點擊紅圈或下列項目）
+                    前五大單日回撤・對應事件與當日個股表現（點擊紅圈或下列項目展開）
                   </div>
+                  <p className="muted" style={{ margin: "0 0 8px" }}>
+                    投組為 Top30 但集中在相關性高的高 beta 成長/AI/電力股，故特定總經或題材利空日會整體同跌；
+                    下表為當日各持股的權重、當日報酬與對投組的貢獻（權重×報酬），由跌幅貢獻最大排到最小。
+                  </p>
                   <div className="dd-list">
                     {chartDrawdowns.map((d) => {
                       const date = chartSeries[d.index]?.month;
                       const n = date ? news[date] : undefined;
+                      const bd = date ? ddByDate.get(date) : undefined;
                       const active = selectedDD === date;
                       return (
                         <button
@@ -667,16 +717,53 @@ export default function App() {
                             <span className="num-neg dd-pct">{pct(d.depth)}</span>
                             <span className="dd-event">{n?.event ?? "（無對應新聞註記）"}</span>
                           </div>
-                          {active && n && (
+                          {active && (
                             <div className="dd-detail">
-                              {n.detail}
-                              {n.url && (
-                                <>
-                                  {" "}
-                                  <a href={n.url} target="_blank" rel="noreferrer">
-                                    新聞來源{n.source ? `（${n.source}）` : ""} ↗
-                                  </a>
-                                </>
+                              {n && (
+                                <p style={{ margin: "0 0 8px" }}>
+                                  {n.detail}
+                                  {n.url && (
+                                    <>
+                                      {" "}
+                                      <a href={n.url} target="_blank" rel="noreferrer">
+                                        新聞來源{n.source ? `（${n.source}）` : ""} ↗
+                                      </a>
+                                    </>
+                                  )}
+                                </p>
+                              )}
+                              {bd ? (
+                                <div className="dd-stocks-wrap">
+                                  <div className="dd-stocks-head">
+                                    當日投組 {pct(bd.portfolio_return)}・持有 {bd.n_held} 檔
+                                  </div>
+                                  <table className="dd-stocks">
+                                    <thead>
+                                      <tr>
+                                        <th>股票</th>
+                                        <th>權重</th>
+                                        <th>當日報酬</th>
+                                        <th>貢獻</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {bd.holdings.map((h) => (
+                                        <tr key={h.symbol}>
+                                          <td className="sym">{h.symbol}</td>
+                                          <td>{pct(h.weight)}</td>
+                                          <td className={h.daily_ret < 0 ? "num-neg" : ""}>
+                                            {pct(h.daily_ret)}
+                                          </td>
+                                          <td className={h.contrib < 0 ? "num-neg" : ""}>
+                                            {pct(h.contrib)}
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              ) : (
+                                <p className="muted" style={{ margin: 0 }}>（當日個股明細無資料）</p>
                               )}
                             </div>
                           )}
