@@ -468,3 +468,8 @@ Core logic:
 - 後端 build_model_variables：每個分組加 title_en(_GROUP_TITLE_EN 關鍵字對照)；
   VariablesView 分組標題改 t(g.title, g.title_en)。
 - 重跑 export_static_api、build 通過、gh-pages 部署。
+
+[v4.39] 網頁標題改英文 + 隨語言切換 - 2026-05-31
+- index.html title/description/lang 改英文(預設)；i18n LangProvider 依語言更新 document.title
+  (en: S&P 500 Quant Stock-Selection Dashboard / zh: S&P 500 量化選股 Dashboard)。
+- build 通過、gh-pages 部署。

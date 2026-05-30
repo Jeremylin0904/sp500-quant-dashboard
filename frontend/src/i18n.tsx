@@ -55,6 +55,8 @@ export function LangProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
+    document.title =
+      lang === "zh" ? "S&P 500 量化選股 Dashboard" : "S&P 500 Quant Stock-Selection Dashboard";
   }, [lang]);
 
   const t = (zh: string, en: string) => (lang === "zh" ? zh : en);
