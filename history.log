@@ -383,3 +383,12 @@ Core logic:
   w+=n_neg/n_pos 處理不平衡，FLAML metric=log_loss、xgboost/xgb_limitdepth/lgbm）；
   ② 最終 (模型×配重) 選型指標為投組 OOF ann_sharpe_excess，非 log loss。
 - tsc -b && vite build 通過；gh-pages 已 Published。
+
+[v4.30] 模型變數頁強調「真正進模型的變數」 - 2026-05-31
+- data_service.build_model_variables：groups 每類加 kind(raw/engineered)；補進 feature_cols 中
+  缺漏的 daily_vol(歸動量/流動性，附公式)；新增 not_in_model(16 個僅存 parquet 的 ID/日期/標籤欄)；
+  n_grouped_features 現等於 44=feature_cols。
+- VariablesView.tsx：KPI 改「真正進模型的特徵數」並顯示 16 原始量+28 衍生；分類區標題與說明強調這些是
+  模型實際 fit 的 feature_cols，每類加 原始量/衍生 標籤；新增「不進模型的欄位（僅存 parquet）」chips 面板。
+- App.css 新增 .mv-kind / .mv-chips / .mv-chip；export_static_api 重出 variables.json(44 特徵)；
+  tsc -b && vite build 通過、gh-pages Published。

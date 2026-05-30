@@ -1017,6 +1017,40 @@ tbody tr:hover {
   background: var(--accent-soft);
   border-radius: 999px;
   padding: 1px 8px;
+  margin-left: auto;
+}
+
+.mv-kind {
+  font-size: 10.5px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.mv-kind.raw {
+  color: #92600a;
+  background: #fdf2dc;
+}
+
+.mv-kind.eng {
+  color: #0e7a3c;
+  background: var(--strategy-soft);
+}
+
+.mv-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.mv-chip {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+  background: var(--panel-soft);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 3px 8px;
 }
 
 .mv-flist {

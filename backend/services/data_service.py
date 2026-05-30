@@ -194,19 +194,76 @@ def _parse_feature_doc(md: str, stats: list[dict]) -> tuple[str, list[dict]]:
     return "\n".join(out), groups
 
 
+# Model features whose stats are not in feature_stats.csv (still real model inputs).
+_EXTRA_FEATURE_FORMULAS = {
+    "daily_vol": "該股當季每日報酬標準差（設下限 VOL_FLOOR_DAILY）；同時供 softmax_sharpe 配重的風險項",
+}
+
+# Columns that live in model_dataset.parquet but are NOT fed to the model
+# (IDs / dates / labels / leakage-prone targets). Mirrors MODEL_VARIABLES.md §3.
+_NOT_IN_MODEL_COLS = [
+    "symbol",
+    "company_name",
+    "sector",
+    "industry",
+    "quarter",
+    "quarter_end",
+    "as_of_date",
+    "operating_cash_flow",
+    "capital_expenditure",
+    "free_cash_flow",
+    "y_t",
+    "y_next",
+    "return",
+    "excess_return",
+    "sharpe",
+    "is_top30_next",
+]
+
+# Which grouped categories are direct levels vs engineered/derived features.
+_RAW_GROUP_HINTS = ("原始基本面", "市場 / 價格", "市場/價格")
+
+
 @lru_cache(maxsize=1)
 def build_model_variables() -> dict:
     meta = get_model_meta()
     stats = get_feature_stats()
     filled_md, groups = _parse_feature_doc(get_model_variables_doc(), stats)
-    n_scored = sum(len(g["items"]) for g in groups)
+    feature_cols = list(meta.get("feature_cols") or [])
+
+    # Tag each group as raw level input vs engineered, and ensure every actual
+    # model feature (feature_cols) is represented even if it has no stats row.
+    by = {s.get("col"): s for s in stats if s.get("col")}
+    for g in groups:
+        g["kind"] = "raw" if any(h in g["title"] for h in _RAW_GROUP_HINTS) else "engineered"
+
+    grouped_names = {it["feature"] for g in groups for it in g["items"]}
+    extra = [c for c in feature_cols if c not in grouped_names]
+    if extra:
+        target = next((g for g in groups if "動量" in g["title"]), None)
+        bucket = target or {"title": "波動 / 風險", "items": [], "kind": "engineered"}
+        for c in extra:
+            s = by.get(c, {})
+            bucket["items"].append(
+                {
+                    "feature": c,
+                    "formula": _EXTRA_FEATURE_FORMULAS.get(c, ""),
+                    "miss_pct": s.get("miss_pct"),
+                    "inf_pct": s.get("inf_pct"),
+                }
+            )
+        if target is None and bucket["items"]:
+            groups.append(bucket)
+
+    n_in_model = sum(len(g["items"]) for g in groups)
     return {
         "markdown": filled_md,
         "groups": groups,
-        "n_grouped_features": n_scored,
+        "n_grouped_features": n_in_model,
+        "not_in_model": _NOT_IN_MODEL_COLS,
         "feature_stats": stats,
-        "feature_cols": meta.get("feature_cols", []),
-        "n_features": len(meta.get("feature_cols") or []),
+        "feature_cols": feature_cols,
+        "n_features": len(feature_cols),
         "n_rows": meta.get("n_rows"),
         "target_col": meta.get("target_col", "y_next"),
         "best_estimator": meta.get("best_estimator"),

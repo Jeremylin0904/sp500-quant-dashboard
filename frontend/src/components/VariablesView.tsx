@@ -19,13 +19,15 @@ type FeatureItem = {
   inf_pct?: number | null;
 };
 
-type Group = { title: string; items: FeatureItem[] };
+type Group = { title: string; items: FeatureItem[]; kind?: "raw" | "engineered" };
 
 export type ModelVariables = {
   markdown?: string;
   groups?: Group[];
   n_grouped_features?: number;
+  not_in_model?: string[];
   feature_stats?: Stat[];
+  feature_cols?: string[];
   n_features?: number;
   n_rows?: number;
   target_col?: string;
@@ -63,6 +65,11 @@ export function VariablesView({ data }: { data: ModelVariables | null }) {
     );
   }
   const groups = data.groups ?? [];
+  const notInModel = data.not_in_model ?? [];
+  const rawCount = groups
+    .filter((g) => g.kind === "raw")
+    .reduce((n, g) => n + g.items.length, 0);
+  const engCount = (data.n_grouped_features ?? 0) - rawCount;
   const topMissing = (data.feature_stats ?? [])
     .filter((s) => (s.miss_pct ?? 0) > 0)
     .sort((a, b) => (b.miss_pct ?? 0) - (a.miss_pct ?? 0))
@@ -76,9 +83,11 @@ export function VariablesView({ data }: { data: ModelVariables | null }) {
     <>
       <section className="kpi-grid">
         <div className="kpi neutral">
-          <div className="kpi-label">進模型特徵數</div>
+          <div className="kpi-label">真正進模型的特徵數</div>
           <div className="kpi-value">{data.n_features ?? "—"}</div>
-          <div className="kpi-sub">{groups.length} 類 · {data.n_grouped_features ?? 0} 個有統計</div>
+          <div className="kpi-sub">
+            {rawCount} 原始量 + {engCount} 工程衍生 · {groups.length} 類
+          </div>
         </div>
         <div className="kpi neutral">
           <div className="kpi-label">資料列數</div>
@@ -113,14 +122,21 @@ export function VariablesView({ data }: { data: ModelVariables | null }) {
 
       <section className="panel">
         <div className="panel-head">
-          <h2>變數分類（公式 · 缺失率）</h2>
-          <p className="muted">缺失率即時取自 feature_stats.csv；紅＝偏高（多因需 ≥4 季歷史或財報本身缺漏）</p>
+          <h2>真正進模型的變數（model_meta.json → feature_cols）</h2>
+          <p className="muted">
+            這 {data.n_features ?? data.n_grouped_features} 個欄位才是模型實際 fit 的輸入：
+            <strong>原始量</strong>＝直接餵入的財報/價格水準值，<strong>衍生</strong>＝由原始資料工程出的成長率／比率／分位／動量／波動。缺失率即時取自
+            feature_stats.csv，紅＝偏高（多因需 ≥4 季歷史或財報本身缺漏）。
+          </p>
         </div>
         <div className="mv-groups">
           {groups.map((g) => (
             <div className="mv-group" key={g.title}>
               <h3>
                 {g.title}
+                <span className={`mv-kind ${g.kind === "raw" ? "raw" : "eng"}`}>
+                  {g.kind === "raw" ? "原始量" : "衍生"}
+                </span>
                 <span className="mv-count">{g.items.length}</span>
               </h3>
               <ul className="mv-flist">
@@ -156,6 +172,24 @@ export function VariablesView({ data }: { data: ModelVariables | null }) {
                 </div>
                 <span className="mv-pct">{(s.miss_pct ?? 0).toFixed(1)}%</span>
               </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {notInModel.length > 0 && (
+        <section className="panel">
+          <div className="panel-head">
+            <h2>不進模型的欄位（僅存於 parquet）</h2>
+            <p className="muted">
+              這些只是識別碼／日期／標籤或會洩漏未來的目標欄位，<strong>不會</strong>當作特徵餵給模型
+            </p>
+          </div>
+          <div className="mv-chips">
+            {notInModel.map((c) => (
+              <code className="mv-chip" key={c}>
+                {c}
+              </code>
             ))}
           </div>
         </section>
