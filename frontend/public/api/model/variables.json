@@ -65,7 +65,8 @@
           "inf_pct": 0.0
         }
       ],
-      "kind": "raw"
+      "kind": "raw",
+      "title_en": "Raw fundamentals (single quarter, PIT filings)"
     },
     {
       "title": "市場 / 價格（季末）",
@@ -95,7 +96,8 @@
           "inf_pct": 0.0
         }
       ],
-      "kind": "raw"
+      "kind": "raw",
+      "title_en": "Market / price (quarter-end)"
     },
     {
       "title": "成長率（YoY）",
@@ -113,7 +115,8 @@
           "inf_pct": 0.016680567139282735
         }
       ],
-      "kind": "engineered"
+      "kind": "engineered",
+      "title_en": "Growth (YoY)"
     },
     {
       "title": "獲利能力（TTM 比率）",
@@ -149,7 +152,8 @@
           "inf_pct": 0.0
         }
       ],
-      "kind": "engineered"
+      "kind": "engineered",
+      "title_en": "Profitability (TTM ratios)"
     },
     {
       "title": "估值 / 殖利率",
@@ -191,7 +195,8 @@
           "inf_pct": 0.0
         }
       ],
-      "kind": "engineered"
+      "kind": "engineered",
+      "title_en": "Valuation / yield"
     },
     {
       "title": "槓桿",
@@ -209,7 +214,8 @@
           "inf_pct": 0.0
         }
       ],
-      "kind": "engineered"
+      "kind": "engineered",
+      "title_en": "Leverage"
     },
     {
       "title": "動量 / 流動性",
@@ -245,7 +251,8 @@
           "inf_pct": 0.0
         }
       ],
-      "kind": "engineered"
+      "kind": "engineered",
+      "title_en": "Momentum / liquidity"
     },
     {
       "title": "同業分位（`quarter × sector`）",
@@ -299,7 +306,8 @@
           "inf_pct": 0.0
         }
       ],
-      "kind": "engineered"
+      "kind": "engineered",
+      "title_en": "Peer percentile (quarter × sector)"
     }
   ],
   "n_grouped_features": 42,

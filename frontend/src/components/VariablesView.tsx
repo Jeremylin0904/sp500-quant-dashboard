@@ -20,7 +20,7 @@ type FeatureItem = {
   inf_pct?: number | null;
 };
 
-type Group = { title: string; items: FeatureItem[]; kind?: "raw" | "engineered" };
+type Group = { title: string; title_en?: string; items: FeatureItem[]; kind?: "raw" | "engineered" };
 
 export type ModelVariables = {
   markdown?: string;
@@ -135,7 +135,7 @@ export function VariablesView({ data }: { data: ModelVariables | null }) {
           {groups.map((g) => (
             <div className="mv-group" key={g.title}>
               <h3>
-                {g.title}
+                {t(g.title, g.title_en || g.title)}
                 <span className={`mv-kind ${g.kind === "raw" ? "raw" : "eng"}`}>
                   {g.kind === "raw" ? t("原始量", "raw") : t("衍生", "engineered")}
                 </span>

@@ -257,6 +257,28 @@ _NOT_IN_MODEL_COLS = [
 # Which grouped categories are direct levels vs engineered/derived features.
 _RAW_GROUP_HINTS = ("原始基本面", "市場 / 價格", "市場/價格")
 
+# English titles for the feature groups (matched by a stable keyword in the zh title).
+_GROUP_TITLE_EN = [
+    ("原始基本面", "Raw fundamentals (single quarter, PIT filings)"),
+    ("市場 / 價格", "Market / price (quarter-end)"),
+    ("市場/價格", "Market / price (quarter-end)"),
+    ("成長率", "Growth (YoY)"),
+    ("獲利能力", "Profitability (TTM ratios)"),
+    ("估值", "Valuation / yield"),
+    ("槓桿", "Leverage"),
+    ("動量", "Momentum / liquidity"),
+    ("同業分位", "Peer percentile (quarter × sector)"),
+    ("波動", "Volatility / risk"),
+    ("風險", "Volatility / risk"),
+]
+
+
+def _group_title_en(title: str) -> str:
+    for key, en in _GROUP_TITLE_EN:
+        if key in title:
+            return en
+    return title
+
 
 @lru_cache(maxsize=1)
 def build_model_variables() -> dict:
@@ -270,12 +292,18 @@ def build_model_variables() -> dict:
     by = {s.get("col"): s for s in stats if s.get("col")}
     for g in groups:
         g["kind"] = "raw" if any(h in g["title"] for h in _RAW_GROUP_HINTS) else "engineered"
+        g["title_en"] = _group_title_en(g["title"])
 
     grouped_names = {it["feature"] for g in groups for it in g["items"]}
     extra = [c for c in feature_cols if c not in grouped_names]
     if extra:
         target = next((g for g in groups if "動量" in g["title"]), None)
-        bucket = target or {"title": "波動 / 風險", "items": [], "kind": "engineered"}
+        bucket = target or {
+            "title": "波動 / 風險",
+            "title_en": "Volatility / risk",
+            "items": [],
+            "kind": "engineered",
+        }
         for c in extra:
             s = by.get(c, {})
             bucket["items"].append(

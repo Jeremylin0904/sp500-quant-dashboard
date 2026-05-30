@@ -1,73 +1,97 @@
 {
   "2025-04-03": {
     "event": "川普「解放日」對等關稅",
+    "event_en": "Trump \"Liberation Day\" reciprocal tariffs",
     "detail": "4/2 川普宣布對所有進口課 10% 基準關稅、對中國等數十國加徵更高對等關稅；4/3 S&P500 重挫 4.8%、Nasdaq 約 -6%，為 2020 年疫情以來最慘單日。高 beta 成長股（Apple/Nvidia 等）跌幅更深。",
+    "detail_en": "On 4/2 Trump announced a 10% baseline tariff on all imports plus steeper reciprocal tariffs on dozens of countries including China; on 4/3 the S&P 500 fell 4.8% and the Nasdaq about -6%, the worst single day since the 2020 pandemic. High-beta growth names (Apple/Nvidia, etc.) fell even harder.",
     "url": "https://www.investopedia.com/dow-jones-today-04032025-11708250",
     "source": "Investopedia"
   },
   "2025-04-04": {
     "event": "關稅暴跌第二日 · 中國反制",
+    "event_en": "Tariff selloff day 2 · China retaliates",
     "detail": "中國宣布對美對等反制關稅，市場恐慌延續；S&P500 再跌約 6%，兩日累計近 -11%，Nasdaq 正式進入熊市。",
+    "detail_en": "China announced reciprocal counter-tariffs on the US and the panic continued; the S&P 500 fell another ~6%, down nearly -11% over two days, and the Nasdaq officially entered a bear market.",
     "url": "https://www.vantagemarkets.com/academy/market-sell-off/",
     "source": "Vantage"
   },
   "2025-01-27": {
     "event": "DeepSeek AI 衝擊（Nvidia -17%）",
+    "event_en": "DeepSeek AI shock (Nvidia -17%)",
     "detail": "中國新創 DeepSeek 推出低成本 R1 模型，市場質疑 AI 高資本支出與晶片需求；Nvidia 單日 -17%、市值蒸發約 5,890 億美元（史上最大），半導體與 AI 類股全面重挫。",
+    "detail_en": "Chinese startup DeepSeek released its low-cost R1 model, prompting doubts about AI capex and chip demand; Nvidia fell -17% in a day, wiping out about $589B of market cap (a record), and semiconductor and AI stocks sold off across the board.",
     "url": "https://www.cnbc.com/2025/01/26/stock-market-news-for-jan-26-2025.html",
     "source": "CNBC"
   },
   "2025-03-06": {
     "event": "關稅反覆 + Marvell 財測 · Nasdaq 進入修正",
+    "event_en": "Tariff flip-flops + Marvell guidance · Nasdaq enters correction",
     "detail": "川普對加墨中關稅反覆，Marvell 財測不如高預期暴跌約 20% 拖累晶片股；Nasdaq 跌 2.6% 正式進入修正區；Palantir 當日 -10.7%（受 CEO 減持消息影響）。",
+    "detail_en": "Trump kept flip-flopping on Canada/Mexico/China tariffs; Marvell's guidance missed lofty expectations and the stock crashed ~20%, dragging chip names; the Nasdaq fell 2.6% into correction territory; Palantir fell -10.7% on news of CEO share sales.",
     "url": "https://www.investopedia.com/dow-jones-today-03062025-11692040",
     "source": "Investopedia"
   },
   "2025-03-10": {
     "event": "衰退疑慮 · 川普不排除經濟衰退",
+    "event_en": "Recession fears · Trump won't rule out a recession",
     "detail": "川普受訪不排除今年陷入衰退，加上關稅不確定性；Nasdaq 跌 4%（2022 年 9 月以來最差），Tesla 重挫 15%，消費性類股領跌。",
+    "detail_en": "In an interview Trump declined to rule out a recession this year, adding to tariff uncertainty; the Nasdaq fell 4% (worst since Sep 2022), Tesla crashed 15%, and consumer names led the decline.",
     "url": "https://www.cnn.com/2025/03/10/investing/us-stocks-drop-after-trump-says-he-wont-rule-out-a-recession",
     "source": "CNN"
   },
   "2024-05-07": {
     "event": "Palantir 財測不佳（個股事件）",
+    "event_en": "Palantir weak guidance (single-stock event)",
     "detail": "持股 Palantir Q1 營收優於預期，但全年財測低於市場共識，股價單日 -14%，拖累集中成長型投組。屬個股事件而非大盤普跌。",
+    "detail_en": "Holding Palantir beat on Q1 revenue but its full-year guidance came in below consensus; the stock fell -14% in a day, dragging the concentrated growth portfolio. This was a single-stock event, not a broad market selloff.",
     "url": "https://www.investopedia.com/palantir-stock-drops-after-company-issues-disappointing-outlook-watch-this-price-level-8644368",
     "source": "Investopedia"
   },
   "2023-08-09": {
     "event": "8 月回檔 · 殖利率走高",
+    "event_en": "August pullback · rising yields",
     "detail": "Fitch 於 8/1 調降美國主權評等後，長天期公債殖利率上行，加上中國通縮與房地產疑慮，成長股 8 月初承壓。",
+    "detail_en": "After Fitch downgraded the US sovereign rating on 8/1, long-dated Treasury yields rose, and with China deflation and property worries, growth stocks came under pressure in early August.",
     "url": "",
     "source": ""
   },
   "2023-08-16": {
     "event": "FOMC 會議紀要偏鷹 · 殖利率再升",
+    "event_en": "Hawkish FOMC minutes · yields rise again",
     "detail": "7 月 FOMC 會議紀要顯示官員仍擔憂通膨、傾向維持限制性利率，10 年期殖利率走高壓抑科技成長股。",
+    "detail_en": "The July FOMC minutes showed officials still worried about inflation and inclined to keep rates restrictive; the 10-year yield rose, weighing on tech growth stocks.",
     "url": "",
     "source": ""
   },
   "2023-10-25": {
     "event": "大型科技財報 + 10Y 殖利率逼近 5%",
+    "event_en": "Big-tech earnings + 10Y yield near 5%",
     "detail": "Alphabet 雲端營收不如預期帶動科技股下挫，10 年期公債殖利率逼近 5% 之高位，成長股估值受壓。",
+    "detail_en": "Alphabet's cloud revenue missed expectations, dragging tech stocks lower, while the 10-year Treasury yield approached the 5% high, pressuring growth-stock valuations.",
     "url": "",
     "source": ""
   },
   "2024-01-03": {
     "event": "年初科技股回吐 · 重新定價降息",
+    "event_en": "Early-year tech giveback · repricing rate cuts",
     "detail": "年初市場下修對 Fed 提前降息的預期、多家券商下調蘋果等科技股評等，前一年漲多的成長股回吐。",
+    "detail_en": "At the start of the year the market dialed back expectations for early Fed rate cuts and several brokers downgraded tech names like Apple, so the prior year's big-gaining growth stocks gave back.",
     "url": "",
     "source": ""
   },
   "2023-10-26": {
     "event": "Meta 財報賣壓 · 殖利率高檔",
+    "event_en": "Meta earnings selloff · high yields",
     "detail": "Meta 公布財報後示警廣告前景不確定、股價重挫，拖累整體大型科技與成長股；10 年期公債殖利率仍處 ~4.9% 高檔壓抑估值，延續 10 月下旬的回檔。",
+    "detail_en": "After reporting, Meta warned of an uncertain ad outlook and the stock plunged, dragging big-tech and growth stocks; the 10-year yield stayed high at ~4.9%, pressuring valuations and extending the late-October pullback.",
     "url": "",
     "source": ""
   },
   "2024-02-16": {
     "event": "PPI 超預期 · 降息預期延後",
+    "event_en": "Hot PPI · rate-cut bets pushed back",
     "detail": "1 月 PPI 高於預期、加上稍早 CPI 偏熱，市場下修並延後對 Fed 降息的預期，殖利率走高；漲多的高 beta 成長股當日領跌。",
+    "detail_en": "January PPI came in above expectations and, with a hot CPI earlier, the market pushed back its Fed rate-cut expectations and yields rose; high-beta growth stocks that had rallied led the day's decline.",
     "url": "",
     "source": ""
   }

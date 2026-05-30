@@ -356,7 +356,7 @@ export default function App() {
   const [holdings, setHoldings] = useState<HoldingsQuarter | null>(null);
   const [factor, setFactor] = useState<FactorAnalysis | null>(null);
   const [variables, setVariables] = useState<ModelVariables | null>(null);
-  const [news, setNews] = useState<Record<string, { event: string; detail: string; url?: string; source?: string }>>({});
+  const [news, setNews] = useState<Record<string, { event: string; event_en?: string; detail: string; detail_en?: string; url?: string; source?: string }>>({});
   const [selectedDD, setSelectedDD] = useState<string | null>(null);
 
   useEffect(() => {
@@ -377,7 +377,7 @@ export default function App() {
           fetchJson<{ signal_quarters: string[] }>("/api/holdings/signal-quarters"),
           fetchJson<FactorAnalysis>("/api/factor/analysis"),
         ]);
-        fetchJson<Record<string, { event: string; detail: string; url?: string; source?: string }>>(
+        fetchJson<Record<string, { event: string; event_en?: string; detail: string; detail_en?: string; url?: string; source?: string }>>(
           "/api/backtest/drawdown-news"
         )
           .then(setNews)
@@ -795,13 +795,13 @@ export default function App() {
                           <div className="dd-row">
                             <span className="dd-date">{date}</span>
                             <span className="num-neg dd-pct">{pct(d.depth)}</span>
-                            <span className="dd-event">{n?.event ?? t("（無對應新聞註記）", "(no news note)")}</span>
+                            <span className="dd-event">{n ? t(n.event, n.event_en || n.event) : t("（無對應新聞註記）", "(no news note)")}</span>
                           </div>
                           {active && (
                             <div className="dd-detail">
                               {n && (
                                 <p style={{ margin: "0 0 8px" }}>
-                                  {n.detail}
+                                  {t(n.detail, n.detail_en || n.detail)}
                                   {n.url && (
                                     <>
                                       {" "}

@@ -462,3 +462,9 @@ Core logic:
 - 後端雙語短字串：get_universe_summary 加 coverage_note_en；factor_analysis 加 factor_definitions_en
   (同步寫入 scripts/factor_analysis.py 與既有 quant/factor/factor_analysis.json)。
 - 重跑 export_static_api(15 檔)、tsc+vite build 通過。
+
+[v4.38] 補翻：回撤新聞英文 + 模型變數分組標題英文 - 2026-05-31
+- drawdown_news.json：12 筆全加 event_en/detail_en；前端 dd 清單改 t(zh, n.*_en)。
+- 後端 build_model_variables：每個分組加 title_en(_GROUP_TITLE_EN 關鍵字對照)；
+  VariablesView 分組標題改 t(g.title, g.title_en)。
+- 重跑 export_static_api、build 通過、gh-pages 部署。
