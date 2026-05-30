@@ -64,7 +64,8 @@
           "miss_pct": 0.0,
           "inf_pct": 0.0
         }
-      ]
+      ],
+      "kind": "raw"
     },
     {
       "title": "市場 / 價格（季末）",
@@ -105,7 +106,8 @@
           "miss_pct": 0.11676396997497916,
           "inf_pct": 0.0
         }
-      ]
+      ],
+      "kind": "raw"
     },
     {
       "title": "成長率（YoY）",
@@ -122,7 +124,8 @@
           "miss_pct": 22.018348623853214,
           "inf_pct": 0.016680567139282735
         }
-      ]
+      ],
+      "kind": "engineered"
     },
     {
       "title": "獲利能力（TTM 比率）",
@@ -157,7 +160,8 @@
           "miss_pct": 16.964136780650545,
           "inf_pct": 0.0
         }
-      ]
+      ],
+      "kind": "engineered"
     },
     {
       "title": "估值 / 殖利率",
@@ -198,7 +202,8 @@
           "miss_pct": 16.964136780650545,
           "inf_pct": 0.0
         }
-      ]
+      ],
+      "kind": "engineered"
     },
     {
       "title": "槓桿",
@@ -215,7 +220,8 @@
           "miss_pct": 0.0,
           "inf_pct": 0.0
         }
-      ]
+      ],
+      "kind": "engineered"
     },
     {
       "title": "動量 / 流動性",
@@ -243,8 +249,15 @@
           "formula": "volume / shares_outstanding",
           "miss_pct": 0.0,
           "inf_pct": 0.0
+        },
+        {
+          "feature": "daily_vol",
+          "formula": "該股當季每日報酬標準差（設下限 VOL_FLOOR_DAILY）；同時供 softmax_sharpe 配重的風險項",
+          "miss_pct": null,
+          "inf_pct": null
         }
-      ]
+      ],
+      "kind": "engineered"
     },
     {
       "title": "同業分位（`quarter × sector`）",
@@ -297,10 +310,29 @@
           "miss_pct": 0.0,
           "inf_pct": 0.0
         }
-      ]
+      ],
+      "kind": "engineered"
     }
   ],
-  "n_grouped_features": 43,
+  "n_grouped_features": 44,
+  "not_in_model": [
+    "symbol",
+    "company_name",
+    "sector",
+    "industry",
+    "quarter",
+    "quarter_end",
+    "as_of_date",
+    "operating_cash_flow",
+    "capital_expenditure",
+    "free_cash_flow",
+    "y_t",
+    "y_next",
+    "return",
+    "excess_return",
+    "sharpe",
+    "is_top30_next"
+  ],
   "feature_stats": [
     {
       "col": "revenue",
