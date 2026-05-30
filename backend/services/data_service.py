@@ -218,6 +218,8 @@ _NOT_IN_MODEL_COLS = [
     "excess_return",
     "sharpe",
     "is_top30_next",
+    "close",
+    "adjusted_close",
 ]
 
 # Which grouped categories are direct levels vs engineered/derived features.

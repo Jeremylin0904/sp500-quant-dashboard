@@ -85,6 +85,12 @@ def _feature_cols(ds: pd.DataFrame) -> list[str]:
         "excess_return",
         "is_top30_next",
         "quarter_end",
+        # Raw price levels: kept in the dataset to derive market_cap (adjusted_close)
+        # and momentum return_3m/6m/12m (close), but NOT fed to the model as features
+        # (redundant absolute price level; weak cross-sectional signal). See
+        # scripts/exp_price_features.py ablation (CV OOF Sharpe ↑ when dropped).
+        "close",
+        "adjusted_close",
     }
     return [c for c in ds.columns if c not in drop_cols and pd.api.types.is_numeric_dtype(ds[c])]
 

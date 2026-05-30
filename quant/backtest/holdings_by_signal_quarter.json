@@ -5,36 +5,135 @@
     "path": "walk_forward_cv",
     "selected": [
       {
+        "symbol": "VRT",
+        "weight": 0.108543,
+        "score": 0.8162273168563843,
+        "daily_vol": 0.034224967452809486,
+        "realized_return": 0.4957644211375554,
+        "realized_excess": 0.5290798680264805,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "BLDR",
+        "weight": 0.074239,
+        "score": 0.7782419919967651,
+        "daily_vol": 0.025384260048506822,
+        "realized_return": -0.08684808919533497,
+        "realized_excess": -0.053532642306409854,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "PANW",
+        "weight": 0.06155,
+        "score": 0.7594967484474182,
+        "daily_vol": 0.021617047117166617,
+        "realized_return": -0.07932767829092048,
+        "realized_excess": -0.04601223140199536,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "SMCI",
+        "weight": 0.053285,
+        "score": 0.7450776100158691,
+        "daily_vol": 0.05854975118546455,
+        "realized_return": 0.10032102728731941,
+        "realized_excess": 0.13363647417624452,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "COHR",
-        "weight": 0.066222,
-        "score": 0.664063036441803,
+        "weight": 0.05317,
+        "score": 0.7448611259460449,
         "daily_vol": 0.04661848856124488,
         "realized_return": -0.3579858379228954,
         "realized_excess": -0.3246703910339703,
         "is_top30_actual": false
       },
       {
-        "symbol": "APP",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
-        "daily_vol": 0.04134293179814373,
-        "realized_return": 0.5416666666666666,
-        "realized_excess": 0.5749821135555917,
+        "symbol": "WBD",
+        "weight": 0.052098,
+        "score": 0.7428249716758728,
+        "daily_vol": 0.03164878703902195,
+        "realized_return": -0.16525749423520372,
+        "realized_excess": -0.1319420473462786,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "PLTR",
+        "weight": 0.050986,
+        "score": 0.7406668663024902,
+        "daily_vol": 0.047111621731562456,
+        "realized_return": 0.03092783505154642,
+        "realized_excess": 0.06424328194047155,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "UBER",
+        "weight": 0.05066,
+        "score": 0.7400255799293518,
+        "daily_vol": 0.024929382776732015,
+        "realized_return": 0.0673009979113483,
+        "realized_excess": 0.10061644480027343,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "ANET",
+        "weight": 0.043836,
+        "score": 0.7255570888519287,
+        "daily_vol": 0.033575423525471534,
+        "realized_return": 0.1500750375187594,
+        "realized_excess": 0.18339048440768452,
         "is_top30_actual": true
       },
       {
+        "symbol": "CRWD",
+        "weight": 0.04188,
+        "score": 0.7209932804107666,
+        "daily_vol": 0.026685566027521267,
+        "realized_return": 0.14675253494107965,
+        "realized_excess": 0.18006798183000478,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "GM",
+        "weight": 0.040533,
+        "score": 0.7177248597145081,
+        "daily_vol": 0.019558103725591906,
+        "realized_return": -0.15157116451016622,
+        "realized_excess": -0.1182557176212411,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DDOG",
+        "weight": 0.040381,
+        "score": 0.7173495888710022,
+        "daily_vol": 0.0345130805283695,
+        "realized_return": -0.07325261979855532,
+        "realized_excess": -0.039937172909630204,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "CCL",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
+        "weight": 0.035179,
+        "score": 0.7035584449768066,
         "daily_vol": 0.03686187444852289,
         "realized_return": -0.2766524520255864,
         "realized_excess": -0.2433370051366613,
         "is_top30_actual": false
       },
       {
+        "symbol": "GNRC",
+        "weight": 0.033249,
+        "score": 0.697914719581604,
+        "daily_vol": 0.03581556811561852,
+        "realized_return": -0.2764940239043825,
+        "realized_excess": -0.24317857701545736,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "CVNA",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
+        "weight": 0.029977,
+        "score": 0.6875558495521545,
         "daily_vol": 0.11606780652875388,
         "realized_return": 0.627906976744186,
         "realized_excess": 0.6612224236331111,
@@ -42,236 +141,137 @@
       },
       {
         "symbol": "LITE",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
+        "weight": 0.02912,
+        "score": 0.6846539974212646,
         "daily_vol": 0.034144107814542635,
         "realized_return": -0.21289198606271775,
         "realized_excess": -0.17957653917379263,
         "is_top30_actual": false
       },
       {
-        "symbol": "NVDA",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
-        "daily_vol": 0.03856474789203299,
-        "realized_return": 0.025719679093912134,
-        "realized_excess": 0.05903512598283725,
+        "symbol": "BKNG",
+        "weight": 0.021875,
+        "score": 0.6560449600219727,
+        "daily_vol": 0.014897539252104196,
+        "realized_return": 0.13347061025833012,
+        "realized_excess": 0.16678605714725525,
         "is_top30_actual": false
       },
       {
-        "symbol": "PLTR",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
-        "daily_vol": 0.047111621731562456,
-        "realized_return": 0.03092783505154642,
-        "realized_excess": 0.06424328194047155,
+        "symbol": "TTWO",
+        "weight": 0.021098,
+        "score": 0.6524320840835571,
+        "daily_vol": 0.019302635532871364,
+        "realized_return": -0.049685236580247774,
+        "realized_excess": -0.016369789691322655,
         "is_top30_actual": false
       },
       {
-        "symbol": "SMCI",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
-        "daily_vol": 0.05854975118546455,
-        "realized_return": 0.10032102728731941,
-        "realized_excess": 0.13363647417624452,
+        "symbol": "DLTR",
+        "weight": 0.020886,
+        "score": 0.6514219641685486,
+        "daily_vol": 0.022333667642990527,
+        "realized_return": -0.278158269478538,
+        "realized_excess": -0.24484282258961287,
         "is_top30_actual": false
       },
       {
-        "symbol": "VRT",
-        "weight": 0.05961,
-        "score": 0.6535444855690002,
-        "daily_vol": 0.034224967452809486,
-        "realized_return": 0.4957644211375554,
-        "realized_excess": 0.5290798680264805,
+        "symbol": "FCX",
+        "weight": 0.018697,
+        "score": 0.6403485536575317,
+        "daily_vol": 0.022776412647893263,
+        "realized_return": -0.08199233716475099,
+        "realized_excess": -0.04867689027582587,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "FIX",
+        "weight": 0.016633,
+        "score": 0.6286534667015076,
+        "daily_vol": 0.024073185629256345,
+        "realized_return": 0.03761061946902658,
+        "realized_excess": 0.0709260663579517,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "APP",
+        "weight": 0.012909,
+        "score": 0.6033052206039429,
+        "daily_vol": 0.04134293179814373,
+        "realized_return": 0.5416666666666666,
+        "realized_excess": 0.5749821135555917,
         "is_top30_actual": true
       },
       {
-        "symbol": "ANET",
-        "weight": 0.045394,
-        "score": 0.6262994408607483,
-        "daily_vol": 0.033575423525471534,
-        "realized_return": 0.1500750375187594,
-        "realized_excess": 0.18339048440768452,
+        "symbol": "PHM",
+        "weight": 0.012193,
+        "score": 0.5976001024246216,
+        "daily_vol": 0.01353319600482896,
+        "realized_return": -0.039910136117351606,
+        "realized_excess": -0.006594689228426487,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "JBL",
+        "weight": 0.01199,
+        "score": 0.595916748046875,
+        "daily_vol": 0.017715134570202597,
+        "realized_return": 0.16689782709200182,
+        "realized_excess": 0.20021327398092695,
         "is_top30_actual": true
       },
       {
-        "symbol": "NCLH",
-        "weight": 0.031482,
-        "score": 0.5897029638290405,
-        "daily_vol": 0.030196781539880327,
-        "realized_return": -0.24783204016430851,
-        "realized_excess": -0.2145165932753834,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "WBD",
-        "weight": 0.031482,
-        "score": 0.5897029638290405,
-        "daily_vol": 0.03164878703902195,
-        "realized_return": -0.16525749423520372,
-        "realized_excess": -0.1319420473462786,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "ACN",
-        "weight": 0.023494,
-        "score": 0.5604372024536133,
-        "daily_vol": 0.01393700916077269,
-        "realized_return": -0.008874023004198173,
-        "realized_excess": 0.02444142388472695,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "WDC",
-        "weight": 0.021759,
-        "score": 0.552764356136322,
-        "daily_vol": 0.02703907027227739,
-        "realized_return": 0.1848913418420146,
-        "realized_excess": 0.21820678873093974,
+        "symbol": "HAL",
+        "weight": 0.01197,
+        "score": 0.595756471157074,
+        "daily_vol": 0.02643750529583488,
+        "realized_return": 0.2089410272669627,
+        "realized_excess": 0.24225647415588783,
         "is_top30_actual": true
       },
       {
-        "symbol": "CAH",
-        "weight": 0.020756,
-        "score": 0.5480442047119141,
-        "daily_vol": 0.011667700324406702,
-        "realized_return": -0.0822008617832285,
-        "realized_excess": -0.048885414894303376,
+        "symbol": "UAL",
+        "weight": 0.01113,
+        "score": 0.5884761214256287,
+        "daily_vol": 0.02296048692653677,
+        "realized_return": -0.23174718488921187,
+        "realized_excess": -0.19843173800028674,
         "is_top30_actual": false
       },
       {
-        "symbol": "COIN",
-        "weight": 0.020272,
-        "score": 0.5456851720809937,
-        "daily_vol": 0.05100799830523969,
-        "realized_return": -0.06067809333166531,
-        "realized_excess": -0.02736264644274019,
+        "symbol": "STLD",
+        "weight": 0.010892,
+        "score": 0.5863134264945984,
+        "daily_vol": 0.02377935569894179,
+        "realized_return": -0.02825760420578287,
+        "realized_excess": 0.005057842683142251,
         "is_top30_actual": false
       },
       {
-        "symbol": "IR",
-        "weight": 0.020156,
-        "score": 0.5451130270957947,
-        "daily_vol": 0.017747613316016212,
-        "realized_return": -0.023059185242121447,
-        "realized_excess": 0.010256261646803672,
+        "symbol": "NOW",
+        "weight": 0.010794,
+        "score": 0.5854128003120422,
+        "daily_vol": 0.020795298546606073,
+        "realized_return": -0.0069290219419027,
+        "realized_excess": 0.026386424947022417,
         "is_top30_actual": false
       },
       {
-        "symbol": "APO",
-        "weight": 0.019969,
-        "score": 0.5441808104515076,
-        "daily_vol": 0.01797535297732595,
-        "realized_return": 0.17097740266811876,
-        "realized_excess": 0.20429284955704388,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "BAX",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.01676704795975016,
-        "realized_return": -0.14925017852892158,
-        "realized_excess": -0.11593473163999646,
+        "symbol": "EXPE",
+        "weight": 0.010233,
+        "score": 0.5800739526748657,
+        "daily_vol": 0.021355440356255518,
+        "realized_return": -0.08623623175427594,
+        "realized_excess": -0.052920784865350824,
         "is_top30_actual": false
       },
       {
-        "symbol": "DOW",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.01532819187218625,
-        "realized_return": -0.028884026258205693,
-        "realized_excess": 0.0044314206307194265,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "GLW",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.015340536967541363,
-        "realized_return": -0.12572298325722991,
-        "realized_excess": -0.09240753636830479,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "HAS",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.022292436672770043,
-        "realized_return": 0.03183162289093752,
-        "realized_excess": 0.06514706977986265,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "INTC",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.02555815793140142,
-        "realized_return": 0.06132361870066798,
-        "realized_excess": 0.09463906558959309,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "IVZ",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.0163522103431379,
-        "realized_return": -0.1415929203539823,
-        "realized_excess": -0.10827747346505717,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "JCI",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.016902398465927275,
-        "realized_return": -0.2083463095608844,
-        "realized_excess": -0.17503086267195928,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "MU",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.02592769391867905,
-        "realized_return": 0.06658211794546612,
-        "realized_excess": 0.09989756483439124,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "STX",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.02212461488265721,
-        "realized_return": 0.0721915920055134,
-        "realized_excess": 0.10550703889443852,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "VTRS",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.016778362862591233,
-        "realized_return": 0.006896551724137989,
-        "realized_excess": 0.040211998613063106,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "WY",
-        "weight": 0.018588,
-        "score": 0.537015974521637,
-        "daily_vol": 0.013635074561561272,
-        "realized_return": -0.08060861120103599,
-        "realized_excess": -0.04729316431211087,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "CSGP",
-        "weight": 0.017661,
-        "score": 0.5318993926048279,
-        "daily_vol": 0.0163445193991522,
-        "realized_return": -0.12135755913609877,
-        "realized_excess": -0.08804211224717365,
+        "symbol": "CDNS",
+        "weight": 0.010014,
+        "score": 0.5779158473014832,
+        "daily_vol": 0.0209756856652474,
+        "realized_return": -0.004672897196261658,
+        "realized_excess": 0.02864254969266346,
         "is_top30_actual": false
       }
     ],
@@ -457,8 +457,8 @@
         "y_label": 1
       }
     ],
-    "hit_count": 6,
-    "hit_rate": 0.2,
+    "hit_count": 7,
+    "hit_rate": 0.23333333333333334,
     "label_note": "actual_top30 = excess rank Top30 within realized quarter (same as y_next label)"
   },
   "2023Q3": {
@@ -467,273 +467,273 @@
     "path": "walk_forward_cv",
     "selected": [
       {
-        "symbol": "APP",
-        "weight": 0.054781,
-        "score": 0.627277672290802,
-        "daily_vol": 0.04090167987781502,
-        "realized_return": -0.02376286134247915,
-        "realized_excess": -0.1405933014786485,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "COHR",
-        "weight": 0.054781,
-        "score": 0.627277672290802,
-        "daily_vol": 0.048268948108737705,
-        "realized_return": 0.3464274667491495,
-        "realized_excess": 0.22959702661298012,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "CVNA",
-        "weight": 0.054781,
-        "score": 0.627277672290802,
-        "daily_vol": 0.0819326094384699,
-        "realized_return": 0.3490445859872612,
-        "realized_excess": 0.23221414585109182,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "PLTR",
-        "weight": 0.054781,
-        "score": 0.627277672290802,
-        "daily_vol": 0.040859897166166496,
-        "realized_return": 0.0812342569269522,
-        "realized_excess": -0.03559618320921716,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "SATS",
-        "weight": 0.054781,
-        "score": 0.627277672290802,
-        "daily_vol": 0.036631263241716415,
-        "realized_return": 0.03175591531755925,
-        "realized_excess": -0.08507452481861011,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "SMCI",
-        "weight": 0.054781,
-        "score": 0.627277672290802,
-        "daily_vol": 0.046024914887323305,
-        "realized_return": -0.01592246452059539,
-        "realized_excess": -0.13275290465676476,
-        "is_top30_actual": false
-      },
-      {
         "symbol": "VRT",
-        "weight": 0.054781,
-        "score": 0.627277672290802,
+        "weight": 0.260801,
+        "score": 0.8421800136566162,
         "daily_vol": 0.042402969276514824,
         "realized_return": 0.2510449320794148,
         "realized_excess": 0.13421449194324545,
         "is_top30_actual": false
       },
       {
-        "symbol": "DELL",
-        "weight": 0.041369,
-        "score": 0.599195122718811,
-        "daily_vol": 0.03113370773816717,
-        "realized_return": 0.13635660114533357,
-        "realized_excess": 0.01952616100916421,
+        "symbol": "SMCI",
+        "weight": 0.131665,
+        "score": 0.7738304138183594,
+        "daily_vol": 0.046024914887323305,
+        "realized_return": -0.01592246452059539,
+        "realized_excess": -0.13275290465676476,
         "is_top30_actual": false
       },
       {
         "symbol": "WBD",
-        "weight": 0.041369,
-        "score": 0.599195122718811,
+        "weight": 0.09928,
+        "score": 0.7455987334251404,
         "daily_vol": 0.029800206223900005,
         "realized_return": 0.08277830637488116,
         "realized_excess": -0.0340521337612882,
         "is_top30_actual": false
       },
       {
-        "symbol": "IFF",
-        "weight": 0.037189,
-        "score": 0.5885429978370667,
-        "daily_vol": 0.029251159252339586,
-        "realized_return": 0.2396535129932627,
-        "realized_excess": 0.12282307285709335,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "INTC",
-        "weight": 0.033478,
-        "score": 0.5780308246612549,
-        "daily_vol": 0.022196778090742053,
-        "realized_return": 0.4218525953541727,
-        "realized_excess": 0.30502215521800335,
+        "symbol": "CRWD",
+        "weight": 0.074379,
+        "score": 0.7167211771011353,
+        "daily_vol": 0.026704731752264774,
+        "realized_return": 0.505957296213283,
+        "realized_excess": 0.3891268560771136,
         "is_top30_actual": true
       },
       {
-        "symbol": "MU",
-        "weight": 0.033478,
-        "score": 0.5780308246612549,
-        "daily_vol": 0.02041455478575326,
-        "realized_return": 0.2594851956554086,
-        "realized_excess": 0.14265475551923926,
+        "symbol": "PLTR",
+        "weight": 0.047719,
+        "score": 0.6723370552062988,
+        "daily_vol": 0.040859897166166496,
+        "realized_return": 0.0812342569269522,
+        "realized_excess": -0.03559618320921716,
         "is_top30_actual": false
       },
       {
-        "symbol": "STX",
-        "weight": 0.033478,
-        "score": 0.5780308246612549,
-        "daily_vol": 0.02443263257126963,
-        "realized_return": 0.3006724303554274,
-        "realized_excess": 0.18384199021925804,
+        "symbol": "APP",
+        "weight": 0.035048,
+        "score": 0.6414754390716553,
+        "daily_vol": 0.04090167987781502,
+        "realized_return": -0.02376286134247915,
+        "realized_excess": -0.1405933014786485,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "TTD",
+        "weight": 0.034465,
+        "score": 0.6397979855537415,
+        "daily_vol": 0.025561655563395912,
+        "realized_return": -0.08108798365470576,
+        "realized_excess": -0.19791842379087513,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DDOG",
+        "weight": 0.032622,
+        "score": 0.6343041062355042,
+        "daily_vol": 0.032059184093637096,
+        "realized_return": 0.32164634146341453,
+        "realized_excess": 0.20481590132724517,
         "is_top30_actual": false
       },
       {
         "symbol": "WDC",
-        "weight": 0.033478,
-        "score": 0.5780308246612549,
+        "weight": 0.029981,
+        "score": 0.6258623003959656,
         "daily_vol": 0.020307910796227888,
         "realized_return": 0.15195791934541214,
         "realized_excess": 0.03512747920924278,
         "is_top30_actual": false
       },
       {
-        "symbol": "ANET",
-        "weight": 0.030629,
-        "score": 0.5691378116607666,
-        "daily_vol": 0.03211031964146903,
-        "realized_return": 0.2541001064962726,
-        "realized_excess": 0.13726966636010327,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "IP",
-        "weight": 0.023206,
-        "score": 0.5413849353790283,
-        "daily_vol": 0.014110617021505298,
-        "realized_return": 0.033068362480127275,
-        "realized_excess": -0.08376207765604209,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "PFE",
-        "weight": 0.023206,
-        "score": 0.5413849353790283,
-        "daily_vol": 0.011432501869145332,
-        "realized_return": -0.1401967673928321,
-        "realized_excess": -0.25702720752900143,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "COIN",
-        "weight": 0.022983,
-        "score": 0.5404176712036133,
-        "daily_vol": 0.05077736308849579,
-        "realized_return": 1.3093878634975433,
-        "realized_excess": 1.192557423361374,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "CNC",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.017812425085273677,
-        "realized_return": 0.0708513708513708,
-        "realized_excess": -0.04597906928479856,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "EBAY",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.019118144617849532,
-        "realized_return": 0.007675701607100031,
-        "realized_excess": -0.10915473852906933,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "FCX",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.02000414855931651,
-        "realized_return": 0.16680826961200793,
-        "realized_excess": 0.049977829475838564,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "GEN",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.01885796268366216,
-        "realized_return": 0.30945213726670684,
-        "realized_excess": 0.19262169713053748,
-        "is_top30_actual": false
-      },
-      {
         "symbol": "HAL",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
+        "weight": 0.027529,
+        "score": 0.6173282861709595,
         "daily_vol": 0.01792398040303893,
         "realized_return": -0.08704939919893204,
         "realized_excess": -0.2038798393351014,
         "is_top30_actual": false
       },
       {
-        "symbol": "HOOD",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.02437906956636032,
-        "realized_return": 0.3093525179856115,
-        "realized_excess": 0.1925220778494421,
+        "symbol": "MRNA",
+        "weight": 0.020587,
+        "score": 0.5882701873779297,
+        "daily_vol": 0.029632290325392018,
+        "realized_return": -0.0373632755783564,
+        "realized_excess": -0.15419371571452575,
         "is_top30_actual": false
       },
       {
-        "symbol": "IVZ",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.01908057007819572,
-        "realized_return": 0.29740680713128054,
-        "realized_excess": 0.18057636699511118,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "LRCX",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.022890102351770247,
-        "realized_return": 0.2448516296416409,
-        "realized_excess": 0.12802118950547153,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "MCHP",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.01941975027290448,
-        "realized_return": 0.1568654266958424,
-        "realized_excess": 0.04003498655967305,
+        "symbol": "STX",
+        "weight": 0.020052,
+        "score": 0.5856384038925171,
+        "daily_vol": 0.02443263257126963,
+        "realized_return": 0.3006724303554274,
+        "realized_excess": 0.18384199021925804,
         "is_top30_actual": false
       },
       {
         "symbol": "PHM",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
+        "weight": 0.01561,
+        "score": 0.5605958104133606,
         "daily_vol": 0.02121521383932607,
         "realized_return": 0.4126409578170681,
         "realized_excess": 0.2958105176808987,
         "is_top30_actual": true
       },
       {
-        "symbol": "PYPL",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
-        "daily_vol": 0.02485267697011692,
-        "realized_return": 0.04858369098712444,
-        "realized_excess": -0.06824674914904492,
+        "symbol": "STLD",
+        "weight": 0.015484,
+        "score": 0.559788167476654,
+        "daily_vol": 0.01994384678227274,
+        "realized_return": 0.11487869044139147,
+        "realized_excess": -0.0019517496947778906,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DHI",
+        "weight": 0.014029,
+        "score": 0.5499203205108643,
+        "daily_vol": 0.018492942701457817,
+        "realized_return": 0.43473204767903884,
+        "realized_excess": 0.31790160754286945,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "HOOD",
+        "weight": 0.013142,
+        "score": 0.5433889031410217,
+        "daily_vol": 0.02437906956636032,
+        "realized_return": 0.3093525179856115,
+        "realized_excess": 0.1925220778494421,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "CVNA",
+        "weight": 0.011714,
+        "score": 0.531882107257843,
+        "daily_vol": 0.0819326094384699,
+        "realized_return": 0.3490445859872612,
+        "realized_excess": 0.23221414585109182,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "CF",
+        "weight": 0.010769,
+        "score": 0.5234737396240234,
+        "daily_vol": 0.019147557939316703,
+        "realized_return": -0.0455412797354026,
+        "realized_excess": -0.16237171987157195,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "EXE",
+        "weight": 0.010326,
+        "score": 0.5192709565162659,
+        "daily_vol": 0.01416572305092251,
+        "realized_return": -0.07366244507624695,
+        "realized_excess": -0.1904928852124163,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "ANET",
+        "weight": 0.010113,
+        "score": 0.517189085483551,
+        "daily_vol": 0.03211031964146903,
+        "realized_return": 0.2541001064962726,
+        "realized_excess": 0.13726966636010327,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "UBER",
+        "weight": 0.00948,
+        "score": 0.5107221603393555,
+        "daily_vol": 0.019999362388095607,
+        "realized_return": 0.34785464098073554,
+        "realized_excess": 0.23102420084456618,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "CASY",
+        "weight": 0.009221,
+        "score": 0.50795578956604,
+        "daily_vol": 0.01748791985060867,
+        "realized_return": 0.012414255890247479,
+        "realized_excess": -0.10441618424592189,
         "is_top30_actual": false
       },
       {
         "symbol": "SLB",
-        "weight": 0.021889,
-        "score": 0.5355411767959595,
+        "weight": 0.008746,
+        "score": 0.5026614665985107,
         "daily_vol": 0.018407852551497045,
         "realized_return": -0.09743495109798858,
         "realized_excess": -0.21426539123415794,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "JBL",
+        "weight": 0.008676,
+        "score": 0.5018656849861145,
+        "daily_vol": 0.028954548134654305,
+        "realized_return": -0.01076779026217225,
+        "realized_excess": -0.12759823039834162,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "MU",
+        "weight": 0.008672,
+        "score": 0.5018162131309509,
+        "daily_vol": 0.02041455478575326,
+        "realized_return": 0.2594851956554086,
+        "realized_excess": 0.14265475551923926,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DELL",
+        "weight": 0.008642,
+        "score": 0.501467227935791,
+        "daily_vol": 0.03113370773816717,
+        "realized_return": 0.13635660114533357,
+        "realized_excess": 0.01952616100916421,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "VST",
+        "weight": 0.008232,
+        "score": 0.49660876393318176,
+        "daily_vol": 0.015054737527746932,
+        "realized_return": 0.1907605279698303,
+        "realized_excess": 0.07393008783366095,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "MPWR",
+        "weight": 0.007917,
+        "score": 0.4927034378051758,
+        "daily_vol": 0.02596068253567056,
+        "realized_return": 0.3754019470871311,
+        "realized_excess": 0.25857150695096176,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "GEN",
+        "weight": 0.007681,
+        "score": 0.48967450857162476,
+        "daily_vol": 0.01885796268366216,
+        "realized_return": 0.30945213726670684,
+        "realized_excess": 0.19262169713053748,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "URI",
+        "weight": 0.007417,
+        "score": 0.486179381608963,
+        "daily_vol": 0.018699545750080388,
+        "realized_return": 0.31544742151940297,
+        "realized_excess": 0.1986169813832336,
         "is_top30_actual": false
       }
     ],
@@ -919,8 +919,8 @@
         "y_label": 1
       }
     ],
-    "hit_count": 4,
-    "hit_rate": 0.13333333333333333,
+    "hit_count": 6,
+    "hit_rate": 0.2,
     "label_note": "actual_top30 = excess rank Top30 within realized quarter (same as y_next label)"
   },
   "2023Q4": {
@@ -929,274 +929,274 @@
     "path": "walk_forward_cv",
     "selected": [
       {
-        "symbol": "HOOD",
-        "weight": 0.058105,
-        "score": 0.6653279662132263,
-        "daily_vol": 0.03633175122401836,
-        "realized_return": 0.6273241713823767,
-        "realized_excess": 0.517169602804799,
-        "is_top30_actual": true
-      },
-      {
         "symbol": "CVNA",
-        "weight": 0.054764,
-        "score": 0.6594054102897644,
+        "weight": 0.095002,
+        "score": 0.7911681532859802,
         "daily_vol": 0.05904006464009433,
         "realized_return": 0.7993858751279426,
         "realized_excess": 0.6892313065503648,
         "is_top30_actual": true
       },
       {
-        "symbol": "SATS",
-        "weight": 0.052113,
-        "score": 0.6544438004493713,
-        "daily_vol": 0.05363469494956578,
-        "realized_return": -0.09293443666454493,
-        "realized_excess": -0.20308900524212273,
+        "symbol": "SWK",
+        "weight": 0.085932,
+        "score": 0.7811338901519775,
+        "daily_vol": 0.02163782013291357,
+        "realized_return": 0.006145938093641875,
+        "realized_excess": -0.10400863048393592,
         "is_top30_actual": false
-      },
-      {
-        "symbol": "WBD",
-        "weight": 0.052113,
-        "score": 0.6544438004493713,
-        "daily_vol": 0.04067713009832687,
-        "realized_return": -0.25128644939965694,
-        "realized_excess": -0.3614410179772347,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "PLTR",
-        "weight": 0.051636,
-        "score": 0.6535249948501587,
-        "daily_vol": 0.04120882520551677,
-        "realized_return": 0.3878166465621233,
-        "realized_excess": 0.27766207798454545,
-        "is_top30_actual": true
       },
       {
         "symbol": "SMCI",
-        "weight": 0.051636,
-        "score": 0.6535249948501587,
+        "weight": 0.072369,
+        "score": 0.76395583152771,
         "daily_vol": 0.04033439226155545,
         "realized_return": 2.5376532399299476,
         "realized_excess": 2.4274986713523696,
         "is_top30_actual": true
       },
       {
-        "symbol": "TTD",
-        "weight": 0.051636,
-        "score": 0.6535249948501587,
-        "daily_vol": 0.03507262406141999,
-        "realized_return": 0.23841903952401186,
-        "realized_excess": 0.12826447094643406,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "MRNA",
-        "weight": 0.046399,
-        "score": 0.6428304314613342,
-        "daily_vol": 0.033329641495512374,
-        "realized_return": -0.05279999999999998,
-        "realized_excess": -0.16295456857757779,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "CCL",
-        "weight": 0.035053,
-        "score": 0.6147874593734741,
-        "daily_vol": 0.029607956071724607,
-        "realized_return": -0.05493863237872576,
-        "realized_excess": -0.16509320095630356,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "NCLH",
-        "weight": 0.035053,
-        "score": 0.6147874593734741,
-        "daily_vol": 0.03062156380591833,
-        "realized_return": 0.1424672489082969,
-        "realized_excess": 0.0323126803307191,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "COIN",
-        "weight": 0.034296,
-        "score": 0.6126049160957336,
-        "daily_vol": 0.03873953314739753,
-        "realized_return": 0.6899541050484448,
-        "realized_excess": 0.579799536470867,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "VRT",
-        "weight": 0.032599,
-        "score": 0.6075291633605957,
-        "daily_vol": 0.028522029442355764,
-        "realized_return": 0.7901560096682049,
-        "realized_excess": 0.6800014410906271,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "UAL",
-        "weight": 0.032492,
-        "score": 0.6072008013725281,
-        "daily_vol": 0.02349729545900036,
-        "realized_return": 0.17583497053045197,
-        "realized_excess": 0.06568040195287417,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "DDOG",
-        "weight": 0.032201,
-        "score": 0.6063014268875122,
-        "daily_vol": 0.04173971380923804,
-        "realized_return": 0.07403545359749736,
-        "realized_excess": -0.03611911498008044,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "FSLR",
-        "weight": 0.029696,
-        "score": 0.5982024073600769,
-        "daily_vol": 0.03344407496266187,
-        "realized_return": -0.01951672862453523,
-        "realized_excess": -0.12967129720211304,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "NVDA",
-        "weight": 0.029057,
-        "score": 0.5960271954536438,
-        "daily_vol": 0.02107167216518945,
-        "realized_return": 0.8759867054424595,
-        "realized_excess": 0.7658321368648817,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "PHM",
-        "weight": 0.027859,
-        "score": 0.5918188095092773,
-        "daily_vol": 0.02040060022396551,
-        "realized_return": 0.19004207573632553,
-        "realized_excess": 0.07988750715874773,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "DAL",
-        "weight": 0.027462,
-        "score": 0.5903838276863098,
-        "daily_vol": 0.019421994166174485,
-        "realized_return": 0.18607015760040652,
-        "realized_excess": 0.07591558902282872,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "EBAY",
-        "weight": 0.027398,
-        "score": 0.5901495814323425,
-        "daily_vol": 0.016501522783221173,
-        "realized_return": 0.2097041420118343,
-        "realized_excess": 0.0995495734342565,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "PODD",
-        "weight": 0.025049,
-        "score": 0.5811842083930969,
-        "daily_vol": 0.03345578526023916,
-        "realized_return": -0.1803357084787911,
-        "realized_excess": -0.2904902770563689,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "LITE",
-        "weight": 0.024982,
-        "score": 0.580917239189148,
-        "daily_vol": 0.030815546102120235,
-        "realized_return": -0.09012298232129128,
-        "realized_excess": -0.20027755089886906,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "WYNN",
-        "weight": 0.023103,
-        "score": 0.5730975866317749,
-        "daily_vol": 0.01939155750985805,
-        "realized_return": 0.08329718004338386,
-        "realized_excess": -0.026857388534193935,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "NEM",
-        "weight": 0.022612,
-        "score": 0.5709497928619385,
-        "daily_vol": 0.023051880181965457,
-        "realized_return": -0.11740684022460443,
-        "realized_excess": -0.22756140880218223,
+        "symbol": "WBD",
+        "weight": 0.070271,
+        "score": 0.7610135078430176,
+        "daily_vol": 0.04067713009832687,
+        "realized_return": -0.25128644939965694,
+        "realized_excess": -0.3614410179772347,
         "is_top30_actual": false
       },
       {
         "symbol": "INTC",
-        "weight": 0.021189,
-        "score": 0.5644503831863403,
+        "weight": 0.063866,
+        "score": 0.7514566779136658,
         "daily_vol": 0.02339619018368119,
         "realized_return": -0.07336726039016103,
         "realized_excess": -0.18352182896773883,
         "is_top30_actual": false
       },
       {
-        "symbol": "WDC",
-        "weight": 0.021189,
-        "score": 0.5644503831863403,
-        "daily_vol": 0.02330821094129837,
-        "realized_return": 0.341692789968652,
-        "realized_excess": 0.2315382213910742,
-        "is_top30_actual": true
+        "symbol": "PHM",
+        "weight": 0.060257,
+        "score": 0.745639979839325,
+        "daily_vol": 0.02040060022396551,
+        "realized_return": 0.19004207573632553,
+        "realized_excess": 0.07988750715874773,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DDOG",
+        "weight": 0.049981,
+        "score": 0.7269430756568909,
+        "daily_vol": 0.04173971380923804,
+        "realized_return": 0.07403545359749736,
+        "realized_excess": -0.03611911498008044,
+        "is_top30_actual": false
       },
       {
         "symbol": "MGM",
-        "weight": 0.020965,
-        "score": 0.5633902549743652,
+        "weight": 0.049403,
+        "score": 0.7257799506187439,
         "daily_vol": 0.02295429341092033,
         "realized_return": 0.03803869832893589,
         "realized_excess": -0.07211587024864191,
         "is_top30_actual": false
       },
       {
-        "symbol": "JBL",
-        "weight": 0.019998,
-        "score": 0.5586641430854797,
-        "daily_vol": 0.02697291809459464,
-        "realized_return": 0.045875156838143104,
-        "realized_excess": -0.06427941173943469,
+        "symbol": "HOOD",
+        "weight": 0.0466,
+        "score": 0.7199379205703735,
+        "daily_vol": 0.03633175122401836,
+        "realized_return": 0.6273241713823767,
+        "realized_excess": 0.517169602804799,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "UBER",
+        "weight": 0.044658,
+        "score": 0.7156816720962524,
+        "daily_vol": 0.02013770099070172,
+        "realized_return": 0.3187735525865021,
+        "realized_excess": 0.20861898400892429,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "SATS",
+        "weight": 0.033111,
+        "score": 0.6857637763023376,
+        "daily_vol": 0.05363469494956578,
+        "realized_return": -0.09293443666454493,
+        "realized_excess": -0.20308900524212273,
         "is_top30_actual": false
       },
       {
-        "symbol": "GDDY",
-        "weight": 0.019844,
-        "score": 0.557892382144928,
-        "daily_vol": 0.020066864533913934,
-        "realized_return": 0.15223300970873793,
-        "realized_excess": 0.04207844113116013,
+        "symbol": "CPT",
+        "weight": 0.028555,
+        "score": 0.6709601283073425,
+        "daily_vol": 0.018460211875319956,
+        "realized_return": -0.009331597222222217,
+        "realized_excess": -0.11948616579980001,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "FSLR",
+        "weight": 0.026133,
+        "score": 0.6620964407920837,
+        "daily_vol": 0.03344407496266187,
+        "realized_return": -0.01951672862453523,
+        "realized_excess": -0.12967129720211304,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "CCL",
+        "weight": 0.024485,
+        "score": 0.6555823683738708,
+        "daily_vol": 0.029607956071724607,
+        "realized_return": -0.05493863237872576,
+        "realized_excess": -0.16509320095630356,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "F",
+        "weight": 0.023856,
+        "score": 0.6529820561408997,
+        "daily_vol": 0.025691255779337452,
+        "realized_return": 0.12065637065637067,
+        "realized_excess": 0.010501802078792866,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "CRWD",
+        "weight": 0.022408,
+        "score": 0.6467210054397583,
+        "daily_vol": 0.02181091324711015,
+        "realized_return": 0.2985135080400178,
+        "realized_excess": 0.18835893946244,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "EBAY",
+        "weight": 0.021801,
+        "score": 0.6439741253852844,
+        "daily_vol": 0.016501522783221173,
+        "realized_return": 0.2097041420118343,
+        "realized_excess": 0.0995495734342565,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "LUV",
+        "weight": 0.019657,
+        "score": 0.6336190700531006,
+        "daily_vol": 0.020779387001465578,
+        "realized_return": 0.030616008852821907,
+        "realized_excess": -0.07953855972475589,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "UAL",
+        "weight": 0.019501,
+        "score": 0.6328226327896118,
+        "daily_vol": 0.02349729545900036,
+        "realized_return": 0.17583497053045197,
+        "realized_excess": 0.06568040195287417,
         "is_top30_actual": false
       },
       {
         "symbol": "BLDR",
-        "weight": 0.019766,
-        "score": 0.5575003027915955,
+        "weight": 0.017774,
+        "score": 0.6235527396202087,
         "daily_vol": 0.029653634511233606,
         "realized_return": 0.2610351916797679,
         "realized_excess": 0.1508806231021901,
         "is_top30_actual": false
       },
       {
-        "symbol": "TER",
-        "weight": 0.019737,
-        "score": 0.5573537349700928,
-        "daily_vol": 0.02030125046078194,
-        "realized_return": 0.07811596994798704,
-        "realized_excess": -0.032038598629590756,
+        "symbol": "NEM",
+        "weight": 0.01634,
+        "score": 0.6151412129402161,
+        "daily_vol": 0.023051880181965457,
+        "realized_return": -0.11740684022460443,
+        "realized_excess": -0.22756140880218223,
         "is_top30_actual": false
+      },
+      {
+        "symbol": "COIN",
+        "weight": 0.015744,
+        "score": 0.6114227771759033,
+        "daily_vol": 0.03873953314739753,
+        "realized_return": 0.6899541050484448,
+        "realized_excess": 0.579799536470867,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "JBL",
+        "weight": 0.014894,
+        "score": 0.6058760285377502,
+        "daily_vol": 0.02697291809459464,
+        "realized_return": 0.045875156838143104,
+        "realized_excess": -0.06427941173943469,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "LITE",
+        "weight": 0.014501,
+        "score": 0.6032013893127441,
+        "daily_vol": 0.030815546102120235,
+        "realized_return": -0.09012298232129128,
+        "realized_excess": -0.20027755089886906,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DAL",
+        "weight": 0.013441,
+        "score": 0.5956079363822937,
+        "daily_vol": 0.019421994166174485,
+        "realized_return": 0.18607015760040652,
+        "realized_excess": 0.07591558902282872,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "NCLH",
+        "weight": 0.011286,
+        "score": 0.5781375169754028,
+        "daily_vol": 0.03062156380591833,
+        "realized_return": 0.1424672489082969,
+        "realized_excess": 0.0323126803307191,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "APO",
+        "weight": 0.010352,
+        "score": 0.5694923400878906,
+        "daily_vol": 0.018093789496266374,
+        "realized_return": 0.2360163710777627,
+        "realized_excess": 0.1258618025001849,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "GM",
+        "weight": 0.010199,
+        "score": 0.5680112242698669,
+        "daily_vol": 0.02381237456723153,
+        "realized_return": 0.26170877093386335,
+        "realized_excess": 0.15155420235628556,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "EL",
+        "weight": 0.008905,
+        "score": 0.5544441938400269,
+        "daily_vol": 0.03613124298989456,
+        "realized_return": 0.06457167455876023,
+        "realized_excess": -0.04558289401881757,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "COHR",
+        "weight": 0.008718,
+        "score": 0.5523121356964111,
+        "daily_vol": 0.027033404442892477,
+        "realized_return": 0.4392212725546059,
+        "realized_excess": 0.3290667039770281,
+        "is_top30_actual": true
       }
     ],
     "actual_top30": [
@@ -1381,8 +1381,8 @@
         "y_label": 1
       }
     ],
-    "hit_count": 8,
-    "hit_rate": 0.26666666666666666,
+    "hit_count": 6,
+    "hit_rate": 0.2,
     "label_note": "actual_top30 = excess rank Top30 within realized quarter (same as y_next label)"
   },
   "2024Q1": {
@@ -1392,272 +1392,272 @@
     "selected": [
       {
         "symbol": "PLTR",
-        "weight": 0.085839,
-        "score": 0.7724652290344238,
+        "weight": 0.097628,
+        "score": 0.8207598328590393,
         "daily_vol": 0.05038892316036868,
         "realized_return": 0.10804899387576548,
         "realized_excess": 0.06244018990534745,
         "is_top30_actual": false
       },
       {
-        "symbol": "APP",
-        "weight": 0.08524,
-        "score": 0.7717644572257996,
-        "daily_vol": 0.04577700866701784,
-        "realized_return": 0.20364477870986403,
-        "realized_excess": 0.158035974739446,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "CVNA",
-        "weight": 0.077425,
-        "score": 0.7621490359306335,
-        "daily_vol": 0.06455134683731038,
-        "realized_return": 0.4827188940092165,
-        "realized_excess": 0.43711009003879847,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "HOOD",
-        "weight": 0.077425,
-        "score": 0.7621490359306335,
-        "daily_vol": 0.03463407573498625,
-        "realized_return": 0.170015455950541,
-        "realized_excess": 0.12440665198012296,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "MPC",
-        "weight": 0.060676,
-        "score": 0.7377721667289734,
-        "daily_vol": 0.01708143961100702,
-        "realized_return": -0.14725623815135513,
-        "realized_excess": -0.19286504212177316,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "NCLH",
-        "weight": 0.056181,
-        "score": 0.7300750613212585,
-        "daily_vol": 0.035234576520538914,
-        "realized_return": -0.10267430754536781,
-        "realized_excess": -0.14828311151578585,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "COHR",
-        "weight": 0.056124,
-        "score": 0.7299745678901672,
-        "daily_vol": 0.03551768517667138,
-        "realized_return": 0.20766666666666656,
-        "realized_excess": 0.16205786269624853,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "NVDA",
-        "weight": 0.052809,
-        "score": 0.7238866090774536,
-        "daily_vol": 0.032144611280491155,
-        "realized_return": 0.3672904440261322,
-        "realized_excess": 0.32168164005571415,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "APTV",
-        "weight": 0.039056,
-        "score": 0.693717360496521,
-        "daily_vol": 0.020394449627767534,
-        "realized_return": -0.10623175529889585,
-        "realized_excess": -0.1518405592693139,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "DAL",
-        "weight": 0.037107,
-        "score": 0.6885976195335388,
-        "daily_vol": 0.02094014862840125,
-        "realized_return": -0.014255319148936206,
-        "realized_excess": -0.05986412311935424,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "HAS",
-        "weight": 0.033267,
-        "score": 0.677673876285553,
-        "daily_vol": 0.01746408794551991,
-        "realized_return": 0.05176063113334612,
-        "realized_excess": 0.006151827162928086,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "JBL",
-        "weight": 0.029482,
-        "score": 0.6655973792076111,
-        "daily_vol": 0.026472563993075633,
-        "realized_return": -0.19728949122417241,
-        "realized_excess": -0.24289829519459044,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "PHM",
-        "weight": 0.027171,
-        "score": 0.6574317216873169,
-        "daily_vol": 0.016608580171871692,
-        "realized_return": -0.06867872760010281,
-        "realized_excess": -0.11428753157052085,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "VST",
-        "weight": 0.02612,
-        "score": 0.653486967086792,
-        "daily_vol": 0.02147551415167543,
-        "realized_return": 0.20495750708215296,
-        "realized_excess": 0.15934870311173494,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "BLDR",
-        "weight": 0.022407,
-        "score": 0.6381567716598511,
-        "daily_vol": 0.01979419076792943,
-        "realized_return": -0.3261769144637554,
-        "realized_excess": -0.37178571843417346,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "LUV",
-        "weight": 0.022172,
-        "score": 0.6371018290519714,
-        "daily_vol": 0.02777851981160813,
-        "realized_return": -0.013605442176870713,
-        "realized_excess": -0.05921424614728875,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "WDC",
-        "weight": 0.021919,
-        "score": 0.635953426361084,
-        "daily_vol": 0.022923347066762863,
-        "realized_return": 0.06937933620851308,
-        "realized_excess": 0.023770532238095048,
-        "is_top30_actual": false
-      },
-      {
         "symbol": "CRWD",
-        "weight": 0.021749,
-        "score": 0.6351742744445801,
+        "weight": 0.068772,
+        "score": 0.7857231497764587,
         "daily_vol": 0.03015862827917328,
         "realized_return": 0.1990049751243782,
         "realized_excess": 0.15339617115396018,
         "is_top30_actual": true
       },
       {
-        "symbol": "VRT",
-        "weight": 0.021122,
-        "score": 0.6322475075721741,
-        "daily_vol": 0.02887284786927852,
-        "realized_return": 0.0770573566084787,
-        "realized_excess": 0.03144855263806067,
+        "symbol": "AMD",
+        "weight": 0.064183,
+        "score": 0.7788172364234924,
+        "daily_vol": 0.033797103227421126,
+        "realized_return": -0.11525035453256242,
+        "realized_excess": -0.16085915850298046,
         "is_top30_actual": false
       },
       {
+        "symbol": "HOOD",
+        "weight": 0.063399,
+        "score": 0.777587890625,
+        "daily_vol": 0.03463407573498625,
+        "realized_return": 0.170015455950541,
+        "realized_excess": 0.12440665198012296,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "BLDR",
+        "weight": 0.06141,
+        "score": 0.7744002938270569,
+        "daily_vol": 0.01979419076792943,
+        "realized_return": -0.3261769144637554,
+        "realized_excess": -0.37178571843417346,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "CVNA",
+        "weight": 0.059942,
+        "score": 0.7719807624816895,
+        "daily_vol": 0.06455134683731038,
+        "realized_return": 0.4827188940092165,
+        "realized_excess": 0.43711009003879847,
+        "is_top30_actual": true
+      },
+      {
         "symbol": "SATS",
-        "weight": 0.020372,
-        "score": 0.6286346912384033,
+        "weight": 0.052218,
+        "score": 0.7581868171691895,
         "daily_vol": 0.05949654030078892,
         "realized_return": 0.2685185185185185,
         "realized_excess": 0.22290971454810046,
         "is_top30_actual": true
       },
       {
-        "symbol": "GM",
-        "weight": 0.017739,
-        "score": 0.6147930026054382,
-        "daily_vol": 0.016751435350301252,
-        "realized_return": 0.026067415730337003,
-        "realized_excess": -0.01954138824008103,
+        "symbol": "LITE",
+        "weight": 0.04377,
+        "score": 0.7405379414558411,
+        "daily_vol": 0.039599574600604814,
+        "realized_return": 0.05752855659397722,
+        "realized_excess": 0.011919752623559189,
         "is_top30_actual": false
       },
       {
-        "symbol": "EXPE",
-        "weight": 0.016897,
-        "score": 0.6099307537078857,
-        "daily_vol": 0.027194789726879665,
-        "realized_return": -0.054287663962392776,
-        "realized_excess": -0.09989646793281082,
+        "symbol": "WDC",
+        "weight": 0.040325,
+        "score": 0.7323408126831055,
+        "daily_vol": 0.022923347066762863,
+        "realized_return": 0.06937933620851308,
+        "realized_excess": 0.023770532238095048,
         "is_top30_actual": false
       },
       {
-        "symbol": "STLD",
-        "weight": 0.016205,
-        "score": 0.6057528257369995,
-        "daily_vol": 0.016679630375312778,
-        "realized_return": -0.1293257962222529,
-        "realized_excess": -0.17493460019267093,
+        "symbol": "PHM",
+        "weight": 0.040177,
+        "score": 0.7319725751876831,
+        "daily_vol": 0.016608580171871692,
+        "realized_return": -0.06867872760010281,
+        "realized_excess": -0.11428753157052085,
         "is_top30_actual": false
       },
       {
-        "symbol": "SMCI",
-        "weight": 0.013068,
-        "score": 0.5842324495315552,
-        "daily_vol": 0.0859915326668123,
-        "realized_return": -0.20998843038951023,
-        "realized_excess": -0.25559723435992826,
+        "symbol": "MPC",
+        "weight": 0.039281,
+        "score": 0.7297165393829346,
+        "daily_vol": 0.01708143961100702,
+        "realized_return": -0.14725623815135513,
+        "realized_excess": -0.19286504212177316,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DVA",
+        "weight": 0.038831,
+        "score": 0.7285664677619934,
+        "daily_vol": 0.01997806274230589,
+        "realized_return": 0.005295995356935503,
+        "realized_excess": -0.040312808613482534,
         "is_top30_actual": false
       },
       {
         "symbol": "CTVA",
-        "weight": 0.01214,
-        "score": 0.57686448097229,
+        "weight": 0.034631,
+        "score": 0.7171194553375244,
         "daily_vol": 0.02689276918141386,
         "realized_return": -0.061990789939780376,
         "realized_excess": -0.10759959391019841,
         "is_top30_actual": false
       },
       {
-        "symbol": "COIN",
-        "weight": 0.011161,
-        "score": 0.568462073802948,
-        "daily_vol": 0.056706246652014396,
-        "realized_return": -0.11851969378445926,
-        "realized_excess": -0.16412849775487728,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "UAL",
-        "weight": 0.010615,
-        "score": 0.5634419322013855,
-        "daily_vol": 0.02588442054814998,
-        "realized_return": 0.027666314677930202,
-        "realized_excess": -0.01794248929248783,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "DELL",
-        "weight": 0.009941,
-        "score": 0.5568828582763672,
-        "daily_vol": 0.04697239559811272,
-        "realized_return": 0.1570871261378414,
-        "realized_excess": 0.11147832216742337,
-        "is_top30_actual": false
-      },
-      {
         "symbol": "DDOG",
-        "weight": 0.009611,
-        "score": 0.5535133481025696,
+        "weight": 0.027446,
+        "score": 0.6938644647598267,
         "daily_vol": 0.021651021130746458,
         "realized_return": 0.053105968331303224,
         "realized_excess": 0.00749716436088519,
         "is_top30_actual": false
       },
       {
-        "symbol": "CHTR",
-        "weight": 0.00896,
-        "score": 0.5464985370635986,
-        "daily_vol": 0.028994698148873625,
-        "realized_return": 0.05212035896533522,
-        "realized_excess": 0.006511554994917186,
+        "symbol": "UBER",
+        "weight": 0.026411,
+        "score": 0.6900204420089722,
+        "daily_vol": 0.025772081523182323,
+        "realized_return": -0.04869109947643977,
+        "realized_excess": -0.0942999034468578,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "TTD",
+        "weight": 0.018762,
+        "score": 0.6558257341384888,
+        "daily_vol": 0.03196395203808613,
+        "realized_return": 0.11865765662581605,
+        "realized_excess": 0.07304885265539801,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "LUV",
+        "weight": 0.018706,
+        "score": 0.6555266380310059,
+        "daily_vol": 0.02777851981160813,
+        "realized_return": -0.013605442176870713,
+        "realized_excess": -0.05921424614728875,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "FANG",
+        "weight": 0.018637,
+        "score": 0.655160665512085,
+        "daily_vol": 0.01738568373881048,
+        "realized_return": 0.013712571642830372,
+        "realized_excess": -0.03189623232758766,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "F",
+        "weight": 0.018568,
+        "score": 0.6547854542732239,
+        "daily_vol": 0.021060213778468003,
+        "realized_return": -0.04475043029259893,
+        "realized_excess": -0.09035923426301697,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "SMCI",
+        "weight": 0.017738,
+        "score": 0.6502154469490051,
+        "daily_vol": 0.0859915326668123,
+        "realized_return": -0.20998843038951023,
+        "realized_excess": -0.25559723435992826,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "STX",
+        "weight": 0.01726,
+        "score": 0.6474801898002625,
+        "daily_vol": 0.020264989312667913,
+        "realized_return": 0.13289413902771455,
+        "realized_excess": 0.08728533505729652,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "NEM",
+        "weight": 0.017237,
+        "score": 0.6473476886749268,
+        "daily_vol": 0.023959449410132994,
+        "realized_return": 0.15647226173541964,
+        "realized_excess": 0.11086345776500162,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DHI",
+        "weight": 0.017072,
+        "score": 0.646388828754425,
+        "daily_vol": 0.019400232262824012,
+        "realized_return": -0.12757878749525373,
+        "realized_excess": -0.17318759146567175,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "NFLX",
+        "weight": 0.016729,
+        "score": 0.6443548798561096,
+        "daily_vol": 0.020455355012555576,
+        "realized_return": 0.09864886863096199,
+        "realized_excess": 0.05304006466054396,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "URI",
+        "weight": 0.015595,
+        "score": 0.6373376846313477,
+        "daily_vol": 0.023374185367065387,
+        "realized_return": -0.08709454994684977,
+        "realized_excess": -0.1327033539172678,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "EXE",
+        "weight": 0.015238,
+        "score": 0.6350238919258118,
+        "daily_vol": 0.01812664062816314,
+        "realized_return": -0.07707838479809986,
+        "realized_excess": -0.12268718876851789,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "SWK",
+        "weight": 0.013968,
+        "score": 0.626318097114563,
+        "daily_vol": 0.01704893793637372,
+        "realized_return": -0.1549504386464623,
+        "realized_excess": -0.20055924261688032,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "MMM",
+        "weight": 0.013587,
+        "score": 0.6235554814338684,
+        "daily_vol": 0.020899335724924147,
+        "realized_return": 0.09456449097794603,
+        "realized_excess": 0.048955687007528,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "IFF",
+        "weight": 0.011781,
+        "score": 0.609292209148407,
+        "daily_vol": 0.018436814300396932,
+        "realized_return": 0.10696607509356514,
+        "realized_excess": 0.0613572711231471,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "CCL",
+        "weight": 0.0107,
+        "score": 0.599664568901062,
+        "daily_vol": 0.026186418897172024,
+        "realized_return": 0.15102548166563082,
+        "realized_excess": 0.10541667769521279,
         "is_top30_actual": false
       }
     ],
@@ -1843,8 +1843,8 @@
         "y_label": 1
       }
     ],
-    "hit_count": 8,
-    "hit_rate": 0.26666666666666666,
+    "hit_count": 4,
+    "hit_rate": 0.13333333333333333,
     "label_note": "actual_top30 = excess rank Top30 within realized quarter (same as y_next label)"
   },
   "2024Q2": {
@@ -1853,274 +1853,274 @@
     "path": "walk_forward_oos",
     "selected": [
       {
-        "symbol": "SMCI",
-        "weight": 0.068943,
-        "score": 0.8521087169647217,
-        "daily_vol": 0.05696144910458328,
-        "realized_return": -0.4873815092945956,
-        "realized_excess": -0.5427248778260116,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "CVNA",
-        "weight": 0.057718,
-        "score": 0.8343386054039001,
-        "daily_vol": 0.054504502676848594,
-        "realized_return": 0.4000804181745074,
-        "realized_excess": 0.3447370496430913,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "HOOD",
-        "weight": 0.057718,
-        "score": 0.8343386054039001,
-        "daily_vol": 0.03607980116847959,
-        "realized_return": 0.027643703378674972,
-        "realized_excess": -0.02769966515274109,
-        "is_top30_actual": false
-      },
-      {
         "symbol": "VRT",
-        "weight": 0.057718,
-        "score": 0.8343386054039001,
+        "weight": 0.157592,
+        "score": 0.9011963605880737,
         "daily_vol": 0.03799594567200547,
         "realized_return": 0.14837515901468715,
         "realized_excess": 0.09303179048327109,
         "is_top30_actual": false
       },
       {
-        "symbol": "VST",
-        "weight": 0.057718,
-        "score": 0.8343386054039001,
-        "daily_vol": 0.03497587879078792,
-        "realized_return": 0.35998611432538763,
-        "realized_excess": 0.30464274579397155,
-        "is_top30_actual": true
-      },
-      {
         "symbol": "CRWD",
-        "weight": 0.050976,
-        "score": 0.8219177722930908,
+        "weight": 0.07032,
+        "score": 0.8205013275146484,
         "daily_vol": 0.027963592814667457,
         "realized_return": -0.2847889838072165,
         "realized_excess": -0.3401323523386326,
         "is_top30_actual": false
       },
       {
-        "symbol": "EPAM",
-        "weight": 0.048226,
-        "score": 0.8163712620735168,
-        "daily_vol": 0.03788074379461092,
-        "realized_return": 0.07247548227179647,
-        "realized_excess": 0.017132113740380407,
-        "is_top30_actual": false
-      },
-      {
         "symbol": "UBER",
-        "weight": 0.044476,
-        "score": 0.8082760572433472,
+        "weight": 0.065816,
+        "score": 0.8138811588287354,
         "daily_vol": 0.020338985256021486,
         "realized_return": 0.057102672292545745,
         "realized_excess": 0.0017593037611296838,
         "is_top30_actual": false
       },
       {
-        "symbol": "MU",
-        "weight": 0.041506,
-        "score": 0.8013656139373779,
-        "daily_vol": 0.028215966840211076,
-        "realized_return": -0.21073589095642858,
-        "realized_excess": -0.26607925948784467,
+        "symbol": "FSLR",
+        "weight": 0.061203,
+        "score": 0.8066149950027466,
+        "daily_vol": 0.038615662461394785,
+        "realized_return": 0.12002155269184135,
+        "realized_excess": 0.06467818416042528,
         "is_top30_actual": false
       },
       {
-        "symbol": "NVDA",
-        "weight": 0.039413,
-        "score": 0.796191394329071,
-        "daily_vol": 0.0338654558835344,
-        "realized_return": -0.022939471989697317,
-        "realized_excess": -0.07828284052111338,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "PLTR",
-        "weight": 0.03903,
-        "score": 0.7952151298522949,
-        "daily_vol": 0.03189669630586566,
-        "realized_return": 0.4374034003091192,
-        "realized_excess": 0.3820600317777031,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "WDC",
-        "weight": 0.035794,
-        "score": 0.7865583896636963,
-        "daily_vol": 0.021163992233618017,
-        "realized_return": -0.10593146634197258,
-        "realized_excess": -0.16127483487338864,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "APP",
-        "weight": 0.035197,
-        "score": 0.7848773002624512,
-        "daily_vol": 0.03195784894771763,
-        "realized_return": 0.5391417118604105,
-        "realized_excess": 0.4837983433289944,
+        "symbol": "CVNA",
+        "weight": 0.058602,
+        "score": 0.8022715449333191,
+        "daily_vol": 0.054504502676848594,
+        "realized_return": 0.4000804181745074,
+        "realized_excess": 0.3447370496430913,
         "is_top30_actual": true
       },
       {
         "symbol": "COHR",
-        "weight": 0.034498,
-        "score": 0.7828724980354309,
+        "weight": 0.058472,
+        "score": 0.8020499348640442,
         "daily_vol": 0.03678559626305085,
         "realized_return": 0.2222985977453946,
         "realized_excess": 0.16695522921397854,
         "is_top30_actual": false
       },
       {
-        "symbol": "INTC",
-        "weight": 0.034412,
-        "score": 0.7826226353645325,
-        "daily_vol": 0.022261220553100147,
-        "realized_return": -0.23433420365535246,
-        "realized_excess": -0.28967757218676854,
+        "symbol": "APP",
+        "weight": 0.054746,
+        "score": 0.795465350151062,
+        "daily_vol": 0.03195784894771763,
+        "realized_return": 0.5391417118604105,
+        "realized_excess": 0.4837983433289944,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "HOOD",
+        "weight": 0.053624,
+        "score": 0.7933955788612366,
+        "daily_vol": 0.03607980116847959,
+        "realized_return": 0.027643703378674972,
+        "realized_excess": -0.02769966515274109,
         "is_top30_actual": false
       },
       {
-        "symbol": "NCLH",
-        "weight": 0.033643,
-        "score": 0.7803617715835571,
-        "daily_vol": 0.03356798397678006,
-        "realized_return": 0.16006787330316752,
-        "realized_excess": 0.10472450477175146,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "BLDR",
-        "weight": 0.028396,
-        "score": 0.7634052634239197,
-        "daily_vol": 0.033538220172998096,
-        "realized_return": 0.4468243898798418,
-        "realized_excess": 0.3914810213484257,
+        "symbol": "VST",
+        "weight": 0.043089,
+        "score": 0.7715230584144592,
+        "daily_vol": 0.03497587879078792,
+        "realized_return": 0.35998611432538763,
+        "realized_excess": 0.30464274579397155,
         "is_top30_actual": true
       },
       {
         "symbol": "DELL",
-        "weight": 0.026429,
-        "score": 0.7562259435653687,
+        "weight": 0.040034,
+        "score": 0.7641671299934387,
         "daily_vol": 0.04119827430818988,
         "realized_return": -0.1671127830427548,
         "realized_excess": -0.22245615157417084,
         "is_top30_actual": false
       },
       {
-        "symbol": "TTD",
-        "weight": 0.024431,
-        "score": 0.748368501663208,
-        "daily_vol": 0.022958048479354117,
-        "realized_return": 0.11922016943962445,
-        "realized_excess": 0.06387680090820838,
+        "symbol": "NCLH",
+        "weight": 0.034512,
+        "score": 0.7493249773979187,
+        "daily_vol": 0.03356798397678006,
+        "realized_return": 0.16006787330316752,
+        "realized_excess": 0.10472450477175146,
         "is_top30_actual": false
       },
       {
-        "symbol": "NFLX",
-        "weight": 0.02397,
-        "score": 0.7464630603790283,
-        "daily_vol": 0.019776851119302292,
-        "realized_return": 0.05299881235154405,
-        "realized_excess": -0.0023445561798720108,
+        "symbol": "EXPE",
+        "weight": 0.028743,
+        "score": 0.7310344576835632,
+        "daily_vol": 0.02380310118158739,
+        "realized_return": 0.2082783641160949,
+        "realized_excess": 0.15293499558467885,
         "is_top30_actual": false
       },
       {
-        "symbol": "MPWR",
-        "weight": 0.020121,
-        "score": 0.7289564609527588,
-        "daily_vol": 0.02572089473481732,
-        "realized_return": 0.1297872340425533,
-        "realized_excess": 0.07444386551113724,
+        "symbol": "AMD",
+        "weight": 0.027236,
+        "score": 0.7256500124931335,
+        "daily_vol": 0.02738260465804639,
+        "realized_return": 0.04052254423235471,
+        "realized_excess": -0.014820824299061348,
         "is_top30_actual": false
       },
       {
-        "symbol": "DLTR",
-        "weight": 0.01826,
-        "score": 0.7192511558532715,
-        "daily_vol": 0.015751923994133905,
-        "realized_return": -0.3443356643356644,
-        "realized_excess": -0.3996790328670805,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "LITE",
-        "weight": 0.016906,
-        "score": 0.7115458250045776,
-        "daily_vol": 0.02434612272423004,
-        "realized_return": 0.23235465681508852,
-        "realized_excess": 0.17701128828367246,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "COIN",
-        "weight": 0.016185,
-        "score": 0.7071924805641174,
-        "daily_vol": 0.046054660967098156,
-        "realized_return": -0.23653425890217258,
-        "realized_excess": -0.29187762743358864,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "TECH",
-        "weight": 0.016062,
-        "score": 0.706428587436676,
-        "daily_vol": 0.026264340812018703,
-        "realized_return": 0.11731448763250879,
-        "realized_excess": 0.06197111910109273,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "STX",
-        "weight": 0.015916,
-        "score": 0.7055129408836365,
-        "daily_vol": 0.01785108800822059,
-        "realized_return": 0.07630887406508993,
-        "realized_excess": 0.02096550553367387,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "JBL",
-        "weight": 0.01462,
-        "score": 0.6970224976539612,
-        "daily_vol": 0.024702255419039674,
-        "realized_return": 0.10496624433552214,
-        "realized_excess": 0.04962287580410608,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "FIX",
-        "weight": 0.01421,
-        "score": 0.6941745281219482,
-        "daily_vol": 0.02631429002035427,
-        "realized_return": 0.3255718675315808,
-        "realized_excess": 0.2702284990001647,
+        "symbol": "PLTR",
+        "weight": 0.026659,
+        "score": 0.7235091328620911,
+        "daily_vol": 0.03189669630586566,
+        "realized_return": 0.4374034003091192,
+        "realized_excess": 0.3820600317777031,
         "is_top30_actual": true
       },
       {
+        "symbol": "DDOG",
+        "weight": 0.023976,
+        "score": 0.7129015326499939,
+        "daily_vol": 0.025853881975013024,
+        "realized_return": -0.1183141762452107,
+        "realized_excess": -0.17365754477662676,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "NVDA",
+        "weight": 0.023431,
+        "score": 0.7106032967567444,
+        "daily_vol": 0.0338654558835344,
+        "realized_return": -0.022939471989697317,
+        "realized_excess": -0.07828284052111338,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "AVGO",
+        "weight": 0.020856,
+        "score": 0.6989608407020569,
+        "daily_vol": 0.028804832390458775,
+        "realized_return": 0.054601797334986074,
+        "realized_excess": -0.0007415711964299868,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "PHM",
+        "weight": 0.019582,
+        "score": 0.6926568746566772,
+        "daily_vol": 0.01943695836245308,
+        "realized_return": 0.353053435114504,
+        "realized_excess": 0.2977100665830879,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "ANET",
+        "weight": 0.015256,
+        "score": 0.6676936745643616,
+        "daily_vol": 0.02708676758832176,
+        "realized_return": 0.07603454076483124,
+        "realized_excess": 0.020691172233415177,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "HPQ",
+        "weight": 0.015181,
+        "score": 0.6671992540359497,
+        "daily_vol": 0.02661926690307916,
+        "realized_return": 0.034259259259259246,
+        "realized_excess": -0.021084109272156815,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "HPE",
-        "weight": 0.013754,
-        "score": 0.6909114718437195,
+        "weight": 0.014263,
+        "score": 0.6609653234481812,
         "daily_vol": 0.021014553261715106,
         "realized_return": -0.026693030153237724,
         "realized_excess": -0.08203639868465379,
         "is_top30_actual": false
       },
       {
-        "symbol": "HPQ",
-        "weight": 0.013754,
-        "score": 0.6909114718437195,
-        "daily_vol": 0.02661926690307916,
-        "realized_return": 0.034259259259259246,
-        "realized_excess": -0.021084109272156815,
+        "symbol": "UAL",
+        "weight": 0.012557,
+        "score": 0.6482208371162415,
+        "daily_vol": 0.029930664842365645,
+        "realized_return": 0.18063314711359413,
+        "realized_excess": 0.12528977858217807,
         "is_top30_actual": false
+      },
+      {
+        "symbol": "DECK",
+        "weight": 0.01173,
+        "score": 0.6414061784744263,
+        "daily_vol": 0.026890820588537825,
+        "realized_return": 0.010968805478062324,
+        "realized_excess": -0.04437456305335374,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "FICO",
+        "weight": 0.011188,
+        "score": 0.636682391166687,
+        "daily_vol": 0.020811079688899566,
+        "realized_return": 0.29870164582929615,
+        "realized_excess": 0.2433582772978801,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "NEM",
+        "weight": 0.010881,
+        "score": 0.6338956952095032,
+        "daily_vol": 0.024189056703515517,
+        "realized_return": 0.2896364086074697,
+        "realized_excess": 0.23429304007605364,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "TTD",
+        "weight": 0.008717,
+        "score": 0.6117187142372131,
+        "daily_vol": 0.022958048479354117,
+        "realized_return": 0.11922016943962445,
+        "realized_excess": 0.06387680090820838,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "LLY",
+        "weight": 0.008084,
+        "score": 0.604183554649353,
+        "daily_vol": 0.015714652446984376,
+        "realized_return": -0.029741178557963068,
+        "realized_excess": -0.08508454708937913,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "MU",
+        "weight": 0.008069,
+        "score": 0.6039978861808777,
+        "daily_vol": 0.028215966840211076,
+        "realized_return": -0.21073589095642858,
+        "realized_excess": -0.26607925948784467,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "SWKS",
+        "weight": 0.007893,
+        "score": 0.6017959713935852,
+        "daily_vol": 0.026721972210646542,
+        "realized_return": -0.06568677141409025,
+        "realized_excess": -0.12103013994550632,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "BLDR",
+        "weight": 0.007687,
+        "score": 0.5991420149803162,
+        "daily_vol": 0.033538220172998096,
+        "realized_return": 0.4468243898798418,
+        "realized_excess": 0.3914810213484257,
+        "is_top30_actual": true
       }
     ],
     "actual_top30": [
@@ -2305,8 +2305,8 @@
         "y_label": 1
       }
     ],
-    "hit_count": 6,
-    "hit_rate": 0.2,
+    "hit_count": 7,
+    "hit_rate": 0.23333333333333334,
     "label_note": "actual_top30 = excess rank Top30 within realized quarter (same as y_next label)"
   },
   "2024Q3": {
@@ -2316,62 +2316,44 @@
     "selected": [
       {
         "symbol": "LITE",
-        "weight": 0.052289,
-        "score": 0.7419682741165161,
+        "weight": 0.099423,
+        "score": 0.8727161884307861,
         "daily_vol": 0.03935524749375575,
         "realized_return": 0.3652626443324118,
         "realized_excess": 0.3311255589628469,
         "is_top30_actual": true
       },
       {
+        "symbol": "CVNA",
+        "weight": 0.08985,
+        "score": 0.8625917434692383,
+        "daily_vol": 0.03840035275275103,
+        "realized_return": 0.15671217292377718,
+        "realized_excess": 0.12257508755421226,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "WBD",
-        "weight": 0.052289,
-        "score": 0.7419682741165161,
+        "weight": 0.067963,
+        "score": 0.8346748352050781,
         "daily_vol": 0.035617775624996274,
         "realized_return": 0.29534313725490197,
         "realized_excess": 0.2612060518853371,
         "is_top30_actual": true
       },
       {
-        "symbol": "HOOD",
-        "weight": 0.051719,
-        "score": 0.7408713698387146,
-        "daily_vol": 0.03359945044105158,
-        "realized_return": 0.6686072548141514,
-        "realized_excess": 0.6344701694445865,
-        "is_top30_actual": true
-      },
-      {
-        "symbol": "VRT",
-        "weight": 0.051719,
-        "score": 0.7408713698387146,
-        "daily_vol": 0.040226121894516124,
-        "realized_return": 0.1641178281843374,
-        "realized_excess": 0.12998074281477248,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "ULTA",
-        "weight": 0.050482,
-        "score": 0.7384518980979919,
-        "daily_vol": 0.024891360417017606,
-        "realized_return": 0.14717906786590354,
-        "realized_excess": 0.11304198249633862,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "PLTR",
-        "weight": 0.049326,
-        "score": 0.7361338138580322,
-        "daily_vol": 0.03309379701561547,
-        "realized_return": 1.0743280307185956,
-        "realized_excess": 1.0401909453490308,
+        "symbol": "APP",
+        "weight": 0.065736,
+        "score": 0.8313429951667786,
+        "daily_vol": 0.039931169305105325,
+        "realized_return": 1.4786069651741292,
+        "realized_excess": 1.4444698798045643,
         "is_top30_actual": true
       },
       {
         "symbol": "SATS",
-        "weight": 0.048981,
-        "score": 0.7354319095611572,
+        "weight": 0.063799,
+        "score": 0.8283518552780151,
         "daily_vol": 0.05074139564693003,
         "realized_return": -0.04939809049398096,
         "realized_excess": -0.08353517586354588,
@@ -2379,209 +2361,227 @@
       },
       {
         "symbol": "COHR",
-        "weight": 0.048683,
-        "score": 0.7348227500915527,
+        "weight": 0.063772,
+        "score": 0.828308641910553,
         "daily_vol": 0.03738562613214537,
         "realized_return": 0.06677927927927936,
         "realized_excess": 0.03264219390971444,
         "is_top30_actual": false
       },
       {
-        "symbol": "SBUX",
-        "weight": 0.041799,
-        "score": 0.7195773124694824,
-        "daily_vol": 0.03630859868407603,
-        "realized_return": -0.05765514279579133,
-        "realized_excess": -0.09179222816535625,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "UBER",
-        "weight": 0.0381,
-        "score": 0.7103111743927002,
-        "daily_vol": 0.02720056678444235,
-        "realized_return": -0.18749999999999994,
-        "realized_excess": -0.22163708536956486,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "NOW",
-        "weight": 0.033277,
-        "score": 0.6967772245407104,
-        "daily_vol": 0.02484869681124302,
-        "realized_return": 0.2224400369003691,
-        "realized_excess": 0.18830295153080417,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "CMG",
-        "weight": 0.032946,
-        "score": 0.6957747936248779,
-        "daily_vol": 0.022619115392223405,
-        "realized_return": 0.054748994227741744,
-        "realized_excess": 0.020611908858176826,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "INTC",
-        "weight": 0.029894,
-        "score": 0.6860544085502625,
-        "daily_vol": 0.04739177924457587,
-        "realized_return": -0.11635081533715295,
-        "realized_excess": -0.15048790070671786,
+        "symbol": "PHM",
+        "weight": 0.056689,
+        "score": 0.8165366053581238,
+        "daily_vol": 0.02100163800838448,
+        "realized_return": -0.245537901588857,
+        "realized_excess": -0.2796749869584219,
         "is_top30_actual": false
       },
       {
         "symbol": "VST",
-        "weight": 0.028198,
-        "score": 0.6802142262458801,
+        "weight": 0.053973,
+        "score": 0.8116262555122375,
         "daily_vol": 0.04571505695725084,
         "realized_return": 0.1267385400378569,
         "realized_excess": 0.09260145466829198,
         "is_top30_actual": false
       },
       {
-        "symbol": "UAL",
-        "weight": 0.028192,
-        "score": 0.6801920533180237,
-        "daily_vol": 0.02848432209445463,
-        "realized_return": 0.7299127026545518,
-        "realized_excess": 0.6957756172849868,
+        "symbol": "HOOD",
+        "weight": 0.051849,
+        "score": 0.8076122403144836,
+        "daily_vol": 0.03359945044105158,
+        "realized_return": 0.6686072548141514,
+        "realized_excess": 0.6344701694445865,
         "is_top30_actual": true
       },
       {
-        "symbol": "APH",
-        "weight": 0.027877,
-        "score": 0.679069459438324,
-        "daily_vol": 0.023948793098257717,
-        "realized_return": 0.09416255765866087,
-        "realized_excess": 0.06002547228909595,
+        "symbol": "FSLR",
+        "weight": 0.038381,
+        "score": 0.7775333523750305,
+        "daily_vol": 0.03537162225561906,
+        "realized_return": -0.2676805451674561,
+        "realized_excess": -0.30181763053702104,
         "is_top30_actual": false
       },
       {
-        "symbol": "WDC",
-        "weight": 0.025281,
-        "score": 0.6692944765090942,
-        "daily_vol": 0.029690994569713625,
-        "realized_return": -0.10686567164179099,
-        "realized_excess": -0.1410027570113559,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "ON",
-        "weight": 0.025271,
-        "score": 0.6692545413970947,
-        "daily_vol": 0.0393062025547495,
-        "realized_return": -0.11259676284306827,
-        "realized_excess": -0.1467338482126332,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "IR",
-        "weight": 0.025241,
-        "score": 0.6691347360610962,
-        "daily_vol": 0.02067349316671321,
-        "realized_return": -0.07675797219950946,
-        "realized_excess": -0.11089505756907438,
+        "symbol": "FIX",
+        "weight": 0.030143,
+        "score": 0.753372848033905,
+        "daily_vol": 0.03452236268073302,
+        "realized_return": 0.08939585537691291,
+        "realized_excess": 0.055258770007347996,
         "is_top30_actual": false
       },
       {
         "symbol": "STX",
-        "weight": 0.025241,
-        "score": 0.6691347360610962,
+        "weight": 0.02811,
+        "score": 0.7463912963867188,
         "daily_vol": 0.021669742077795397,
         "realized_return": -0.19355146427549358,
         "realized_excess": -0.2276885496450585,
         "is_top30_actual": false
       },
       {
-        "symbol": "HWM",
-        "weight": 0.025126,
-        "score": 0.6686776280403137,
-        "daily_vol": 0.024282785143433645,
-        "realized_return": 0.0844944267515923,
-        "realized_excess": 0.05035734138202738,
+        "symbol": "FICO",
+        "weight": 0.026541,
+        "score": 0.7406483888626099,
+        "daily_vol": 0.016876252018744334,
+        "realized_return": 0.039275665687037054,
+        "realized_excess": 0.005138580317472136,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DECK",
+        "weight": 0.024572,
+        "score": 0.7329397797584534,
+        "daily_vol": 0.02309888694599795,
+        "realized_return": 0.30503791286467036,
+        "realized_excess": 0.27090082749510547,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "VRT",
+        "weight": 0.022705,
+        "score": 0.72503662109375,
+        "daily_vol": 0.040226121894516124,
+        "realized_return": 0.1641178281843374,
+        "realized_excess": 0.12998074281477248,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "ON",
+        "weight": 0.021907,
+        "score": 0.7214594483375549,
+        "daily_vol": 0.0393062025547495,
+        "realized_return": -0.11259676284306827,
+        "realized_excess": -0.1467338482126332,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "WDC",
+        "weight": 0.020308,
+        "score": 0.7138777375221252,
+        "daily_vol": 0.029690994569713625,
+        "realized_return": -0.10686567164179099,
+        "realized_excess": -0.1410027570113559,
         "is_top30_actual": false
       },
       {
         "symbol": "DXCM",
-        "weight": 0.025116,
-        "score": 0.6686385869979858,
+        "weight": 0.01792,
+        "score": 0.701367974281311,
         "daily_vol": 0.05666111047118115,
         "realized_return": 0.17833333333333326,
         "realized_excess": 0.14419624796376834,
         "is_top30_actual": false
       },
       {
-        "symbol": "DLTR",
-        "weight": 0.025084,
-        "score": 0.6685113906860352,
-        "daily_vol": 0.037367588699887246,
-        "realized_return": 0.06388415672913118,
-        "realized_excess": 0.029747071359566266,
+        "symbol": "TER",
+        "weight": 0.017201,
+        "score": 0.69727623462677,
+        "daily_vol": 0.03735092734051176,
+        "realized_return": -0.022776911076442963,
+        "realized_excess": -0.05691399644600788,
         "is_top30_actual": false
       },
       {
-        "symbol": "PODD",
-        "weight": 0.024204,
-        "score": 0.6649390459060669,
-        "daily_vol": 0.024557920418704318,
-        "realized_return": 0.11302012278308318,
-        "realized_excess": 0.07888303741351826,
+        "symbol": "BLDR",
+        "weight": 0.014722,
+        "score": 0.681710958480835,
+        "daily_vol": 0.029001879786556727,
+        "realized_return": -0.2664237322931636,
+        "realized_excess": -0.30056081766272846,
         "is_top30_actual": false
       },
       {
-        "symbol": "DAL",
-        "weight": 0.023784,
-        "score": 0.663189709186554,
-        "daily_vol": 0.023329152039424043,
-        "realized_return": 0.21466503267973852,
-        "realized_excess": 0.1805279473101736,
+        "symbol": "HWM",
+        "weight": 0.013631,
+        "score": 0.6740137338638306,
+        "daily_vol": 0.024282785143433645,
+        "realized_return": 0.0844944267515923,
+        "realized_excess": 0.05035734138202738,
         "is_top30_actual": false
       },
       {
-        "symbol": "EME",
-        "weight": 0.023449,
-        "score": 0.661771833896637,
-        "daily_vol": 0.025915002334601835,
-        "realized_return": 0.06041290745904898,
-        "realized_excess": 0.026275822089484063,
+        "symbol": "MPWR",
+        "weight": 0.013123,
+        "score": 0.6702138781547546,
+        "daily_vol": 0.040177709134724335,
+        "realized_return": -0.3351115752196318,
+        "realized_excess": -0.3692486605891967,
         "is_top30_actual": false
       },
       {
-        "symbol": "BBY",
-        "weight": 0.02245,
-        "score": 0.6574169397354126,
-        "daily_vol": 0.023006475604829175,
-        "realized_return": -0.14439701173959446,
-        "realized_excess": -0.17853409710915938,
+        "symbol": "ANET",
+        "weight": 0.013002,
+        "score": 0.669291079044342,
+        "daily_vol": 0.028752117014812423,
+        "realized_return": 0.15786716949507656,
+        "realized_excess": 0.12373008412551165,
         "is_top30_actual": false
       },
       {
         "symbol": "HPQ",
-        "weight": 0.021876,
-        "score": 0.6548305153846741,
+        "weight": 0.012859,
+        "score": 0.6681826114654541,
         "daily_vol": 0.01788631794413543,
         "realized_return": -0.05327995072374501,
         "realized_excess": -0.08741703609330992,
         "is_top30_actual": false
       },
       {
-        "symbol": "RL",
-        "weight": 0.021661,
-        "score": 0.6538389325141907,
-        "daily_vol": 0.021112345006828265,
-        "realized_return": 0.20591665783055882,
-        "realized_excess": 0.1717795724609939,
+        "symbol": "SBUX",
+        "weight": 0.012368,
+        "score": 0.6642921566963196,
+        "daily_vol": 0.03630859868407603,
+        "realized_return": -0.05765514279579133,
+        "realized_excess": -0.09179222816535625,
         "is_top30_actual": false
       },
       {
-        "symbol": "SMCI",
-        "weight": 0.020448,
-        "score": 0.6480763554573059,
-        "daily_vol": 0.0518376494091588,
-        "realized_return": -0.24833538840937108,
-        "realized_excess": -0.28247247377893603,
+        "symbol": "LLY",
+        "weight": 0.01231,
+        "score": 0.6638158559799194,
+        "daily_vol": 0.023684562150484686,
+        "realized_return": -0.12564252269579054,
+        "realized_excess": -0.15977960806535546,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "URI",
+        "weight": 0.012113,
+        "score": 0.6622059941291809,
+        "daily_vol": 0.023828458572713734,
+        "realized_return": -0.12520292463158955,
+        "realized_excess": -0.15934001000115447,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "PH",
+        "weight": 0.012075,
+        "score": 0.6618874669075012,
+        "daily_vol": 0.021374527791476774,
+        "realized_return": 0.011708733166680092,
+        "realized_excess": -0.022428352202884826,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "PLTR",
+        "weight": 0.01173,
+        "score": 0.6589940190315247,
+        "daily_vol": 0.03309379701561547,
+        "realized_return": 1.0743280307185956,
+        "realized_excess": 1.0401909453490308,
+        "is_top30_actual": true
+      },
+      {
+        "symbol": "RL",
+        "weight": 0.011223,
+        "score": 0.6545722484588623,
+        "daily_vol": 0.021112345006828265,
+        "realized_return": 0.20591665783055882,
+        "realized_excess": 0.1717795724609939,
         "is_top30_actual": false
       }
     ],
@@ -2767,8 +2767,8 @@
         "y_label": 1
       }
     ],
-    "hit_count": 5,
-    "hit_rate": 0.16666666666666666,
+    "hit_count": 6,
+    "hit_rate": 0.2,
     "label_note": "actual_top30 = excess rank Top30 within realized quarter (same as y_next label)"
   },
   "2024Q4": {
@@ -2777,18 +2777,54 @@
     "path": "walk_forward_oos",
     "selected": [
       {
+        "symbol": "VST",
+        "weight": 0.106769,
+        "score": 0.8402068018913269,
+        "daily_vol": 0.036205383617615494,
+        "realized_return": -0.21396851029471142,
+        "realized_excess": -0.1736582444517184,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "PLTR",
-        "weight": 0.077904,
-        "score": 0.8476786017417908,
+        "weight": 0.093968,
+        "score": 0.8274348974227905,
         "daily_vol": 0.044255195651422406,
         "realized_return": 0.12248969277829509,
         "realized_excess": 0.1627999586212881,
         "is_top30_actual": false
       },
       {
+        "symbol": "COHR",
+        "weight": 0.072814,
+        "score": 0.8019309043884277,
+        "daily_vol": 0.03260350851413459,
+        "realized_return": -0.3544089869768367,
+        "realized_excess": -0.3140987211338437,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "VRT",
+        "weight": 0.064874,
+        "score": 0.7903847694396973,
+        "daily_vol": 0.0326569375030625,
+        "realized_return": -0.3894674456015579,
+        "realized_excess": -0.34915717975856486,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DDOG",
+        "weight": 0.056632,
+        "score": 0.776796817779541,
+        "daily_vol": 0.02591533352286187,
+        "realized_return": -0.3092668662535682,
+        "realized_excess": -0.2689566004105752,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "HOOD",
-        "weight": 0.066645,
-        "score": 0.832069456577301,
+        "weight": 0.050866,
+        "score": 0.7660585045814514,
         "daily_vol": 0.04808617774184664,
         "realized_return": 0.05527383367139959,
         "realized_excess": 0.09558409951439262,
@@ -2796,26 +2832,17 @@
       },
       {
         "symbol": "CVNA",
-        "weight": 0.063779,
-        "score": 0.8276733160018921,
+        "weight": 0.050385,
+        "score": 0.7651095986366272,
         "daily_vol": 0.034926872652266364,
         "realized_return": 0.04785767977950398,
         "realized_excess": 0.088167945622497,
         "is_top30_actual": false
       },
       {
-        "symbol": "WBD",
-        "weight": 0.058929,
-        "score": 0.819764256477356,
-        "daily_vol": 0.03404321236846747,
-        "realized_return": 0.006566604127579764,
-        "realized_excess": 0.04687686997057278,
-        "is_top30_actual": false
-      },
-      {
         "symbol": "LITE",
-        "weight": 0.055493,
-        "score": 0.8137562274932861,
+        "weight": 0.049733,
+        "score": 0.7638058066368103,
         "daily_vol": 0.0336112707609886,
         "realized_return": -0.27172897196261675,
         "realized_excess": -0.23141870611962373,
@@ -2823,227 +2850,200 @@
       },
       {
         "symbol": "SATS",
-        "weight": 0.049411,
-        "score": 0.802147388458252,
+        "weight": 0.046856,
+        "score": 0.7578487396240234,
         "daily_vol": 0.030741190268691185,
         "realized_return": 0.12439560439560432,
         "realized_excess": 0.16470587023859734,
         "is_top30_actual": false
       },
       {
-        "symbol": "APP",
-        "weight": 0.048957,
-        "score": 0.8012258410453796,
-        "daily_vol": 0.07099730659322555,
-        "realized_return": -0.2247352097840715,
-        "realized_excess": -0.18442494394107847,
+        "symbol": "NFLX",
+        "weight": 0.043066,
+        "score": 0.7494128346443176,
+        "daily_vol": 0.01993453516067999,
+        "realized_return": 0.05165219352655913,
+        "realized_excess": 0.09196245936955215,
         "is_top30_actual": false
       },
       {
-        "symbol": "AVGO",
-        "weight": 0.048957,
-        "score": 0.8012258410453796,
-        "daily_vol": 0.04198675268030255,
-        "realized_return": -0.27604393688431694,
-        "realized_excess": -0.23573367104132392,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "VST",
-        "weight": 0.045703,
-        "score": 0.7943480610847473,
-        "daily_vol": 0.036205383617615494,
-        "realized_return": -0.21396851029471142,
-        "realized_excess": -0.1736582444517184,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "VRT",
-        "weight": 0.036865,
-        "score": 0.7728575468063354,
-        "daily_vol": 0.0326569375030625,
-        "realized_return": -0.3894674456015579,
-        "realized_excess": -0.34915717975856486,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "DAL",
-        "weight": 0.036025,
-        "score": 0.7705526947975159,
-        "daily_vol": 0.02209512562179956,
-        "realized_return": -0.2600757836720634,
-        "realized_excess": -0.2197655178290704,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "TPL",
-        "weight": 0.034623,
-        "score": 0.7665829658508301,
-        "daily_vol": 0.0366522873943721,
-        "realized_return": 0.12412609797946163,
-        "realized_excess": 0.16443636382245463,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "COHR",
-        "weight": 0.034177,
-        "score": 0.7652857899665833,
-        "daily_vol": 0.03260350851413459,
-        "realized_return": -0.3544089869768367,
-        "realized_excess": -0.3140987211338437,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "UAL",
-        "weight": 0.034177,
-        "score": 0.7652857899665833,
-        "daily_vol": 0.02811022001739505,
-        "realized_return": -0.27643298753012685,
-        "realized_excess": -0.23612272168713383,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "TRGP",
-        "weight": 0.033114,
-        "score": 0.7621274590492249,
-        "daily_vol": 0.01887169089174337,
-        "realized_return": 0.09925558312655083,
-        "realized_excess": 0.13956584896954385,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "EME",
-        "weight": 0.027894,
-        "score": 0.744972825050354,
-        "daily_vol": 0.017704740814201026,
-        "realized_return": -0.19188110999079394,
-        "realized_excess": -0.15157084414780092,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "NCLH",
-        "weight": 0.025529,
-        "score": 0.7361124157905579,
-        "daily_vol": 0.02881821816740317,
-        "realized_return": -0.26851851851851855,
-        "realized_excess": -0.22820825267552552,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "IRM",
-        "weight": 0.022254,
-        "score": 0.7223833203315735,
-        "daily_vol": 0.020457157868489298,
-        "realized_return": -0.1712833798326026,
-        "realized_excess": -0.1309731139896096,
+        "symbol": "CRWD",
+        "weight": 0.04182,
+        "score": 0.7464773654937744,
+        "daily_vol": 0.02550510267911003,
+        "realized_return": 0.015086082800714025,
+        "realized_excess": 0.055396348643707044,
         "is_top30_actual": false
       },
       {
         "symbol": "NVDA",
-        "weight": 0.022036,
-        "score": 0.7214004993438721,
+        "weight": 0.038574,
+        "score": 0.7383987903594971,
         "daily_vol": 0.023388148363970674,
         "realized_return": -0.21638822593476542,
         "realized_excess": -0.1760779600917724,
         "is_top30_actual": false
       },
       {
-        "symbol": "APA",
-        "weight": 0.021224,
-        "score": 0.7176458835601807,
-        "daily_vol": 0.0256102879765862,
-        "realized_return": -0.09144947416552354,
-        "realized_excess": -0.05113920832253052,
+        "symbol": "UAL",
+        "weight": 0.033471,
+        "score": 0.7242089509963989,
+        "daily_vol": 0.02811022001739505,
+        "realized_return": -0.27643298753012685,
+        "realized_excess": -0.23612272168713383,
         "is_top30_actual": false
       },
       {
-        "symbol": "FIX",
-        "weight": 0.02021,
-        "score": 0.7127508521080017,
-        "daily_vol": 0.02591209365121535,
-        "realized_return": -0.24681748915719148,
-        "realized_excess": -0.20650722331419846,
+        "symbol": "APP",
+        "weight": 0.028516,
+        "score": 0.7081873416900635,
+        "daily_vol": 0.07099730659322555,
+        "realized_return": -0.2247352097840715,
+        "realized_excess": -0.18442494394107847,
         "is_top30_actual": false
       },
       {
-        "symbol": "HWM",
-        "weight": 0.018285,
-        "score": 0.7027401924133301,
-        "daily_vol": 0.02179551448498921,
-        "realized_return": 0.17184527584020304,
-        "realized_excess": 0.21215554168319606,
+        "symbol": "APO",
+        "weight": 0.023405,
+        "score": 0.6884354948997498,
+        "daily_vol": 0.02283104931954387,
+        "realized_return": -0.17201184161835445,
+        "realized_excess": -0.13170157577536143,
         "is_top30_actual": false
       },
       {
-        "symbol": "ANET",
-        "weight": 0.016463,
-        "score": 0.692240834236145,
-        "daily_vol": 0.023110366498484445,
-        "realized_return": -0.306914750872171,
-        "realized_excess": -0.266604485029178,
+        "symbol": "CIEN",
+        "weight": 0.02099,
+        "score": 0.6775447726249695,
+        "daily_vol": 0.030331281636813992,
+        "realized_return": -0.27402691013935604,
+        "realized_excess": -0.23371664429636302,
         "is_top30_actual": false
       },
       {
-        "symbol": "TTD",
-        "weight": 0.016463,
-        "score": 0.692240834236145,
-        "daily_vol": 0.022698904116781143,
-        "realized_return": -0.5352076785865965,
-        "realized_excess": -0.49489741274360344,
+        "symbol": "LULU",
+        "weight": 0.020784,
+        "score": 0.6765578389167786,
+        "daily_vol": 0.02856853376952183,
+        "realized_return": -0.2397195885149472,
+        "realized_excess": -0.1994093226719542,
         "is_top30_actual": false
       },
       {
-        "symbol": "DELL",
-        "weight": 0.016442,
-        "score": 0.69211745262146,
-        "daily_vol": 0.028899572544531453,
-        "realized_return": -0.21478873239436613,
-        "realized_excess": -0.1744784665513731,
+        "symbol": "TRGP",
+        "weight": 0.020233,
+        "score": 0.6738717555999756,
+        "daily_vol": 0.01887169089174337,
+        "realized_return": 0.09925558312655083,
+        "realized_excess": 0.13956584896954385,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "CSGP",
+        "weight": 0.016445,
+        "score": 0.6531420946121216,
+        "daily_vol": 0.020009908933315997,
+        "realized_return": 0.118593816179585,
+        "realized_excess": 0.15890408202257802,
         "is_top30_actual": false
       },
       {
         "symbol": "COIN",
-        "weight": 0.014784,
-        "score": 0.6814837455749512,
+        "weight": 0.015258,
+        "score": 0.6456499099731445,
         "daily_vol": 0.06870829302055342,
         "realized_return": -0.33039150888379143,
         "realized_excess": -0.2900812430407984,
         "is_top30_actual": false
       },
       {
+        "symbol": "FICO",
+        "weight": 0.015111,
+        "score": 0.6446793675422668,
+        "daily_vol": 0.0192844801648292,
+        "realized_return": -0.07603511162772054,
+        "realized_excess": -0.035724845784727524,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "TTD",
+        "weight": 0.014577,
+        "score": 0.6410848498344421,
+        "daily_vol": 0.022698904116781143,
+        "realized_return": -0.5352076785865965,
+        "realized_excess": -0.49489741274360344,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "ULTA",
+        "weight": 0.011986,
+        "score": 0.6215174794197083,
+        "daily_vol": 0.022808467946462102,
+        "realized_return": -0.1459129462205238,
+        "realized_excess": -0.10560268037753079,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "FIX",
+        "weight": 0.011861,
+        "score": 0.6204671263694763,
+        "daily_vol": 0.02591209365121535,
+        "realized_return": -0.24681748915719148,
+        "realized_excess": -0.20650722331419846,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "DECK",
+        "weight": 0.010015,
+        "score": 0.6035526394844055,
+        "daily_vol": 0.024535702450348154,
+        "realized_return": -0.4533587562334995,
+        "realized_excess": -0.4130484903905065,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "INTC",
+        "weight": 0.009363,
+        "score": 0.5968150496482849,
+        "daily_vol": 0.027881906903630172,
+        "realized_return": 0.12314540059347191,
+        "realized_excess": 0.16345566643646492,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "MRNA",
+        "weight": 0.009277,
+        "score": 0.595891535282135,
+        "daily_vol": 0.03497216686174766,
+        "realized_return": -0.32499999999999996,
+        "realized_excess": -0.28468973415700694,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "WBD",
+        "weight": 0.008473,
+        "score": 0.5868268609046936,
+        "daily_vol": 0.03404321236846747,
+        "realized_return": 0.006566604127579764,
+        "realized_excess": 0.04687686997057278,
+        "is_top30_actual": false
+      },
+      {
+        "symbol": "TPL",
+        "weight": 0.007109,
+        "score": 0.569279670715332,
+        "daily_vol": 0.0366522873943721,
+        "realized_return": 0.12412609797946163,
+        "realized_excess": 0.16443636382245463,
+        "is_top30_actual": false
+      },
+      {
         "symbol": "GM",
-        "weight": 0.013763,
-        "score": 0.6743271350860596,
+        "weight": 0.006768,
+        "score": 0.5643557906150818,
         "daily_vol": 0.02333633861944388,
         "realized_return": -0.08219988172678878,
         "realized_excess": -0.041889615883795764,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "IP",
-        "weight": 0.013763,
-        "score": 0.6743271350860596,
-        "daily_vol": 0.021605918645438205,
-        "realized_return": 0.012048192771084366,
-        "realized_excess": 0.05235845861407738,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "VTRS",
-        "weight": 0.013161,
-        "score": 0.6698545813560486,
-        "daily_vol": 0.021913835418986345,
-        "realized_return": -0.2903780068728523,
-        "realized_excess": -0.2500677410298593,
-        "is_top30_actual": false
-      },
-      {
-        "symbol": "GRMN",
-        "weight": 0.012967,
-        "score": 0.6683706045150757,
-        "daily_vol": 0.03168281348438171,
-        "realized_return": 0.0652271480576473,
-        "realized_excess": 0.10553741390064032,
         "is_top30_actual": false
       }
     ],

@@ -392,3 +392,22 @@ Core logic:
   模型實際 fit 的 feature_cols，每類加 原始量/衍生 標籤；新增「不進模型的欄位（僅存 parquet）」chips 面板。
 - App.css 新增 .mv-kind / .mv-chips / .mv-chip；export_static_api 重出 variables.json(44 特徵)；
   tsc -b && vite build 通過、gh-pages Published。
+
+[v4.31] 對照實驗：移除原始價格 level (唯讀，未動正式模型) - 2026-05-31
+- scripts/exp_price_features.py：凍結選定 estimator/config/權重(softmax T=0.1)，只變訓練特徵集，
+  比 CV OOF。結果：拿掉 close+adjusted_close → ann_sharpe_excess 1.691→1.793(+0.10)、OOF AUC
+  0.698→0.696(持平)、log_loss 0.512→0.535(微升)。結論：兩原始價格 level 當直接特徵無貢獻，
+  但差異可能在雜訊內。未修改任何正式產物。
+- 擴充為三情境比較：拿掉全部 16 個原始規模量 level → ann_sharpe_excess 1.691→1.269(-0.42 大跌)，
+  但 OOF AUC 反而 0.698→0.704(微升)。重要發現：AUC↑ 但 Sharpe↓——原始規模量(market_cap/volume/
+  財報金額)帶 size/liquidity/quality 訊號，對投組有用即使分類 AUC 無感。修正先前推測：不能整批刪，
+  只有冗餘的 close+adjusted_close 可安全拿掉。再次印證選型要看投組 Sharpe 而非 AUC/log_loss。
+
+[v4.32] 正式移除 close/adjusted_close 兩個原始價格 level - 2026-05-31
+- train_model._feature_cols：drop_cols 新增 close, adjusted_close（仍留 parquet 供算 market_cap/動量，
+  不進模型）。重訓+回測+驗證(force，未重抓 SimFin 資料)：feature_cols 43→42、驗證 PASS。
+  新選型 xgb_limitdepth + softmax T=0.1，CV OOF AUC 0.717、選型 ann_sharpe_excess 1.78（皆優於舊版）。
+- feature_stats.py 重算(42 特徵, n=5995)、update_model_variables_doc 更新 AUTO 區塊。
+- MODEL_VARIABLES.md：§title/§0 特徵數改 42、§4.B 移除 close/adjusted_close 列並加註(僅供推導)、
+  §3 未進模型欄位清單加入兩者。data_service._NOT_IN_MODEL_COLS 加 close/adjusted_close。
+- export_static_api 重出(variables.json n_features=42、not_in_model 含兩者)、前端 build、gh-pages Published。

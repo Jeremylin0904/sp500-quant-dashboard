@@ -3,7 +3,7 @@
 > 資料集：`quant/model/model_dataset.parquet`（目前約 6k 列，依資料更新而變動；以檔案內容為準）  
 > Universe：**S&P 500 only**（`quant/data/sp500_constituents.csv`，並做 `.`→`-` ticker 正規化）  
 > 模型：`FLAML AutoML`（目前最佳為 `xgb_limitdepth`；以 `quant/model/model_meta.json` 為準）  
-> 特徵清單：`quant/model/model_meta.json` → `feature_cols`（43 個）  
+> 特徵清單：`quant/model/model_meta.json` → `feature_cols`（42 個；`close` / `adjusted_close` 僅供推導、不進模型）  
 > 統計表（可 CSV 匯入）：`quant/model/feature_stats.csv`  
 > 產生腳本：`python scripts/feature_stats.py`
 
@@ -61,11 +61,11 @@
 
 AutoML 設定（見 `model_meta.json`）：`skip_transform=True`；estimator 含 `xgb_limitdepth`, `xgboost`, `lgbm`（可處理 NaN）。
 
-**未進模型的欄位**（僅存於 parquet）：`symbol`, `company_name`, `sector`, `industry`, `quarter`, 日期欄、`operating_cash_flow`, `capital_expenditure`, `free_cash_flow`, `y_t`, `y_next`, `return`, `sharpe`, `quarter_end`。
+**未進模型的欄位**（僅存於 parquet）：`symbol`, `company_name`, `sector`, `industry`, `quarter`, 日期欄、`operating_cash_flow`, `capital_expenditure`, `free_cash_flow`, `y_t`, `y_next`, `return`, `sharpe`, `quarter_end`、`close`、`adjusted_close`（後兩者僅供推導 `market_cap` / 動量，見 §4.B）。
 
 ---
 
-## 4. 43 個模型特徵：公式與缺失率
+## 4. 模型特徵：公式與缺失率（42 個）
 
 缺失率來自 **進模型前** 的原始 `model_dataset`。`inf%` 為該欄 `inf` 占比。實際數字以 `quant/model/feature_stats.csv` 為準（會隨資料更新）。
 
@@ -89,11 +89,11 @@ AutoML 設定（見 `model_meta.json`）：`skip_transform=True`；estimator 含
 | 變數 | 計算方式 | 缺失% | inf% |
 |------|----------|------:|-----:|
 | `shares_outstanding` | 優先股價檔 `Shares Outstanding`，否則財報稀釋/基本股數 | (see `feature_stats.csv`) | 0 |
-| `close` | 季末最後交易日收盤價 | 0.00 | 0 |
-| `adjusted_close` | 季末還原收盤價 | 0.00 | 0 |
 | `volume` | 季末成交量 | 0.00 | 0 |
 | `market_cap` | `adjusted_close × shares_outstanding` | 0.18 | 0 |
 | `enterprise_value` | `market_cap + total_debt - cash_and_equivalents` | (see `feature_stats.csv`) | 0 |
+
+> **註**：`close`（未還原季末收盤）與 `adjusted_close`（還原季末收盤）仍會計算並存於 parquet，用來推導 `market_cap`（`adjusted_close × shares`）與動量 `return_3m/6m/12m`（用 `close`），但**不作為模型特徵**。消融實驗（`scripts/exp_price_features.py`）顯示移除這兩個原始價格 level 後 CV OOF 年化超額 Sharpe 不降反升（1.69→1.79），且彼此高度冗餘。
 
 ### C. 成長率（YoY）
 
@@ -240,5 +240,5 @@ SimFin raw (quant/data_raw/)
 ---
 
 <!-- AUTO:LAST_UPDATED_START -->
-*最後更新：2026-05-28（SP500-only universe；label 在 SP500 內排名；AutoML + NaN 不補值；OOS 評估報告已產生）*
+*最後更新：2026-05-31（SP500-only universe；label 在 SP500 內排名；AutoML + NaN 不補值；OOS 評估報告已產生）*
 <!-- AUTO:LAST_UPDATED_END -->
