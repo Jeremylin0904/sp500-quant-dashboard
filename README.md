@@ -36,13 +36,16 @@ Selection **never** looks at Final OOS. Historical-quarter scores come from
 
 ## Dashboard tabs
 
+The dashboard ships bilingual (English default, 中文 toggle) and each tab has its own
+shareable URL via the hash route (e.g. `#/factor`).
+
 | Tab | Content |
 |-----|---------|
-| 績效總覽 | KPIs (annualized return/excess, Sharpe, single-day max drawdown), daily NAV vs SPY, top-5 single-day drawdowns linked to the news that caused them, Top30 confusion matrices, monthly returns |
-| 模型變數 | All feature formulas + raw-data lineage (rendered from `MODEL_VARIABLES.md`) and live missingness/percentile stats |
-| 驗證方法 | Flow steps, quarter timeline, expanding walk-forward fold diagram, hyperparameter-pool × weight-scheme CV OOF table |
-| 持股對照 | Per-quarter Top30 picks (predicted weight/score vs realized next-quarter return) and hit-rate vs actual Top30 |
-| 因子分析 | FF5 + Momentum alpha and factor betas per segment |
+| Performance | KPIs (annualized return/excess, Sharpe, single-day max drawdown), daily NAV vs SPY, top-5 single-day drawdowns linked to the news that caused them, Top30 confusion matrices, monthly returns |
+| Model variables | All feature formulas + raw-data lineage (rendered from `MODEL_VARIABLES.md`) and live missingness/percentile stats |
+| Methodology | Flow steps, quarter timeline, expanding walk-forward fold diagram, hyperparameter-pool × weight-scheme CV OOF table |
+| Holdings | Per-quarter Top30 picks (predicted weight/score vs realized next-quarter return) and hit-rate vs actual Top30 |
+| Factor analysis | FF5 + Momentum alpha and factor betas per segment |
 
 ---
 

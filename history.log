@@ -473,3 +473,9 @@ Core logic:
 - index.html title/description/lang 改英文(預設)；i18n LangProvider 依語言更新 document.title
   (en: S&P 500 Quant Stock-Selection Dashboard / zh: S&P 500 量化選股 Dashboard)。
 - build 通過、gh-pages 部署。
+
+[v4.40] README 全英文 + 截圖換成英文版首頁 - 2026-05-31
+- README dashboard tabs 表格中文頁名改英文(Performance/Model variables/Methodology/Holdings/
+  Factor analysis)，並加註雙語(英文預設)+每分頁 hash URL。
+- docs/screenshot.png 以 Playwright 擷取線上英文版首頁(?lang=en#/overview, 1440×1024@2x)重拍。
+- 截圖用暫時安裝 playwright，完成後移除；不需重新部署(僅 docs/README)。
